@@ -4,30 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pizza Inn — Admin Panel</title>
+<title>Pizza Inn — Admin</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:#f5f5f5;
+  background:#fff9e7;
   color:#201d1d;
 }
 
-:root{
-  --yellow:#f7c600;
-  --red:#df2027;
-  --dark:#201d1d;
-  --green:#159447;
-  --blue:#1479d1;
-  --orange:#ef8c00;
-}
-
-/* LOGIN */
+button,input{font:inherit}
 
 .login-page{
   min-height:100vh;
@@ -36,70 +25,69 @@ body{
   justify-content:center;
   padding:20px;
   background:
-    radial-gradient(circle at 10% 20%,#f7c60055 0 100px,transparent 101px),
-    radial-gradient(circle at 90% 80%,#df202755 0 130px,transparent 131px),
+    radial-gradient(circle at 10% 10%,#f7c60055 0 120px,transparent 121px),
+    radial-gradient(circle at 90% 90%,#df202755 0 150px,transparent 151px),
     #fff9e7;
 }
 
 .login-box{
   width:100%;
   max-width:420px;
-  background:white;
-  padding:32px;
+  background:#fff;
+  padding:35px;
   border-radius:25px;
   box-shadow:0 20px 60px #0003;
   text-align:center;
-  animation:pop .5s ease;
 }
 
 .logo{
-  font-size:42px;
-  font-weight:900;
-  color:var(--red);
+  font-size:65px;
 }
 
-.login-box h2{
-  margin:5px 0 25px;
+.login-box h1{
+  margin:5px 0;
+  font-size:30px;
+}
+
+.login-box p{
+  color:#777;
+  margin-bottom:25px;
 }
 
 .input{
   width:100%;
-  padding:14px;
+  padding:15px;
+  margin-bottom:12px;
   border:2px solid #eee;
   border-radius:12px;
-  margin-bottom:12px;
-  font-size:16px;
   outline:none;
 }
 
 .input:focus{
-  border-color:var(--yellow);
+  border-color:#f7c600;
 }
 
 .login-btn{
   width:100%;
+  padding:15px;
   border:0;
-  background:var(--red);
-  color:white;
-  padding:14px;
   border-radius:12px;
+  background:#df2027;
+  color:#fff;
   font-weight:900;
-  font-size:16px;
   cursor:pointer;
-  box-shadow:0 5px 0 #a90e13;
 }
 
-.login-btn:active{
-  transform:translateY(3px);
-  box-shadow:0 2px 0 #a90e13;
+.login-btn:disabled{
+  opacity:.6;
 }
 
 .error{
-  color:var(--red);
+  color:#df2027;
   font-weight:bold;
-  margin-top:12px;
+  margin-top:15px;
+  min-height:22px;
 }
-
 
 /* ADMIN */
 
@@ -108,15 +96,14 @@ body{
 }
 
 header{
-  background:linear-gradient(135deg,#f7c600,#ffd936,#f7c600);
-  padding:18px 20px;
+  background:linear-gradient(135deg,#f7c600,#ffe45b,#f7c600);
+  padding:15px 20px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:15px;
+  align-items:center;
   position:sticky;
   top:0;
-  z-index:50;
+  z-index:100;
   box-shadow:0 5px 20px #0002;
 }
 
@@ -130,67 +117,65 @@ header{
   font-size:38px;
 }
 
-.brand-text{
+.brand-title{
   font-size:24px;
   font-weight:900;
 }
 
-.brand-text span{
-  color:var(--red);
+.brand-title span{
+  color:#df2027;
 }
 
-.header-actions{
+.brand-sub{
+  font-size:11px;
+}
+
+.actions{
   display:flex;
   gap:8px;
 }
 
-.header-btn{
+.action-btn{
   border:0;
-  padding:10px 14px;
+  padding:10px 15px;
   border-radius:999px;
   font-weight:900;
   cursor:pointer;
 }
 
-.sound-btn{
-  background:white;
+.sound{
+  background:#fff;
 }
 
-.logout-btn{
-  background:var(--red);
-  color:white;
+.logout{
+  background:#df2027;
+  color:#fff;
 }
-
-
-/* DASHBOARD */
 
 .container{
-  max-width:1300px;
+  max-width:1350px;
   margin:auto;
   padding:20px;
 }
 
-.top-row{
+.top{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:15px;
   margin-bottom:20px;
 }
 
-.top-row h1{
+.top h1{
   margin:0;
 }
 
 .live{
-  background:#e9fff0;
-  color:var(--green);
-  padding:9px 14px;
+  background:#e4ffed;
+  color:#159447;
+  padding:9px 15px;
   border-radius:999px;
   font-weight:900;
-  animation:pulse 2s infinite;
 }
-
 
 /* STATS */
 
@@ -202,101 +187,84 @@ header{
 }
 
 .stat{
-  background:white;
-  border-radius:18px;
+  background:#fff;
   padding:20px;
+  border-radius:18px;
   box-shadow:0 5px 20px #0001;
-  position:relative;
-  overflow:hidden;
-}
-
-.stat:after{
-  content:"";
-  position:absolute;
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:#f7c60022;
-  right:-20px;
-  bottom:-20px;
 }
 
 .stat-icon{
-  font-size:27px;
+  font-size:28px;
 }
 
 .stat-number{
   font-size:30px;
   font-weight:900;
-  margin-top:8px;
+  margin-top:5px;
 }
 
-.stat-title{
+.stat-name{
   color:#777;
   font-weight:bold;
 }
 
-
 /* FILTER */
 
 .filters{
-  background:white;
-  padding:12px;
-  border-radius:15px;
-  margin-bottom:18px;
   display:flex;
   gap:8px;
   flex-wrap:wrap;
+  background:#fff;
+  padding:12px;
+  border-radius:15px;
+  margin-bottom:20px;
 }
 
 .filter{
   border:0;
   background:#eee;
-  padding:9px 14px;
+  padding:9px 15px;
   border-radius:999px;
-  font-weight:900;
   cursor:pointer;
+  font-weight:900;
 }
 
 .filter.active{
-  background:var(--red);
-  color:white;
+  background:#df2027;
+  color:#fff;
 }
-
 
 /* ORDERS */
 
 .orders{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
-  gap:16px;
+  gap:18px;
 }
 
 .order{
-  background:white;
+  background:#fff;
   border-radius:20px;
   padding:18px;
-  box-shadow:0 5px 25px #0001;
-  border-left:6px solid var(--yellow);
-  animation:orderIn .45s ease;
+  box-shadow:0 7px 25px #0001;
+  border-left:6px solid #f7c600;
+  animation:show .35s ease;
 }
 
 .order.new{
-  border-left-color:var(--red);
-  animation:newOrder .7s ease;
+  border-left-color:#df2027;
 }
 
 .order-head{
   display:flex;
   justify-content:space-between;
-  align-items:flex-start;
   gap:10px;
 }
 
 .order-number{
   font-size:22px;
   font-weight:900;
-  color:var(--red);
+  color:#df2027;
 }
 
 .time{
@@ -308,14 +276,15 @@ header{
 .badge{
   padding:6px 10px;
   border-radius:999px;
-  font-size:12px;
+  font-size:11px;
   font-weight:900;
   text-transform:uppercase;
+  height:max-content;
 }
 
 .badge-new{
   background:#ffe0e0;
-  color:var(--red);
+  color:#df2027;
 }
 
 .badge-preparing{
@@ -330,7 +299,7 @@ header{
 
 .badge-delivered{
   background:#dcf8e5;
-  color:var(--green);
+  color:#159447;
 }
 
 .badge-cancelled{
@@ -338,15 +307,22 @@ header{
   color:#666;
 }
 
-.customer{
-  background:#fafafa;
-  border-radius:12px;
-  padding:12px;
-  margin:14px 0;
+.type{
+  display:inline-block;
+  margin-top:12px;
+  padding:7px 10px;
+  background:#fff4c5;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:900;
 }
 
-.customer div{
-  margin:5px 0;
+.customer{
+  background:#fafafa;
+  padding:12px;
+  border-radius:12px;
+  margin:12px 0;
+  line-height:1.7;
 }
 
 .items{
@@ -355,7 +331,7 @@ header{
   padding:10px 0;
 }
 
-.item-line{
+.item{
   display:flex;
   justify-content:space-between;
   gap:10px;
@@ -366,33 +342,23 @@ header{
   font-weight:800;
 }
 
-.item-option{
+.option{
   color:#777;
   font-size:13px;
 }
 
-.item-price{
+.price{
   font-weight:900;
   white-space:nowrap;
 }
 
-.order-total{
+.total{
   display:flex;
   justify-content:space-between;
   padding:14px 0;
   font-size:20px;
   font-weight:900;
-  color:var(--red);
-}
-
-.order-type{
-  display:inline-block;
-  background:#fff4c5;
-  padding:6px 9px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:900;
-  margin-bottom:8px;
+  color:#df2027;
 }
 
 .notes{
@@ -400,7 +366,6 @@ header{
   padding:10px;
   border-radius:10px;
   margin-bottom:12px;
-  font-size:14px;
 }
 
 .status-buttons{
@@ -411,15 +376,10 @@ header{
 
 .status-btn{
   border:0;
-  padding:10px;
+  padding:11px 5px;
   border-radius:10px;
-  font-weight:900;
   cursor:pointer;
-  transition:.2s;
-}
-
-.status-btn:hover{
-  transform:translateY(-2px);
+  font-weight:900;
 }
 
 .preparing{
@@ -436,84 +396,69 @@ header{
 
 .cancelled{
   background:#ffe0e0;
-  color:var(--red);
+  color:#df2027;
 }
-
-
-/* EMPTY */
 
 .empty{
   grid-column:1/-1;
-  text-align:center;
-  background:white;
+  background:#fff;
+  padding:60px 20px;
   border-radius:20px;
-  padding:50px 20px;
+  text-align:center;
   color:#777;
 }
 
 .empty-icon{
-  font-size:60px;
+  font-size:65px;
 }
 
+/* POPUP */
 
-/* NOTIFICATION */
-
-.notification{
+.popup{
   position:fixed;
+  top:90px;
   right:20px;
-  top:85px;
   width:min(380px,calc(100% - 40px));
-  background:white;
+  background:#fff;
+  border-left:6px solid #df2027;
   border-radius:18px;
-  padding:17px;
+  padding:18px;
   box-shadow:0 15px 50px #0004;
-  z-index:999;
+  z-index:9999;
   transform:translateX(450px);
-  transition:.45s cubic-bezier(.2,1.4,.4,1);
-  border-left:6px solid var(--red);
+  transition:.4s ease;
 }
 
-.notification.show{
+.popup.show{
   transform:translateX(0);
 }
 
-.notification-title{
-  color:var(--red);
-  font-size:19px;
-  font-weight:900;
+.popup h2{
+  margin:0 0 8px;
+  color:#df2027;
 }
 
-.notification button{
+.popup button{
   border:0;
-  background:var(--red);
-  color:white;
-  padding:8px 12px;
+  background:#df2027;
+  color:#fff;
+  padding:9px 13px;
   border-radius:8px;
   font-weight:bold;
   cursor:pointer;
-  margin-top:8px;
 }
 
+/* LOADING */
+
+.loading{
+  text-align:center;
+  padding:40px;
+  color:#777;
+}
 
 /* ANIMATION */
 
-@keyframes pop{
-  from{
-    opacity:0;
-    transform:scale(.8);
-  }
-  to{
-    opacity:1;
-    transform:scale(1);
-  }
-}
-
-@keyframes pulse{
-  0%,100%{box-shadow:0 0 0 0 #15944733}
-  50%{box-shadow:0 0 0 8px #15944700}
-}
-
-@keyframes orderIn{
+@keyframes show{
   from{
     opacity:0;
     transform:translateY(15px);
@@ -524,49 +469,26 @@ header{
   }
 }
 
-@keyframes newOrder{
-  0%{
-    transform:scale(.94);
-    box-shadow:0 0 0 0 #df202755;
-  }
-  60%{
-    transform:scale(1.02);
-    box-shadow:0 0 0 12px #df202700;
-  }
-  100%{
-    transform:scale(1);
-  }
-}
-
 @media(max-width:800px){
   .stats{
     grid-template-columns:1fr 1fr;
   }
 
   header{
-    align-items:flex-start;
+    flex-wrap:wrap;
   }
 
-  .brand-text{
+  .brand-title{
     font-size:19px;
-  }
-
-  .brand-icon{
-    font-size:30px;
   }
 }
 
-@media(max-width:520px){
+@media(max-width:500px){
   .container{
     padding:12px;
   }
 
-  .orders{
-    grid-template-columns:1fr;
-  }
-
   .stats{
-    grid-template-columns:1fr 1fr;
     gap:8px;
   }
 
@@ -575,12 +497,17 @@ header{
   }
 
   .stat-number{
-    font-size:24px;
+    font-size:23px;
   }
 
-  .top-row{
-    align-items:flex-start;
+  .orders{
+    grid-template-columns:1fr;
+  }
+
+  .top{
     flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
   }
 }
 </style>
@@ -588,8 +515,7 @@ header{
 
 <body>
 
-
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 
 <div class="login-page" id="loginPage">
 
@@ -597,24 +523,24 @@ header{
 
     <div class="logo">🍕</div>
 
-    <h2>Pizza Inn Admin</h2>
+    <h1>Pizza Inn Admin</h1>
 
-    <p style="color:#777">
-      Restaurant Management Panel
-    </p>
+    <p>Restaurant Management Panel</p>
 
     <input
-      class="input"
       id="email"
+      class="input"
       type="email"
       placeholder="Admin Email"
+      autocomplete="email"
     >
 
     <input
-      class="input"
       id="password"
+      class="input"
       type="password"
       placeholder="Password"
+      autocomplete="current-password"
     >
 
     <button class="login-btn" id="loginBtn">
@@ -628,7 +554,7 @@ header{
 </div>
 
 
-<!-- ================= ADMIN PAGE ================= -->
+<!-- ADMIN -->
 
 <div id="adminPage">
 
@@ -638,27 +564,27 @@ header{
 
     <div class="brand-icon">🍕</div>
 
-    <div class="brand-text">
-      Pizza <span>Inn</span>
-      <small style="display:block;font-size:11px;color:#333">
+    <div>
+
+      <div class="brand-title">
+        Pizza <span>Inn</span>
+      </div>
+
+      <div class="brand-sub">
         Layyah • Admin Panel
-      </small>
+      </div>
+
     </div>
 
   </div>
 
-  <div class="header-actions">
+  <div class="actions">
 
-    <button
-      class="header-btn sound-btn"
-      id="soundBtn"
-      onclick="toggleSound()">
+    <button class="action-btn sound" id="soundBtn">
       🔊 Sound ON
     </button>
 
-    <button
-      class="header-btn logout-btn"
-      onclick="logout()">
+    <button class="action-btn logout" id="logoutBtn">
       Logout
     </button>
 
@@ -669,13 +595,13 @@ header{
 
 <div class="container">
 
-  <div class="top-row">
+  <div class="top">
 
     <div>
       <h1>Orders Dashboard</h1>
-      <p style="color:#777;margin:5px 0">
-        Manage your restaurant orders in real time.
-      </p>
+      <div style="color:#777;margin-top:5px">
+        Live restaurant orders
+      </div>
     </div>
 
     <div class="live">
@@ -692,25 +618,25 @@ header{
     <div class="stat">
       <div class="stat-icon">🔔</div>
       <div class="stat-number" id="newCount">0</div>
-      <div class="stat-title">New Orders</div>
+      <div class="stat-name">New Orders</div>
     </div>
 
     <div class="stat">
       <div class="stat-icon">👨‍🍳</div>
       <div class="stat-number" id="preparingCount">0</div>
-      <div class="stat-title">Preparing</div>
+      <div class="stat-name">Preparing</div>
     </div>
 
     <div class="stat">
       <div class="stat-icon">🍕</div>
       <div class="stat-number" id="readyCount">0</div>
-      <div class="stat-title">Ready</div>
+      <div class="stat-name">Ready</div>
     </div>
 
     <div class="stat">
       <div class="stat-icon">💰</div>
       <div class="stat-number" id="salesCount">Rs. 0</div>
-      <div class="stat-title">Today's Sales</div>
+      <div class="stat-name">Today's Sales</div>
     </div>
 
   </div>
@@ -720,39 +646,27 @@ header{
 
   <div class="filters">
 
-    <button
-      class="filter active"
-      onclick="setFilter('all',this)">
+    <button class="filter active" data-filter="all">
       All
     </button>
 
-    <button
-      class="filter"
-      onclick="setFilter('new',this)">
+    <button class="filter" data-filter="new">
       🔔 New
     </button>
 
-    <button
-      class="filter"
-      onclick="setFilter('preparing',this)">
+    <button class="filter" data-filter="preparing">
       👨‍🍳 Preparing
     </button>
 
-    <button
-      class="filter"
-      onclick="setFilter('ready',this)">
+    <button class="filter" data-filter="ready">
       🍕 Ready
     </button>
 
-    <button
-      class="filter"
-      onclick="setFilter('delivered',this)">
+    <button class="filter" data-filter="delivered">
       ✅ Delivered
     </button>
 
-    <button
-      class="filter"
-      onclick="setFilter('cancelled',this)">
+    <button class="filter" data-filter="cancelled">
       ❌ Cancelled
     </button>
 
@@ -763,14 +677,8 @@ header{
 
   <div class="orders" id="orders">
 
-    <div class="empty">
-
-      <div class="empty-icon">🍕</div>
-
-      <h2>Waiting for orders...</h2>
-
-      <p>New customer orders will appear here automatically.</p>
-
+    <div class="loading">
+      Loading orders...
     </div>
 
   </div>
@@ -780,19 +688,15 @@ header{
 </div>
 
 
-<!-- ================= NEW ORDER NOTIFICATION ================= -->
+<!-- POPUP -->
 
-<div class="notification" id="notification">
+<div class="popup" id="popup">
 
-  <div class="notification-title">
-    🔔 NEW ORDER!
-  </div>
+  <h2>🔔 NEW ORDER!</h2>
 
-  <div id="notificationText">
-    New order received.
-  </div>
+  <div id="popupText"></div>
 
-  <button onclick="hideNotification()">
+  <button id="popupClose">
     View Order
   </button>
 
@@ -801,9 +705,7 @@ header{
 
 <script type="module">
 
-/* ============================================
-   FIREBASE
-============================================ */
+/* FIREBASE */
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
@@ -843,105 +745,78 @@ const firebaseConfig = {
   appId:"1:646104115309:web:92bdc9d7a5549068337764",
 
   measurementId:"G-5QLLC0TLRK"
+
 };
 
 
-const app=initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const auth=getAuth(app);
+const auth = getAuth(app);
 
-const db=getFirestore(app);
-
-
-/* ============================================
-   VARIABLES
-============================================ */
-
-let allOrders=[];
-
-let currentFilter="all";
-
-let soundEnabled=true;
-
-let firstLoad=true;
-
-let audioContext=null;
+const db = getFirestore(app);
 
 
-/* ============================================
-   LOGIN
-============================================ */
+/* VARIABLES */
 
-document
-.getElementById("loginBtn")
-.addEventListener("click",login);
+let orders = [];
+
+let currentFilter = "all";
+
+let soundEnabled = true;
+
+let firstSnapshot = true;
+
+let audioContext = null;
+
+let unsubscribeOrders = null;
+
+
+/* ELEMENTS */
+
+const loginPage = document.getElementById("loginPage");
+
+const adminPage = document.getElementById("adminPage");
+
+const loginBtn = document.getElementById("loginBtn");
+
+const logoutBtn = document.getElementById("logoutBtn");
+
+const emailInput = document.getElementById("email");
+
+const passwordInput = document.getElementById("password");
+
+const loginError = document.getElementById("loginError");
+
+
+/* LOGIN */
 
 async function login(){
 
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const error = document.getElementById("loginError");
-  const btn = document.getElementById("loginBtn");
+  const email = emailInput.value.trim();
 
-  if(!email || !password){
-    error.textContent = "Email aur password enter karein.";
+  const password = passwordInput.value;
+
+  loginError.textContent = "";
+
+  if(!email){
+
+    loginError.textContent = "Email enter karein.";
+
     return;
-  }
-
-  error.textContent = "";
-
-  btn.disabled = true;
-  btn.textContent = "⏳ Logging in...";
-
-  try {
-
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
-  } catch(err) {
-
-    console.error("Firebase Login Error:", err);
-
-    if(err.code === "auth/invalid-credential"){
-      error.textContent = "❌ Email ya password ghalat hai.";
-    }
-    else if(err.code === "auth/user-not-found"){
-      error.textContent = "❌ Ye email Firebase mein nahi hai.";
-    }
-    else if(err.code === "auth/wrong-password"){
-      error.textContent = "❌ Password ghalat hai.";
-    }
-    else if(err.code === "auth/invalid-email"){
-      error.textContent = "❌ Email format ghalat hai.";
-    }
-    else if(err.code === "auth/operation-not-allowed"){
-      error.textContent = "❌ Firebase Email/Password Login enabled nahi hai.";
-    }
-    else if(err.code === "auth/network-request-failed"){
-      error.textContent = "❌ Internet connection ka issue hai.";
-    }
-    else {
-      error.textContent = "❌ Firebase Error: " + err.code;
-    }
 
   }
 
-  btn.disabled = false;
-  btn.textContent = "🔐 LOGIN";
-}
+  if(!password){
+
+    loginError.textContent = "Password enter karein.";
+
     return;
+
   }
 
-  error.textContent="";
+  loginBtn.disabled = true;
 
-  const btn=
-    document.getElementById("loginBtn");
-
-  btn.disabled=true;
-  btn.textContent="⏳ Logging in...";
+  loginBtn.textContent = "⏳ LOGINING...";
 
   try{
 
@@ -951,199 +826,221 @@ async function login(){
       password
     );
 
+  }catch(error){
+
+    console.error("LOGIN ERROR:",error);
+
+    loginError.textContent =
+      error.code
+      ? "❌ "+error.code
+      : "❌ "+error.message;
+
+  }finally{
+
+    loginBtn.disabled = false;
+
+    loginBtn.textContent = "🔐 LOGIN";
+
   }
-  catch(err){
 
-    console.error(err);
-
-    error.textContent=
-      "Login failed. Email ya password check karein.";
-
-  }
-
-  btn.disabled=false;
-  btn.textContent="🔐 LOGIN";
 }
 
 
-/* ============================================
-   AUTH STATE
-============================================ */
+loginBtn.addEventListener("click",login);
 
-onAuthStateChanged(auth,user=>{
+
+passwordInput.addEventListener("keydown",function(e){
+
+  if(e.key === "Enter"){
+    login();
+  }
+
+});
+
+
+/* AUTH */
+
+onAuthStateChanged(auth,function(user){
 
   if(user){
 
-    document.getElementById("loginPage")
-      .style.display="none";
+    loginPage.style.display = "none";
 
-    document.getElementById("adminPage")
-      .style.display="block";
+    adminPage.style.display = "block";
 
     startOrders();
 
-    // Browser notification permission
-    if("Notification" in window){
+    requestNotifications();
 
-      if(Notification.permission==="default"){
+  }else{
 
-        Notification.requestPermission();
+    loginPage.style.display = "flex";
 
-      }
-
-    }
-
-  }
-  else{
-
-    document.getElementById("loginPage")
-      .style.display="flex";
-
-    document.getElementById("adminPage")
-      .style.display="none";
+    adminPage.style.display = "none";
 
   }
 
 });
 
 
-/* ============================================
-   LOGOUT
-============================================ */
+/* LOGOUT */
 
-window.logout=async function(){
+logoutBtn.addEventListener("click",async function(){
+
+  if(unsubscribeOrders){
+    unsubscribeOrders();
+    unsubscribeOrders = null;
+  }
 
   await signOut(auth);
 
-};
+});
 
 
-/* ============================================
-   SOUND
-============================================ */
+/* NOTIFICATIONS */
 
-function playSound(){
+async function requestNotifications(){
 
-  if(!soundEnabled)return;
-
-  try{
-
-    if(!audioContext){
-
-      audioContext=
-        new (window.AudioContext ||
-        window.webkitAudioContext)();
-
-    }
-
-    const now=
-      audioContext.currentTime;
-
-    const osc=
-      audioContext.createOscillator();
-
-    const gain=
-      audioContext.createGain();
-
-    osc.type="sine";
-
-    osc.frequency.setValueAtTime(
-      880,
-      now
-    );
-
-    osc.frequency.setValueAtTime(
-      1174,
-      now+.12
-    );
-
-    gain.gain.setValueAtTime(
-      .0001,
-      now
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      .5,
-      now+.03
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      .0001,
-      now+.65
-    );
-
-    osc.connect(gain);
-
-    gain.connect(
-      audioContext.destination
-    );
-
-    osc.start(now);
-
-    osc.stop(now+.7);
-
+  if(!("Notification" in window)){
+    return;
   }
-  catch(error){
 
-    console.log("Sound unavailable",error);
+  if(Notification.permission === "default"){
+
+    try{
+      await Notification.requestPermission();
+    }catch(e){
+      console.log(e);
+    }
 
   }
 
 }
 
 
-window.toggleSound=function(){
+/* SOUND */
 
-  soundEnabled=!soundEnabled;
+function playSound(){
 
-  const btn=
-    document.getElementById("soundBtn");
+  if(!soundEnabled){
+    return;
+  }
 
-  btn.textContent=
-    soundEnabled
-      ? "🔊 Sound ON"
-      : "🔇 Sound OFF";
+  try{
 
-  if(soundEnabled){
+    if(!audioContext){
 
-    playSound();
+      audioContext =
+        new (window.AudioContext ||
+        window.webkitAudioContext)();
+
+    }
+
+    if(audioContext.state === "suspended"){
+      audioContext.resume();
+    }
+
+    const now = audioContext.currentTime;
+
+    const osc = audioContext.createOscillator();
+
+    const gain = audioContext.createGain();
+
+    osc.type = "sine";
+
+    osc.frequency.setValueAtTime(880,now);
+
+    osc.frequency.setValueAtTime(
+      1174,
+      now + .15
+    );
+
+    gain.gain.setValueAtTime(
+      .001,
+      now
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .5,
+      now + .03
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .001,
+      now + .7
+    );
+
+    osc.connect(gain);
+
+    gain.connect(audioContext.destination);
+
+    osc.start(now);
+
+    osc.stop(now + .75);
+
+  }catch(e){
+
+    console.log("Sound error:",e);
 
   }
 
-};
+}
 
 
-/* ============================================
-   FIREBASE LIVE ORDERS
-============================================ */
+/* SOUND BUTTON */
+
+document
+.getElementById("soundBtn")
+.addEventListener("click",function(){
+
+  soundEnabled = !soundEnabled;
+
+  this.textContent =
+    soundEnabled
+    ? "🔊 Sound ON"
+    : "🔇 Sound OFF";
+
+  if(soundEnabled){
+    playSound();
+  }
+
+});
+
+
+/* LIVE ORDERS */
 
 function startOrders(){
 
-  const ordersQuery=query(
+  if(unsubscribeOrders){
+    unsubscribeOrders();
+  }
+
+  firstSnapshot = true;
+
+  const ordersQuery = query(
     collection(db,"orders"),
     orderBy("createdAt","desc")
   );
 
-  onSnapshot(
+  unsubscribeOrders = onSnapshot(
+
     ordersQuery,
-    snapshot=>{
 
-      const newOrders=[];
+    function(snapshot){
 
-      snapshot.docChanges()
-      .forEach(change=>{
+      const incoming = [];
+
+      snapshot.docChanges().forEach(function(change){
 
         if(
-          change.type==="added" &&
-          !firstLoad
+          change.type === "added" &&
+          !firstSnapshot
         ){
 
-          const data=change.doc.data();
+          const order = change.doc.data();
 
-          if(data.status==="new"){
-
-            newOrders.push(data);
-
+          if(order.status === "new"){
+            incoming.push(order);
           }
 
         }
@@ -1151,13 +1048,14 @@ function startOrders(){
       });
 
 
-      allOrders=snapshot.docs.map(doc=>({
+      orders = snapshot.docs.map(function(item){
 
-        id:doc.id,
+        return {
+          id:item.id,
+          ...item.data()
+        };
 
-        ...doc.data()
-
-      }));
+      });
 
 
       updateStats();
@@ -1165,41 +1063,40 @@ function startOrders(){
       renderOrders();
 
 
-      if(newOrders.length){
+      if(incoming.length){
 
-        newOrders.forEach(order=>{
+        incoming.forEach(function(order){
 
-          showNewOrder(order);
+          newOrderAlert(order);
 
         });
 
       }
 
 
-      firstLoad=false;
+      firstSnapshot = false;
 
     },
 
-    error=>{
+    function(error){
 
-      console.error(error);
+      console.error("FIRESTORE ERROR:",error);
 
-      document.getElementById("orders")
-        .innerHTML=`
+      document.getElementById("orders").innerHTML = `
 
-          <div class="empty">
+        <div class="empty">
 
-            <div class="empty-icon">⚠️</div>
+          <div class="empty-icon">⚠️</div>
 
-            <h2>Could not load orders</h2>
+          <h2>Orders Load Nahi Ho Rahe</h2>
 
-            <p>
-              Firebase rules ya internet connection check karein.
-            </p>
+          <p>
+            Firebase Firestore rules ya connection check karein.
+          </p>
 
-          </div>
+        </div>
 
-        `;
+      `;
 
     }
 
@@ -1208,189 +1105,202 @@ function startOrders(){
 }
 
 
-/* ============================================
-   NEW ORDER NOTIFICATION
-============================================ */
+/* NEW ORDER */
 
-function showNewOrder(order){
+function newOrderAlert(order){
 
   playSound();
 
-  const notification=
-    document.getElementById("notification");
+  const popup = document.getElementById("popup");
 
-  const text=
-    document.getElementById("notificationText");
+  const text = document.getElementById("popupText");
 
-  text.innerHTML=`
+  text.innerHTML = `
 
     <strong>
-      #${order.orderNumber || "NEW"}
-    </strong><br>
-
-    ${order.customerName || "Customer"}
-
-    ${order.tableNumber
-      ? ` • 🪑 ${order.tableNumber}`
-      : ""}
+      Order #${escapeHTML(order.orderNumber || "NEW")}
+    </strong>
 
     <br>
 
-    💰 Rs. ${order.total || 0}
+    👤 ${escapeHTML(order.customerName || "Customer")}
+
+    <br>
+
+    📞 ${escapeHTML(order.phone || "")}
+
+    <br>
+
+    💰 Rs. ${Number(order.total || 0).toLocaleString()}
 
   `;
 
-  notification.classList.add("show");
+  popup.classList.add("show");
 
 
   if(
     "Notification" in window &&
-    Notification.permission==="granted"
+    Notification.permission === "granted"
   ){
 
-    new Notification(
-      "🍕 Pizza Inn — New Order!",
-      {
-        body:
-          `Order #${order.orderNumber || "NEW"} • Rs. ${order.total || 0}`,
-        icon:"https://pizzainlayyah.github.io/pizzainnlayyah/favicon.ico"
-      }
-    );
+    try{
+
+      new Notification(
+        "🍕 Pizza Inn — NEW ORDER!",
+        {
+          body:
+            "Order #"+
+            (order.orderNumber || "NEW")+
+            " • Rs. "+
+            (order.total || 0)
+        }
+      );
+
+    }catch(e){
+
+      console.log(e);
+
+    }
 
   }
 
 
-  setTimeout(()=>{
+  setTimeout(function(){
 
-    notification.classList.remove("show");
+    popup.classList.remove("show");
 
-  },8000);
+  },10000);
 
 }
 
 
-window.hideNotification=function(){
+document
+.getElementById("popupClose")
+.addEventListener("click",function(){
 
-  document.getElementById("notification")
+  document
+    .getElementById("popup")
     .classList.remove("show");
 
-};
+});
 
 
-/* ============================================
-   STATS
-============================================ */
+/* STATS */
 
 function updateStats(){
 
-  const newCount=
-    allOrders.filter(
-      x=>x.status==="new"
-    ).length;
+  const newOrders =
+    orders.filter(x=>x.status==="new").length;
 
-  const preparingCount=
-    allOrders.filter(
-      x=>x.status==="preparing"
-    ).length;
+  const preparing =
+    orders.filter(x=>x.status==="preparing").length;
 
-  const readyCount=
-    allOrders.filter(
-      x=>x.status==="ready"
-    ).length;
+  const ready =
+    orders.filter(x=>x.status==="ready").length;
 
 
   document.getElementById("newCount")
-    .textContent=newCount;
+    .textContent = newOrders;
 
   document.getElementById("preparingCount")
-    .textContent=preparingCount;
+    .textContent = preparing;
 
   document.getElementById("readyCount")
-    .textContent=readyCount;
+    .textContent = ready;
 
 
-  const today=
-    new Date();
+  const now = new Date();
 
-  today.setHours(0,0,0,0);
+  const start = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  );
 
 
-  const sales=
-    allOrders
-    .filter(order=>{
+  let sales = 0;
 
-      if(order.status==="cancelled")
-        return false;
 
-      if(!order.createdAt)
-        return false;
+  orders.forEach(function(order){
 
-      const date=
-        order.createdAt.toDate();
+    if(
+      order.status === "cancelled" ||
+      !order.createdAt
+    ){
+      return;
+    }
 
-      return date>=today;
+    try{
 
-    })
-    .reduce(
-      (sum,order)=>
-        sum+(Number(order.total)||0),
-      0
-    );
+      const date = order.createdAt.toDate();
+
+      if(date >= start){
+        sales += Number(order.total || 0);
+      }
+
+    }catch(e){}
+
+  });
 
 
   document.getElementById("salesCount")
-    .textContent=
+    .textContent =
       "Rs. "+sales.toLocaleString();
+
 }
 
 
-/* ============================================
-   FILTER
-============================================ */
+/* FILTER */
 
-window.setFilter=function(filter,button){
+document
+.querySelectorAll(".filter")
+.forEach(function(button){
 
-  currentFilter=filter;
+  button.addEventListener("click",function(){
 
-  document
-    .querySelectorAll(".filter")
-    .forEach(x=>{
-      x.classList.remove("active");
-    });
+    document
+      .querySelectorAll(".filter")
+      .forEach(function(x){
+        x.classList.remove("active");
+      });
 
-  button.classList.add("active");
+    this.classList.add("active");
 
-  renderOrders();
+    currentFilter =
+      this.dataset.filter;
 
-};
+    renderOrders();
+
+  });
+
+});
 
 
-/* ============================================
-   RENDER ORDERS
-============================================ */
+/* RENDER */
 
 function renderOrders(){
 
-  const box=
+  const box =
     document.getElementById("orders");
 
-  let orders=
-    [...allOrders];
+  let list = [...orders];
 
 
-  if(currentFilter!=="all"){
+  if(currentFilter !== "all"){
 
-    orders=
-      orders.filter(
-        x=>x.status===currentFilter
-      );
+    list =
+      list.filter(function(order){
+
+        return order.status === currentFilter;
+
+      });
 
   }
 
 
-  if(!orders.length){
+  if(!list.length){
 
-    box.innerHTML=`
+    box.innerHTML = `
 
       <div class="empty">
 
@@ -1399,7 +1309,7 @@ function renderOrders(){
         <h2>No Orders</h2>
 
         <p>
-          Is category mein abhi koi order nahi hai.
+          Abhi is category mein koi order nahi hai.
         </p>
 
       </div>
@@ -1411,51 +1321,61 @@ function renderOrders(){
   }
 
 
-  box.innerHTML="";
+  box.innerHTML = "";
 
 
-  orders.forEach(order=>{
+  list.forEach(function(order){
 
-    const card=
+    const card =
       document.createElement("div");
 
-    card.className=
-      "order "+(
-        order.status==="new"
-          ? "new"
-          : ""
-      );
+    const status =
+      order.status || "new";
+
+    card.className =
+      "order "+
+      (status === "new" ? "new" : "");
 
 
-    const time=
-      formatTime(order.createdAt);
+    let itemsHTML = "";
 
-
-    const items=
+    const items =
       Array.isArray(order.items)
-        ? order.items
-        : [];
+      ? order.items
+      : [];
 
 
-    let itemsHTML="";
+    items.forEach(function(item){
+
+      const quantity =
+        Number(
+          item.quantity ||
+          item.qty ||
+          1
+        );
+
+      const itemPrice =
+        Number(item.price || 0);
+
+      const subtotal =
+        Number(item.subtotal) ||
+        itemPrice * quantity;
 
 
-    items.forEach(item=>{
+      itemsHTML += `
 
-      itemsHTML+=`
-
-        <div class="item-line">
+        <div class="item">
 
           <div>
 
             <div class="item-name">
-              ${item.quantity || item.qty || 1}
-              × ${escapeHTML(item.name || "")}
+              ${quantity} ×
+              ${escapeHTML(item.name || "")}
             </div>
 
             ${
               item.option
-              ? `<div class="item-option">
+              ? `<div class="option">
                   ${escapeHTML(item.option)}
                 </div>`
               : ""
@@ -1463,16 +1383,8 @@ function renderOrders(){
 
           </div>
 
-          <div class="item-price">
-            Rs. ${
-              (
-                Number(item.subtotal) ||
-                (
-                  Number(item.price || 0) *
-                  Number(item.quantity || item.qty || 1)
-                )
-              ).toLocaleString()
-            }
+          <div class="price">
+            Rs. ${subtotal.toLocaleString()}
           </div>
 
         </div>
@@ -1482,15 +1394,18 @@ function renderOrders(){
     });
 
 
-    const status=
-      order.status || "new";
+    let orderType = "🥡 TAKEAWAY";
+
+    if(order.orderType === "dine-in"){
+      orderType = "🪑 DINE-IN";
+    }
+
+    if(order.orderType === "delivery"){
+      orderType = "🏠 DELIVERY";
+    }
 
 
-    const badgeClass=
-      "badge-"+status;
-
-
-    card.innerHTML=`
+    card.innerHTML = `
 
       <div class="order-head">
 
@@ -1498,35 +1413,26 @@ function renderOrders(){
 
           <div class="order-number">
             #${escapeHTML(
-              order.orderNumber || order.id.slice(-6)
+              order.orderNumber ||
+              order.id.slice(-6)
             )}
           </div>
 
           <div class="time">
-            ${time}
+            ${formatTime(order.createdAt)}
           </div>
 
         </div>
 
-        <div class="badge ${badgeClass}">
-          ${status}
+        <div class="badge badge-${status}">
+          ${escapeHTML(status)}
         </div>
 
       </div>
 
 
-      <div style="margin-top:12px">
-
-        <span class="order-type">
-          ${
-            order.orderType==="dine-in"
-              ? "🪑 DINE-IN"
-              : order.orderType==="delivery"
-              ? "🏠 DELIVERY"
-              : "🥡 TAKEAWAY"
-          }
-        </span>
-
+      <div class="type">
+        ${orderType}
       </div>
 
 
@@ -1534,7 +1440,10 @@ function renderOrders(){
 
         <div>
           👤 <strong>
-            ${escapeHTML(order.customerName || "Customer")}
+            ${escapeHTML(
+              order.customerName ||
+              "Customer"
+            )}
           </strong>
         </div>
 
@@ -1544,19 +1453,24 @@ function renderOrders(){
 
         ${
           order.tableNumber
-          ? `<div>🪑 Table:
+          ? `
+            <div>
+              🪑 Table:
               <strong>
                 ${escapeHTML(order.tableNumber)}
               </strong>
-            </div>`
+            </div>
+          `
           : ""
         }
 
         ${
           order.address
-          ? `<div>
+          ? `
+            <div>
               🏠 ${escapeHTML(order.address)}
-            </div>`
+            </div>
+          `
           : ""
         }
 
@@ -1564,27 +1478,33 @@ function renderOrders(){
 
 
       <div class="items">
+
         ${itemsHTML}
+
       </div>
 
 
       ${
         order.notes
-        ? `<div class="notes">
+        ? `
+          <div class="notes">
             📝 <strong>Note:</strong>
             ${escapeHTML(order.notes)}
-          </div>`
+          </div>
+        `
         : ""
       }
 
 
-      <div class="order-total">
+      <div class="total">
 
         <span>Total</span>
 
         <span>
-          Rs. ${(Number(order.total)||0)
-            .toLocaleString()}
+          Rs.
+          ${Number(
+            order.total || 0
+          ).toLocaleString()}
         </span>
 
       </div>
@@ -1593,42 +1513,54 @@ function renderOrders(){
       <div class="status-buttons">
 
         ${
-          status!=="preparing"
-          ? `<button
+          status !== "preparing"
+          ? `
+            <button
               class="status-btn preparing"
-              onclick="changeStatus('${order.id}','preparing')">
+              data-id="${order.id}"
+              data-status="preparing">
               👨‍🍳 Preparing
-            </button>`
+            </button>
+          `
           : ""
         }
 
         ${
-          status!=="ready"
-          ? `<button
+          status !== "ready"
+          ? `
+            <button
               class="status-btn ready"
-              onclick="changeStatus('${order.id}','ready')">
+              data-id="${order.id}"
+              data-status="ready">
               🍕 Ready
-            </button>`
+            </button>
+          `
           : ""
         }
 
         ${
-          status!=="delivered"
-          ? `<button
+          status !== "delivered"
+          ? `
+            <button
               class="status-btn delivered"
-              onclick="changeStatus('${order.id}','delivered')">
+              data-id="${order.id}"
+              data-status="delivered">
               ✅ Delivered
-            </button>`
+            </button>
+          `
           : ""
         }
 
         ${
-          status!=="cancelled"
-          ? `<button
+          status !== "cancelled"
+          ? `
+            <button
               class="status-btn cancelled"
-              onclick="changeStatus('${order.id}','cancelled')">
+              data-id="${order.id}"
+              data-status="cancelled">
               ❌ Cancel
-            </button>`
+            </button>
+          `
           : ""
         }
 
@@ -1641,14 +1573,31 @@ function renderOrders(){
 
   });
 
+
+  document
+    .querySelectorAll(".status-btn")
+    .forEach(function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          changeStatus(
+            this.dataset.id,
+            this.dataset.status
+          );
+
+        }
+      );
+
+    });
+
 }
 
 
-/* ============================================
-   CHANGE STATUS
-============================================ */
+/* CHANGE STATUS */
 
-window.changeStatus=async function(id,status){
+async function changeStatus(id,status){
 
   try{
 
@@ -1660,8 +1609,7 @@ window.changeStatus=async function(id,status){
       }
     );
 
-  }
-  catch(error){
+  }catch(error){
 
     console.error(error);
 
@@ -1671,34 +1619,32 @@ window.changeStatus=async function(id,status){
 
   }
 
-};
+}
 
 
-/* ============================================
-   TIME
-============================================ */
+/* TIME */
 
 function formatTime(timestamp){
 
-  if(!timestamp)
+  if(!timestamp){
     return "Just now";
+  }
 
   try{
 
-    const date=timestamp.toDate();
+    return timestamp
+      .toDate()
+      .toLocaleString(
+        "en-PK",
+        {
+          day:"2-digit",
+          month:"short",
+          hour:"2-digit",
+          minute:"2-digit"
+        }
+      );
 
-    return date.toLocaleString(
-      "en-PK",
-      {
-        day:"2-digit",
-        month:"short",
-        hour:"2-digit",
-        minute:"2-digit"
-      }
-    );
-
-  }
-  catch{
+  }catch(e){
 
     return "Just now";
 
@@ -1707,9 +1653,7 @@ function formatTime(timestamp){
 }
 
 
-/* ============================================
-   SECURITY HTML
-============================================ */
+/* SECURITY */
 
 function escapeHTML(value){
 
@@ -1721,21 +1665,6 @@ function escapeHTML(value){
     .replace(/'/g,"&#039;");
 
 }
-
-
-/* ============================================
-   ENTER KEY LOGIN
-============================================ */
-
-document
-.getElementById("password")
-.addEventListener("keydown",e=>{
-
-  if(e.key==="Enter"){
-    login();
-  }
-
-});
 
 </script>
 
