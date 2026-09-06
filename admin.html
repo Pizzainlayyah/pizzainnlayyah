@@ -1,1046 +1,1103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Pizza Inn — Admin</title>
-
-<style>
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#fff9e7;
-  color:#201d1d;
-}
-
-button,input{font:inherit}
-
-.login-page{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:
-    radial-gradient(circle at 10% 10%,#f7c60055 0 120px,transparent 121px),
-    radial-gradient(circle at 90% 90%,#df202755 0 150px,transparent 151px),
-    #fff9e7;
-}
-
-.login-box{
-  width:100%;
-  max-width:420px;
-  background:#fff;
-  padding:35px;
-  border-radius:25px;
-  box-shadow:0 20px 60px #0003;
-  text-align:center;
-}
-
-.logo{
-  font-size:65px;
-}
-
-.login-box h1{
-  margin:5px 0;
-  font-size:30px;
-}
-
-.login-box p{
-  color:#777;
-  margin-bottom:25px;
-}
-
-.input{
-  width:100%;
-  padding:15px;
-  margin-bottom:12px;
-  border:2px solid #eee;
-  border-radius:12px;
-  outline:none;
-}
-
-.input:focus{
-  border-color:#f7c600;
-}
-
-.login-btn{
-  width:100%;
-  padding:15px;
-  border:0;
-  border-radius:12px;
-  background:#df2027;
-  color:#fff;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.login-btn:disabled{
-  opacity:.6;
-}
-
-.error{
-  color:#df2027;
-  font-weight:bold;
-  margin-top:15px;
-  min-height:22px;
-}
-
-/* ADMIN */
-
-#adminPage{
-  display:none;
-}
-
-header{
-  background:linear-gradient(135deg,#f7c600,#ffe45b,#f7c600);
-  padding:15px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  position:sticky;
-  top:0;
-  z-index:100;
-  box-shadow:0 5px 20px #0002;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.brand-icon{
-  font-size:38px;
-}
-
-.brand-title{
-  font-size:24px;
-  font-weight:900;
-}
-
-.brand-title span{
-  color:#df2027;
-}
-
-.brand-sub{
-  font-size:11px;
-}
-
-.actions{
-  display:flex;
-  gap:8px;
-}
-
-.action-btn{
-  border:0;
-  padding:10px 15px;
-  border-radius:999px;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.sound{
-  background:#fff;
-}
-
-.logout{
-  background:#df2027;
-  color:#fff;
-}
-
-.container{
-  max-width:1350px;
-  margin:auto;
-  padding:20px;
-}
-
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.top h1{
-  margin:0;
-}
-
-.live{
-  background:#e4ffed;
-  color:#159447;
-  padding:9px 15px;
-  border-radius:999px;
-  font-weight:900;
-}
-
-/* STATS */
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.stat{
-  background:#fff;
-  padding:20px;
-  border-radius:18px;
-  box-shadow:0 5px 20px #0001;
-}
-
-.stat-icon{
-  font-size:28px;
-}
-
-.stat-number{
-  font-size:30px;
-  font-weight:900;
-  margin-top:5px;
-}
-
-.stat-name{
-  color:#777;
-  font-weight:bold;
-}
-
-/* FILTER */
-
-.filters{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  background:#fff;
-  padding:12px;
-  border-radius:15px;
-  margin-bottom:20px;
-}
-
-.filter{
-  border:0;
-  background:#eee;
-  padding:9px 15px;
-  border-radius:999px;
-  cursor:pointer;
-  font-weight:900;
-}
-
-.filter.active{
-  background:#df2027;
-  color:#fff;
-}
-
-/* ORDERS */
-
-.orders{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
-  gap:18px;
-}
-
-.order{
-  background:#fff;
-  border-radius:20px;
-  padding:18px;
-  box-shadow:0 7px 25px #0001;
-  border-left:6px solid #f7c600;
-  animation:show .35s ease;
-}
-
-.order.new{
-  border-left-color:#df2027;
-}
-
-.order-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.order-number{
-  font-size:22px;
-  font-weight:900;
-  color:#df2027;
-}
-
-.time{
-  color:#777;
-  font-size:13px;
-  margin-top:3px;
-}
-
-.badge{
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:900;
-  text-transform:uppercase;
-  height:max-content;
-}
-
-.badge-new{
-  background:#ffe0e0;
-  color:#df2027;
-}
-
-.badge-preparing{
-  background:#fff0c4;
-  color:#9a6500;
-}
-
-.badge-ready{
-  background:#dceeff;
-  color:#1265a8;
-}
-
-.badge-delivered{
-  background:#dcf8e5;
-  color:#159447;
-}
-
-.badge-cancelled{
-  background:#eee;
-  color:#666;
-}
-
-.type{
-  display:inline-block;
-  margin-top:12px;
-  padding:7px 10px;
-  background:#fff4c5;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:900;
-}
-
-.customer{
-  background:#fafafa;
-  padding:12px;
-  border-radius:12px;
-  margin:12px 0;
-  line-height:1.7;
-}
-
-.items{
-  border-top:1px solid #eee;
-  border-bottom:1px solid #eee;
-  padding:10px 0;
-}
-
-.item{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:7px 0;
-}
-
-.item-name{
-  font-weight:800;
-}
-
-.option{
-  color:#777;
-  font-size:13px;
-}
-
-.price{
-  font-weight:900;
-  white-space:nowrap;
-}
-
-.total{
-  display:flex;
-  justify-content:space-between;
-  padding:14px 0;
-  font-size:20px;
-  font-weight:900;
-  color:#df2027;
-}
-
-.notes{
-  background:#fff9e7;
-  padding:10px;
-  border-radius:10px;
-  margin-bottom:12px;
-}
-
-.status-buttons{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-}
-
-.status-btn{
-  border:0;
-  padding:11px 5px;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:900;
-}
-
-.preparing{
-  background:#fff0c4;
-}
-
-.ready{
-  background:#dceeff;
-}
-
-.delivered{
-  background:#dcf8e5;
-}
-
-.cancelled{
-  background:#ffe0e0;
-  color:#df2027;
-}
-
-.empty{
-  grid-column:1/-1;
-  background:#fff;
-  padding:60px 20px;
-  border-radius:20px;
-  text-align:center;
-  color:#777;
-}
-
-.empty-icon{
-  font-size:65px;
-}
-
-/* POPUP */
-
-.popup{
-  position:fixed;
-  top:90px;
-  right:20px;
-  width:min(380px,calc(100% - 40px));
-  background:#fff;
-  border-left:6px solid #df2027;
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 15px 50px #0004;
-  z-index:9999;
-  transform:translateX(450px);
-  transition:.4s ease;
-}
-
-.popup.show{
-  transform:translateX(0);
-}
-
-.popup h2{
-  margin:0 0 8px;
-  color:#df2027;
-}
-
-.popup button{
-  border:0;
-  background:#df2027;
-  color:#fff;
-  padding:9px 13px;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* LOADING */
-
-.loading{
-  text-align:center;
-  padding:40px;
-  color:#777;
-}
-
-/* ANIMATION */
-
-@keyframes show{
-  from{
-    opacity:0;
-    transform:translateY(15px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
-}
-
-@media(max-width:800px){
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
-
-  header{
-    flex-wrap:wrap;
-  }
-
-  .brand-title{
-    font-size:19px;
-  }
-}
-
-@media(max-width:500px){
-  .container{
-    padding:12px;
-  }
-
-  .stats{
-    gap:8px;
-  }
-
-  .stat{
-    padding:14px;
-  }
-
-  .stat-number{
-    font-size:23px;
-  }
-
-  .orders{
-    grid-template-columns:1fr;
-  }
-
-  .top{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:10px;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizza Inn — Admin Panel</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+    }
+
+    /* LOGIN */
+    #loginPage {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #df2027, #f7c600);
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      padding: 35px 25px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+      text-align: center;
+      animation: pop .5s ease;
+    }
+
+    .logo {
+      font-size: 55px;
+      margin-bottom: 10px;
+    }
+
+    .login-box h1 {
+      color: #df2027;
+      margin-bottom: 5px;
+    }
+
+    .login-box p {
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .login-box input:focus {
+      border-color: #df2027;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      background: #df2027;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      transition: .2s;
+    }
+
+    .login-btn:hover {
+      background: #b9161c;
+      transform: translateY(-2px);
+    }
+
+    #loginError {
+      margin-top: 15px;
+      color: #df2027;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* ADMIN */
+    #adminPage {
+      display: none;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #201d1d;
+      color: white;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 3px 15px rgba(0,0,0,.2);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      font-size: 35px;
+    }
+
+    .brand h1 {
+      font-size: 22px;
+    }
+
+    .brand small {
+      display: block;
+      color: #f7c600;
+      margin-top: 2px;
+    }
+
+    .logout-btn {
+      background: #df2027;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .logout-btn:hover {
+      background: #b9161c;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat::after {
+      content: "";
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      right: -25px;
+      top: -25px;
+      background: #f7c600;
+      border-radius: 50%;
+      opacity: .25;
+    }
+
+    .stat h3 {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 8px;
+    }
+
+    .stat strong {
+      font-size: 30px;
+      color: #df2027;
+    }
+
+    /* FILTERS */
+    .toolbar {
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.07);
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-btn {
+      padding: 10px 15px;
+      border-radius: 8px;
+      background: #eee;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .filter-btn.active {
+      background: #df2027;
+      color: white;
+    }
+
+    .refresh-btn {
+      margin-left: auto;
+      padding: 10px 15px;
+      background: #201d1d;
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    /* ORDERS */
+    #ordersContainer {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .order-card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.09);
+      border-left: 6px solid #f7c600;
+      animation: slideUp .35s ease;
+    }
+
+    .order-card.new {
+      border-left-color: #df2027;
+    }
+
+    .order-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .order-number {
+      color: #df2027;
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .order-time {
+      color: #777;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .status {
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .status-new {
+      background: #ffe1e1;
+      color: #df2027;
+    }
+
+    .status-preparing {
+      background: #fff0b3;
+      color: #8a6800;
+    }
+
+    .status-ready {
+      background: #dff7e6;
+      color: #16833a;
+    }
+
+    .status-delivered {
+      background: #dceeff;
+      color: #1769aa;
+    }
+
+    .status-cancelled {
+      background: #eee;
+      color: #555;
+    }
+
+    .customer {
+      background: #fafafa;
+      padding: 13px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      line-height: 1.7;
+    }
+
+    .customer strong {
+      color: #df2027;
+    }
+
+    .items {
+      margin-bottom: 15px;
+    }
+
+    .items h3 {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px dashed #ddd;
+    }
+
+    .item-name {
+      font-weight: bold;
+    }
+
+    .item-option {
+      color: #777;
+      font-size: 13px;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .item-price {
+      white-space: nowrap;
+      font-weight: bold;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      padding: 13px;
+      border-radius: 10px;
+      background: #fff7cc;
+      margin-bottom: 15px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .action-btn {
+      padding: 11px 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .prepare {
+      background: #d89b00;
+    }
+
+    .ready {
+      background: #16833a;
+    }
+
+    .deliver {
+      background: #1769aa;
+    }
+
+    .cancel {
+      background: #555;
+    }
+
+    .action-btn:hover {
+      opacity: .85;
+      transform: translateY(-1px);
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      background: white;
+      padding: 60px 20px;
+      text-align: center;
+      border-radius: 18px;
+      color: #777;
+    }
+
+    .empty-icon {
+      font-size: 55px;
+      margin-bottom: 15px;
+    }
+
+    /* POPUP */
+    #popup {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 330px;
+      background: #201d1d;
+      color: white;
+      padding: 18px;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.3);
+      display: none;
+      z-index: 9999;
+      animation: popup .4s ease;
+    }
+
+    #popup.show {
+      display: block;
+    }
+
+    #popup h3 {
+      color: #f7c600;
+      margin-bottom: 5px;
+    }
+
+    #popup button {
+      margin-top: 12px;
+      background: #df2027;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 7px;
+    }
+
+    /* LOADING */
+    #loading {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,.9);
+      z-index: 99999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .loader {
+      width: 45px;
+      height: 45px;
+      border: 5px solid #eee;
+      border-top-color: #df2027;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 12px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pop {
+      from {
+        opacity: 0;
+        transform: scale(.85);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes popup {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #ordersContainer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 12px;
+      }
+
+      .header-inner {
+        align-items: flex-start;
+      }
+
+      .brand h1 {
+        font-size: 17px;
+      }
+
+      .brand small {
+        font-size: 11px;
+      }
+
+      .logout-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .stat {
+        padding: 15px;
+      }
+
+      .stat strong {
+        font-size: 24px;
+      }
+
+      .toolbar {
+        padding: 10px;
+      }
+
+      .filter-btn {
+        font-size: 12px;
+        padding: 8px 10px;
+      }
+
+      .refresh-btn {
+        margin-left: 0;
+      }
+
+      .order-card {
+        padding: 15px;
+      }
+
+      #popup {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-
-<div class="login-page" id="loginPage">
-
-  <div class="login-box">
-
-    <div class="logo">🍕</div>
-
-    <h1>Pizza Inn Admin</h1>
-
-    <p>Restaurant Management Panel</p>
-
-    <input
-      id="email"
-      class="input"
-      type="email"
-      placeholder="Admin Email"
-      autocomplete="email"
-    >
-
-    <input
-      id="password"
-      class="input"
-      type="password"
-      placeholder="Password"
-      autocomplete="current-password"
-    >
-
-    <button class="login-btn" id="loginBtn">
-      🔐 LOGIN
-    </button>
-
-    <div class="error" id="loginError"></div>
-
+  <!-- LOADING -->
+  <div id="loading">
+    <div class="loader"></div>
+    <strong>Loading...</strong>
   </div>
 
-</div>
+  <!-- LOGIN PAGE -->
+  <section id="loginPage">
+
+    <div class="login-box">
+
+      <div class="logo">🍕</div>
+
+      <h1>Pizza Inn</h1>
+      <p>Admin Order Management</p>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Admin Email"
+        autocomplete="email"
+      >
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        autocomplete="current-password"
+      >
+
+      <button class="login-btn" id="loginBtn">
+        🔐 Login
+      </button>
+
+      <div id="loginError"></div>
+
+    </div>
+
+  </section>
 
 
-<!-- ADMIN -->
+  <!-- ADMIN PAGE -->
+  <section id="adminPage">
 
-<div id="adminPage">
+    <header>
 
-<header>
+      <div class="header-inner">
 
-  <div class="brand">
+        <div class="brand">
+          <div class="brand-icon">🍕</div>
 
-    <div class="brand-icon">🍕</div>
+          <div>
+            <h1>Pizza Inn Admin</h1>
+            <small>Layyah • Live Orders</small>
+          </div>
+        </div>
 
-    <div>
+        <button class="logout-btn" id="logoutBtn">
+          Logout
+        </button>
 
-      <div class="brand-title">
-        Pizza <span>Inn</span>
       </div>
 
-      <div class="brand-sub">
-        Layyah • Admin Panel
+    </header>
+
+
+    <main class="container">
+
+      <!-- STATS -->
+      <div class="stats">
+
+        <div class="stat">
+          <h3>New Orders</h3>
+          <strong id="newCount">0</strong>
+        </div>
+
+        <div class="stat">
+          <h3>Preparing</h3>
+          <strong id="preparingCount">0</strong>
+        </div>
+
+        <div class="stat">
+          <h3>Ready</h3>
+          <strong id="readyCount">0</strong>
+        </div>
+
+        <div class="stat">
+          <h3>Today's Sales</h3>
+          <strong id="todaySales">Rs. 0</strong>
+        </div>
+
       </div>
 
-    </div>
 
-  </div>
+      <!-- TOOLBAR -->
+      <div class="toolbar">
 
-  <div class="actions">
+        <button class="filter-btn active" data-filter="all">
+          All
+        </button>
 
-    <button class="action-btn sound" id="soundBtn">
-      🔊 Sound ON
-    </button>
+        <button class="filter-btn" data-filter="new">
+          New
+        </button>
 
-    <button class="action-btn logout" id="logoutBtn">
-      Logout
-    </button>
+        <button class="filter-btn" data-filter="preparing">
+          Preparing
+        </button>
 
-  </div>
+        <button class="filter-btn" data-filter="ready">
+          Ready
+        </button>
 
-</header>
+        <button class="filter-btn" data-filter="delivered">
+          Delivered
+        </button>
 
+        <button class="filter-btn" data-filter="cancelled">
+          Cancelled
+        </button>
 
-<div class="container">
+        <button class="refresh-btn" id="refreshBtn">
+          🔄 Refresh
+        </button>
 
-  <div class="top">
-
-    <div>
-      <h1>Orders Dashboard</h1>
-      <div style="color:#777;margin-top:5px">
-        Live restaurant orders
       </div>
+
+
+      <!-- ORDERS -->
+      <div id="ordersContainer">
+
+        <div class="empty">
+          <div class="empty-icon">🍕</div>
+          <h2>Loading Orders...</h2>
+          <p>Please wait.</p>
+        </div>
+
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- NEW ORDER POPUP -->
+  <div id="popup">
+
+    <h3>🔔 New Order!</h3>
+
+    <div id="popupText">
+      New order received.
     </div>
 
-    <div class="live">
-      🟢 LIVE
-    </div>
-
-  </div>
-
-
-  <!-- STATS -->
-
-  <div class="stats">
-
-    <div class="stat">
-      <div class="stat-icon">🔔</div>
-      <div class="stat-number" id="newCount">0</div>
-      <div class="stat-name">New Orders</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">👨‍🍳</div>
-      <div class="stat-number" id="preparingCount">0</div>
-      <div class="stat-name">Preparing</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">🍕</div>
-      <div class="stat-number" id="readyCount">0</div>
-      <div class="stat-name">Ready</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">💰</div>
-      <div class="stat-number" id="salesCount">Rs. 0</div>
-      <div class="stat-name">Today's Sales</div>
-    </div>
-
-  </div>
-
-
-  <!-- FILTER -->
-
-  <div class="filters">
-
-    <button class="filter active" data-filter="all">
-      All
-    </button>
-
-    <button class="filter" data-filter="new">
-      🔔 New
-    </button>
-
-    <button class="filter" data-filter="preparing">
-      👨‍🍳 Preparing
-    </button>
-
-    <button class="filter" data-filter="ready">
-      🍕 Ready
-    </button>
-
-    <button class="filter" data-filter="delivered">
-      ✅ Delivered
-    </button>
-
-    <button class="filter" data-filter="cancelled">
-      ❌ Cancelled
+    <button onclick="closePopup()">
+      OK
     </button>
 
   </div>
 
 
-  <!-- ORDERS -->
+  <!-- FIREBASE -->
+  <script type="module">
 
-  <div class="orders" id="orders">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-    <div class="loading">
-      Loading orders...
-    </div>
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-  </div>
+    import {
+      getFirestore,
+      collection,
+      query,
+      orderBy,
+      onSnapshot,
+      updateDoc,
+      doc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-</div>
 
-</div>
+    /* ==========================================
+       FIREBASE CONFIG
+       ========================================== */
 
+    const firebaseConfig = {
 
-<!-- POPUP -->
+      apiKey: "AIzaSyB7BB5goAsfoaJfLONsk4hbPJKLRLiEBRw",
 
-<div class="popup" id="popup">
+      authDomain: "pizzainnlayyah.firebaseapp.com",
 
-  <h2>🔔 NEW ORDER!</h2>
+      projectId: "pizzainnlayyah",
 
-  <div id="popupText"></div>
+      storageBucket: "pizzainnlayyah.firebasestorage.app",
 
-  <button id="popupClose">
-    View Order
-  </button>
+      messagingSenderId: "646104115309",
 
-</div>
+      appId: "1:646104115309:web:92bdc9d7a5549068337764",
 
+      measurementId: "G-5QLLC0TLRK"
 
-<script type="module">
+    };
 
-/* FIREBASE */
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    /* ==========================================
+       INITIALIZE FIREBASE
+       ========================================== */
 
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    const app = initializeApp(firebaseConfig);
 
-import {
-  getFirestore,
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  updateDoc,
-  doc
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    const auth = getAuth(app);
 
+    const db = getFirestore(app);
 
-const firebaseConfig = {
 
-  apiKey:"AIzaSyB7BB5goAsfoaJfONsk4hbPJKLRLiEBRw",
+    /* ==========================================
+       ELEMENTS
+       ========================================== */
 
-  authDomain:"pizzainnlayyah.firebaseapp.com",
+    const loginPage = document.getElementById("loginPage");
 
-  projectId:"pizzainnlayyah",
+    const adminPage = document.getElementById("adminPage");
 
-  storageBucket:"pizzainnlayyah.firebasestorage.app",
+    const loginBtn = document.getElementById("loginBtn");
 
-  messagingSenderId:"646104115309",
+    const logoutBtn = document.getElementById("logoutBtn");
 
-  appId:"1:646104115309:web:92bdc9d7a5549068337764",
+    const emailInput = document.getElementById("email");
 
-  measurementId:"G-5QLLC0TLRK"
+    const passwordInput = document.getElementById("password");
 
-};
+    const loginError = document.getElementById("loginError");
 
+    const ordersContainer =
+      document.getElementById("ordersContainer");
 
-const app = initializeApp(firebaseConfig);
+    const loading =
+      document.getElementById("loading");
 
-const auth = getAuth(app);
 
-const db = getFirestore(app);
+    /* ==========================================
+       VARIABLES
+       ========================================== */
 
+    let allOrders = [];
 
-/* VARIABLES */
+    let currentFilter = "all";
 
-let orders = [];
+    let firstSnapshot = true;
 
-let currentFilter = "all";
 
-let soundEnabled = true;
+    /* ==========================================
+       LOGIN
+       ========================================== */
 
-let firstSnapshot = true;
+    loginBtn.addEventListener("click", async () => {
 
-let audioContext = null;
+      const email = emailInput.value.trim();
 
-let unsubscribeOrders = null;
+      const password = passwordInput.value;
 
+      loginError.textContent = "";
 
-/* ELEMENTS */
+      if (!email || !password) {
 
-const loginPage = document.getElementById("loginPage");
+        loginError.textContent =
+          "⚠️ Email aur password dono enter karein.";
 
-const adminPage = document.getElementById("adminPage");
+        return;
 
-const loginBtn = document.getElementById("loginBtn");
+      }
 
-const logoutBtn = document.getElementById("logoutBtn");
 
-const emailInput = document.getElementById("email");
+      try {
 
-const passwordInput = document.getElementById("password");
+        loading.style.display = "flex";
 
-const loginError = document.getElementById("loginError");
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
 
+      }
 
-/* LOGIN */
+      catch (error) {
 
-async function login(){
+        console.error(error);
 
-  const email = emailInput.value.trim();
+        loginError.textContent =
+          "❌ " + (error.code || error.message);
 
-  const password = passwordInput.value;
+      }
 
-  loginError.textContent = "";
+      finally {
 
-  if(!email){
+        loading.style.display = "none";
 
-    loginError.textContent = "Email enter karein.";
+      }
 
-    return;
+    });
 
-  }
 
-  if(!password){
+    /* ENTER KEY LOGIN */
 
-    loginError.textContent = "Password enter karein.";
+    passwordInput.addEventListener("keydown", (event) => {
 
-    return;
+      if (event.key === "Enter") {
 
-  }
+        loginBtn.click();
 
-  loginBtn.disabled = true;
+      }
 
-  loginBtn.textContent = "⏳ LOGINING...";
+    });
 
-  try{
 
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    /* ==========================================
+       AUTH STATE
+       ========================================== */
 
-  }catch(error){
+    onAuthStateChanged(auth, (user) => {
 
-    console.error("LOGIN ERROR:",error);
+      if (user) {
 
-    loginError.textContent =
-      error.code
-      ? "❌ "+error.code
-      : "❌ "+error.message;
+        loginPage.style.display = "none";
 
-  }finally{
+        adminPage.style.display = "block";
 
-    loginBtn.disabled = false;
+        startOrdersListener();
 
-    loginBtn.textContent = "🔐 LOGIN";
+      }
 
-  }
+      else {
 
-}
+        loginPage.style.display = "flex";
 
+        adminPage.style.display = "none";
 
-loginBtn.addEventListener("click",login);
+      }
 
+    });
 
-passwordInput.addEventListener("keydown",function(e){
 
-  if(e.key === "Enter"){
-    login();
-  }
+    /* ==========================================
+       LOGOUT
+       ========================================== */
 
-});
+    logoutBtn.addEventListener("click", async () => {
 
+      await signOut(auth);
 
-/* AUTH */
+    });
 
-onAuthStateChanged(auth,function(user){
 
-  if(user){
+    /* ==========================================
+       ORDERS LISTENER
+       ========================================== */
 
-    loginPage.style.display = "none";
+    function startOrdersListener() {
 
-    adminPage.style.display = "block";
+      const ordersQuery = query(
+        collection(db, "orders"),
+        orderBy("createdAt", "desc")
+      );
 
-    startOrders();
 
-    requestNotifications();
+      onSnapshot(
+        ordersQuery,
 
-  }else{
+        (snapshot) => {
 
-    loginPage.style.display = "flex";
+          const newOrders = [];
 
-    adminPage.style.display = "none";
+          snapshot.forEach((documentSnapshot) => {
 
-  }
+            newOrders.push({
 
-});
+              id: documentSnapshot.id,
 
+              ...documentSnapshot.data()
 
-/* LOGOUT */
+            });
 
-logoutBtn.addEventListener("click",async function(){
+          });
 
-  if(unsubscribeOrders){
-    unsubscribeOrders();
-    unsubscribeOrders = null;
-  }
 
-  await signOut(auth);
+          /* NEW ORDER SOUND */
 
-});
+          if (!firstSnapshot && newOrders.length > allOrders.length) {
 
+            playNewOrderSound();
 
-/* NOTIFICATIONS */
+            showNewOrderPopup(
+              newOrders[0]
+            );
 
-async function requestNotifications(){
+            sendBrowserNotification(
+              newOrders[0]
+            );
 
-  if(!("Notification" in window)){
-    return;
-  }
+          }
 
-  if(Notification.permission === "default"){
 
-    try{
-      await Notification.requestPermission();
-    }catch(e){
-      console.log(e);
-    }
+          allOrders = newOrders;
 
-  }
+          firstSnapshot = false;
 
-}
+          updateStats();
 
+          renderOrders();
 
-/* SOUND */
+        },
 
-function playSound(){
+        (error) => {
 
-  if(!soundEnabled){
-    return;
-  }
+          console.error(
+            "Firestore error:",
+            error
+          );
 
-  try{
+          ordersContainer.innerHTML = `
 
-    if(!audioContext){
+            <div class="empty">
 
-      audioContext =
-        new (window.AudioContext ||
-        window.webkitAudioContext)();
+              <div class="empty-icon">⚠️</div>
+
+              <h2>Orders Load Error</h2>
+
+              <p>
+                ${escapeHtml(error.message)}
+              </p>
+
+            </div>
+
+          `;
+
+        }
+
+      );
 
     }
 
-    if(audioContext.state === "suspended"){
-      audioContext.resume();
-    }
 
-    const now = audioContext.currentTime;
+    /* ==========================================
+       UPDATE STATS
+       ========================================== */
 
-    const osc = audioContext.createOscillator();
+    function updateStats() {
 
-    const gain = audioContext.createGain();
+      let newCount = 0;
 
-    osc.type = "sine";
+      let preparingCount = 0;
 
-    osc.frequency.setValueAtTime(880,now);
+      let readyCount = 0;
 
-    osc.frequency.setValueAtTime(
-      1174,
-      now + .15
-    );
-
-    gain.gain.setValueAtTime(
-      .001,
-      now
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      .5,
-      now + .03
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      .001,
-      now + .7
-    );
-
-    osc.connect(gain);
-
-    gain.connect(audioContext.destination);
-
-    osc.start(now);
-
-    osc.stop(now + .75);
-
-  }catch(e){
-
-    console.log("Sound error:",e);
-
-  }
-
-}
+      let sales = 0;
 
 
-/* SOUND BUTTON */
+      const today = new Date();
 
-document
-.getElementById("soundBtn")
-.addEventListener("click",function(){
-
-  soundEnabled = !soundEnabled;
-
-  this.textContent =
-    soundEnabled
-    ? "🔊 Sound ON"
-    : "🔇 Sound OFF";
-
-  if(soundEnabled){
-    playSound();
-  }
-
-});
+      const todayDate =
+        today.toDateString();
 
 
-/* LIVE ORDERS */
+      allOrders.forEach((order) => {
 
-function startOrders(){
+        if (order.status === "new") {
 
-  if(unsubscribeOrders){
-    unsubscribeOrders();
-  }
+          newCount++;
 
-  firstSnapshot = true;
+        }
 
-  const ordersQuery = query(
-    collection(db,"orders"),
-    orderBy("createdAt","desc")
-  );
+        if (order.status === "preparing") {
 
-  unsubscribeOrders = onSnapshot(
+          preparingCount++;
 
-    ordersQuery,
+        }
 
-    function(snapshot){
+        if (order.status === "ready") {
 
-      const incoming = [];
+          readyCount++;
 
-      snapshot.docChanges().forEach(function(change){
+        }
 
-        if(
-          change.type === "added" &&
-          !firstSnapshot
-        ){
 
-          const order = change.doc.data();
+        if (
+          order.status !== "cancelled"
+          &&
+          order.status !== "new"
+        ) {
 
-          if(order.status === "new"){
-            incoming.push(order);
+          let orderDate = null;
+
+          try {
+
+            if (order.createdAt?.toDate) {
+
+              orderDate =
+                order.createdAt.toDate();
+
+            }
+
+          }
+
+          catch (e) {}
+
+
+          if (
+            orderDate &&
+            orderDate.toDateString() === todayDate
+          ) {
+
+            sales += Number(order.total || 0);
+
           }
 
         }
@@ -1048,625 +1105,715 @@ function startOrders(){
       });
 
 
-      orders = snapshot.docs.map(function(item){
-
-        return {
-          id:item.id,
-          ...item.data()
-        };
-
-      });
+      document.getElementById(
+        "newCount"
+      ).textContent = newCount;
 
 
-      updateStats();
+      document.getElementById(
+        "preparingCount"
+      ).textContent = preparingCount;
 
-      renderOrders();
+
+      document.getElementById(
+        "readyCount"
+      ).textContent = readyCount;
 
 
-      if(incoming.length){
+      document.getElementById(
+        "todaySales"
+      ).textContent =
+        "Rs. " + sales.toLocaleString();
 
-        incoming.forEach(function(order){
+    }
 
-          newOrderAlert(order);
 
-        });
+    /* ==========================================
+       RENDER ORDERS
+       ========================================== */
+
+    function renderOrders() {
+
+      let orders = [...allOrders];
+
+
+      if (currentFilter !== "all") {
+
+        orders =
+          orders.filter(
+            order =>
+              order.status === currentFilter
+          );
 
       }
 
 
-      firstSnapshot = false;
+      if (!orders.length) {
 
-    },
+        ordersContainer.innerHTML = `
 
-    function(error){
+          <div class="empty">
 
-      console.error("FIRESTORE ERROR:",error);
+            <div class="empty-icon">🍕</div>
 
-      document.getElementById("orders").innerHTML = `
+            <h2>No Orders Found</h2>
 
-        <div class="empty">
+            <p>
+              Is filter mein abhi koi order nahi hai.
+            </p>
 
-          <div class="empty-icon">⚠️</div>
+          </div>
 
-          <h2>Orders Load Nahi Ho Rahe</h2>
+        `;
 
-          <p>
-            Firebase Firestore rules ya connection check karein.
-          </p>
+        return;
 
-        </div>
-
-      `;
-
-    }
-
-  );
-
-}
-
-
-/* NEW ORDER */
-
-function newOrderAlert(order){
-
-  playSound();
-
-  const popup = document.getElementById("popup");
-
-  const text = document.getElementById("popupText");
-
-  text.innerHTML = `
-
-    <strong>
-      Order #${escapeHTML(order.orderNumber || "NEW")}
-    </strong>
-
-    <br>
-
-    👤 ${escapeHTML(order.customerName || "Customer")}
-
-    <br>
-
-    📞 ${escapeHTML(order.phone || "")}
-
-    <br>
-
-    💰 Rs. ${Number(order.total || 0).toLocaleString()}
-
-  `;
-
-  popup.classList.add("show");
-
-
-  if(
-    "Notification" in window &&
-    Notification.permission === "granted"
-  ){
-
-    try{
-
-      new Notification(
-        "🍕 Pizza Inn — NEW ORDER!",
-        {
-          body:
-            "Order #"+
-            (order.orderNumber || "NEW")+
-            " • Rs. "+
-            (order.total || 0)
-        }
-      );
-
-    }catch(e){
-
-      console.log(e);
-
-    }
-
-  }
-
-
-  setTimeout(function(){
-
-    popup.classList.remove("show");
-
-  },10000);
-
-}
-
-
-document
-.getElementById("popupClose")
-.addEventListener("click",function(){
-
-  document
-    .getElementById("popup")
-    .classList.remove("show");
-
-});
-
-
-/* STATS */
-
-function updateStats(){
-
-  const newOrders =
-    orders.filter(x=>x.status==="new").length;
-
-  const preparing =
-    orders.filter(x=>x.status==="preparing").length;
-
-  const ready =
-    orders.filter(x=>x.status==="ready").length;
-
-
-  document.getElementById("newCount")
-    .textContent = newOrders;
-
-  document.getElementById("preparingCount")
-    .textContent = preparing;
-
-  document.getElementById("readyCount")
-    .textContent = ready;
-
-
-  const now = new Date();
-
-  const start = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate()
-  );
-
-
-  let sales = 0;
-
-
-  orders.forEach(function(order){
-
-    if(
-      order.status === "cancelled" ||
-      !order.createdAt
-    ){
-      return;
-    }
-
-    try{
-
-      const date = order.createdAt.toDate();
-
-      if(date >= start){
-        sales += Number(order.total || 0);
       }
 
-    }catch(e){}
 
-  });
+      ordersContainer.innerHTML =
+        orders.map(createOrderCard).join("");
 
-
-  document.getElementById("salesCount")
-    .textContent =
-      "Rs. "+sales.toLocaleString();
-
-}
+    }
 
 
-/* FILTER */
+    /* ==========================================
+       ORDER CARD
+       ========================================== */
 
-document
-.querySelectorAll(".filter")
-.forEach(function(button){
+    function createOrderCard(order) {
 
-  button.addEventListener("click",function(){
-
-    document
-      .querySelectorAll(".filter")
-      .forEach(function(x){
-        x.classList.remove("active");
-      });
-
-    this.classList.add("active");
-
-    currentFilter =
-      this.dataset.filter;
-
-    renderOrders();
-
-  });
-
-});
+      const status =
+        order.status || "new";
 
 
-/* RENDER */
-
-function renderOrders(){
-
-  const box =
-    document.getElementById("orders");
-
-  let list = [...orders];
+      const statusClass =
+        "status-" + status;
 
 
-  if(currentFilter !== "all"){
-
-    list =
-      list.filter(function(order){
-
-        return order.status === currentFilter;
-
-      });
-
-  }
+      const created =
+        formatDate(order.createdAt);
 
 
-  if(!list.length){
-
-    box.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">🍕</div>
-
-        <h2>No Orders</h2>
-
-        <p>
-          Abhi is category mein koi order nahi hai.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
+      const orderNumber =
+        order.orderNumber ||
+        order.id.substring(0, 8);
 
 
-  box.innerHTML = "";
+      const itemsHtml =
+        (order.items || [])
+          .map(item => `
+
+            <div class="item">
+
+              <div>
+
+                <span class="item-name">
+                  ${escapeHtml(item.name || "")}
+                </span>
+
+                ${
+                  item.option
+                  ?
+                  `<span class="item-option">
+                    ${escapeHtml(item.option)}
+                  </span>`
+                  :
+                  ""
+                }
+
+                <span class="item-option">
+                  Qty: ${Number(item.quantity || 1)}
+                </span>
+
+              </div>
+
+              <div class="item-price">
+                Rs.
+                ${Number(
+                  item.subtotal ||
+                  (
+                    Number(item.price || 0)
+                    *
+                    Number(item.quantity || 1)
+                  )
+                ).toLocaleString()}
+              </div>
+
+            </div>
+
+          `)
+          .join("");
 
 
-  list.forEach(function(order){
-
-    const card =
-      document.createElement("div");
-
-    const status =
-      order.status || "new";
-
-    card.className =
-      "order "+
-      (status === "new" ? "new" : "");
+      let orderType =
+        order.orderType || "dine-in";
 
 
-    let itemsHTML = "";
+      let typeText = {
 
-    const items =
-      Array.isArray(order.items)
-      ? order.items
-      : [];
+        "dine-in": "🍽️ Dine In",
 
+        "takeaway": "🥡 Takeaway",
 
-    items.forEach(function(item){
+        "delivery": "🛵 Delivery"
 
-      const quantity =
-        Number(
-          item.quantity ||
-          item.qty ||
-          1
-        );
-
-      const itemPrice =
-        Number(item.price || 0);
-
-      const subtotal =
-        Number(item.subtotal) ||
-        itemPrice * quantity;
+      }[orderType] || orderType;
 
 
-      itemsHTML += `
+      return `
 
-        <div class="item">
+        <div class="order-card ${status === "new" ? "new" : ""}">
 
-          <div>
+          <div class="order-top">
 
-            <div class="item-name">
-              ${quantity} ×
-              ${escapeHTML(item.name || "")}
+            <div>
+
+              <div class="order-number">
+                #${escapeHtml(orderNumber)}
+              </div>
+
+              <div class="order-time">
+                ${created}
+              </div>
+
+            </div>
+
+            <div class="status ${statusClass}">
+              ${escapeHtml(status)}
+            </div>
+
+          </div>
+
+
+          <div class="customer">
+
+            <div>
+              👤 <strong>Customer:</strong>
+              ${escapeHtml(order.customerName || "-")}
+            </div>
+
+            <div>
+              📞 <strong>Phone:</strong>
+              ${escapeHtml(order.phone || "-")}
+            </div>
+
+            <div>
+              🍴 <strong>Type:</strong>
+              ${escapeHtml(typeText)}
             </div>
 
             ${
-              item.option
-              ? `<div class="option">
-                  ${escapeHTML(item.option)}
-                </div>`
-              : ""
+              order.tableNumber
+              ?
+              `
+              <div>
+                🪑 <strong>Table:</strong>
+                ${escapeHtml(order.tableNumber)}
+              </div>
+              `
+              :
+              ""
+            }
+
+            ${
+              order.address
+              ?
+              `
+              <div>
+                📍 <strong>Address:</strong>
+                ${escapeHtml(order.address)}
+              </div>
+              `
+              :
+              ""
+            }
+
+            ${
+              order.notes
+              ?
+              `
+              <div>
+                📝 <strong>Notes:</strong>
+                ${escapeHtml(order.notes)}
+              </div>
+              `
+              :
+              ""
             }
 
           </div>
 
-          <div class="price">
-            Rs. ${subtotal.toLocaleString()}
+
+          <div class="items">
+
+            <h3>🛒 Order Items</h3>
+
+            ${
+              itemsHtml ||
+              "<p>No items found.</p>"
+            }
+
+          </div>
+
+
+          <div class="total">
+
+            <span>Total</span>
+
+            <span>
+              Rs.
+              ${Number(
+                order.total || 0
+              ).toLocaleString()}
+            </span>
+
+          </div>
+
+
+          <div class="actions">
+
+            ${
+              status !== "preparing"
+              &&
+              status !== "delivered"
+              &&
+              status !== "cancelled"
+              ?
+              `
+              <button
+                class="action-btn prepare"
+                onclick="changeStatus('${order.id}', 'preparing')"
+              >
+                👨‍🍳 Preparing
+              </button>
+              `
+              :
+              ""
+            }
+
+
+            ${
+              status !== "ready"
+              &&
+              status !== "delivered"
+              &&
+              status !== "cancelled"
+              ?
+              `
+              <button
+                class="action-btn ready"
+                onclick="changeStatus('${order.id}', 'ready')"
+              >
+                ✅ Ready
+              </button>
+              `
+              :
+              ""
+            }
+
+
+            ${
+              status !== "delivered"
+              &&
+              status !== "cancelled"
+              ?
+              `
+              <button
+                class="action-btn deliver"
+                onclick="changeStatus('${order.id}', 'delivered')"
+              >
+                🚚 Delivered
+              </button>
+              `
+              :
+              ""
+            }
+
+
+            ${
+              status !== "cancelled"
+              &&
+              status !== "delivered"
+              ?
+              `
+              <button
+                class="action-btn cancel"
+                onclick="changeStatus('${order.id}', 'cancelled')"
+              >
+                ❌ Cancel
+              </button>
+              `
+              :
+              ""
+            }
+
           </div>
 
         </div>
 
       `;
 
-    });
-
-
-    let orderType = "🥡 TAKEAWAY";
-
-    if(order.orderType === "dine-in"){
-      orderType = "🪑 DINE-IN";
-    }
-
-    if(order.orderType === "delivery"){
-      orderType = "🏠 DELIVERY";
     }
 
 
-    card.innerHTML = `
+    /* ==========================================
+       CHANGE ORDER STATUS
+       ========================================== */
 
-      <div class="order-head">
+    window.changeStatus =
+      async function(orderId, newStatus) {
 
-        <div>
+        try {
 
-          <div class="order-number">
-            #${escapeHTML(
-              order.orderNumber ||
-              order.id.slice(-6)
-            )}
-          </div>
+          await updateDoc(
+            doc(db, "orders", orderId),
 
-          <div class="time">
-            ${formatTime(order.createdAt)}
-          </div>
+            {
+              status: newStatus,
 
-        </div>
+              updatedAt: serverTimestamp()
 
-        <div class="badge badge-${status}">
-          ${escapeHTML(status)}
-        </div>
+            }
 
-      </div>
-
-
-      <div class="type">
-        ${orderType}
-      </div>
-
-
-      <div class="customer">
-
-        <div>
-          👤 <strong>
-            ${escapeHTML(
-              order.customerName ||
-              "Customer"
-            )}
-          </strong>
-        </div>
-
-        <div>
-          📞 ${escapeHTML(order.phone || "")}
-        </div>
-
-        ${
-          order.tableNumber
-          ? `
-            <div>
-              🪑 Table:
-              <strong>
-                ${escapeHTML(order.tableNumber)}
-              </strong>
-            </div>
-          `
-          : ""
-        }
-
-        ${
-          order.address
-          ? `
-            <div>
-              🏠 ${escapeHTML(order.address)}
-            </div>
-          `
-          : ""
-        }
-
-      </div>
-
-
-      <div class="items">
-
-        ${itemsHTML}
-
-      </div>
-
-
-      ${
-        order.notes
-        ? `
-          <div class="notes">
-            📝 <strong>Note:</strong>
-            ${escapeHTML(order.notes)}
-          </div>
-        `
-        : ""
-      }
-
-
-      <div class="total">
-
-        <span>Total</span>
-
-        <span>
-          Rs.
-          ${Number(
-            order.total || 0
-          ).toLocaleString()}
-        </span>
-
-      </div>
-
-
-      <div class="status-buttons">
-
-        ${
-          status !== "preparing"
-          ? `
-            <button
-              class="status-btn preparing"
-              data-id="${order.id}"
-              data-status="preparing">
-              👨‍🍳 Preparing
-            </button>
-          `
-          : ""
-        }
-
-        ${
-          status !== "ready"
-          ? `
-            <button
-              class="status-btn ready"
-              data-id="${order.id}"
-              data-status="ready">
-              🍕 Ready
-            </button>
-          `
-          : ""
-        }
-
-        ${
-          status !== "delivered"
-          ? `
-            <button
-              class="status-btn delivered"
-              data-id="${order.id}"
-              data-status="delivered">
-              ✅ Delivered
-            </button>
-          `
-          : ""
-        }
-
-        ${
-          status !== "cancelled"
-          ? `
-            <button
-              class="status-btn cancelled"
-              data-id="${order.id}"
-              data-status="cancelled">
-              ❌ Cancel
-            </button>
-          `
-          : ""
-        }
-
-      </div>
-
-    `;
-
-
-    box.appendChild(card);
-
-  });
-
-
-  document
-    .querySelectorAll(".status-btn")
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        function(){
-
-          changeStatus(
-            this.dataset.id,
-            this.dataset.status
           );
 
         }
-      );
 
-    });
+        catch (error) {
 
-}
+          alert(
+            "Status update failed:\n" +
+            error.message
+          );
 
+          console.error(error);
 
-/* CHANGE STATUS */
-
-async function changeStatus(id,status){
-
-  try{
-
-    await updateDoc(
-      doc(db,"orders",id),
-      {
-        status:status,
-        updatedAt:new Date()
-      }
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "Status update nahi ho saka."
-    );
-
-  }
-
-}
-
-
-/* TIME */
-
-function formatTime(timestamp){
-
-  if(!timestamp){
-    return "Just now";
-  }
-
-  try{
-
-    return timestamp
-      .toDate()
-      .toLocaleString(
-        "en-PK",
-        {
-          day:"2-digit",
-          month:"short",
-          hour:"2-digit",
-          minute:"2-digit"
         }
-      );
 
-  }catch(e){
-
-    return "Just now";
-
-  }
-
-}
+      };
 
 
-/* SECURITY */
+    /* ==========================================
+       FILTER BUTTONS
+       ========================================== */
 
-function escapeHTML(value){
+    document
+      .querySelectorAll(".filter-btn")
+      .forEach(button => {
 
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+        button.addEventListener(
+          "click",
+          () => {
 
-}
+            document
+              .querySelectorAll(".filter-btn")
+              .forEach(btn =>
+                btn.classList.remove("active")
+              );
 
-</script>
+
+            button.classList.add("active");
+
+
+            currentFilter =
+              button.dataset.filter;
+
+
+            renderOrders();
+
+          }
+        );
+
+      });
+
+
+    /* ==========================================
+       REFRESH
+       ========================================== */
+
+    document
+      .getElementById("refreshBtn")
+      .addEventListener("click", () => {
+
+        renderOrders();
+
+        updateStats();
+
+      });
+
+
+    /* ==========================================
+       NEW ORDER SOUND
+       ========================================== */
+
+    function playNewOrderSound() {
+
+      try {
+
+        const AudioContext =
+          window.AudioContext ||
+          window.webkitAudioContext;
+
+
+        const audioContext =
+          new AudioContext();
+
+
+        const oscillator =
+          audioContext.createOscillator();
+
+
+        const gain =
+          audioContext.createGain();
+
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(
+          700,
+          audioContext.currentTime
+        );
+
+        oscillator.frequency.setValueAtTime(
+          950,
+          audioContext.currentTime + .15
+        );
+
+        oscillator.frequency.setValueAtTime(
+          700,
+          audioContext.currentTime + .30
+        );
+
+
+        gain.gain.setValueAtTime(
+          .001,
+          audioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+          .35,
+          audioContext.currentTime + .03
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+          .001,
+          audioContext.currentTime + .6
+        );
+
+
+        oscillator.connect(gain);
+
+        gain.connect(
+          audioContext.destination
+        );
+
+
+        oscillator.start();
+
+        oscillator.stop(
+          audioContext.currentTime + .65
+        );
+
+      }
+
+      catch (error) {
+
+        console.log(
+          "Sound unavailable",
+          error
+        );
+
+      }
+
+    }
+
+
+    /* ==========================================
+       POPUP
+       ========================================== */
+
+    function showNewOrderPopup(order) {
+
+      const popup =
+        document.getElementById("popup");
+
+
+      const popupText =
+        document.getElementById("popupText");
+
+
+      popupText.innerHTML = `
+
+        Order
+        <strong>
+          #${escapeHtml(
+            order?.orderNumber || ""
+          )}
+        </strong>
+        received!<br><br>
+
+        Customer:
+        ${escapeHtml(
+          order?.customerName || "-"
+        )}
+
+      `;
+
+
+      popup.classList.add("show");
+
+
+      setTimeout(() => {
+
+        popup.classList.remove("show");
+
+      }, 7000);
+
+    }
+
+
+    window.closePopup =
+      function() {
+
+        document
+          .getElementById("popup")
+          .classList.remove("show");
+
+      };
+
+
+    /* ==========================================
+       BROWSER NOTIFICATION
+       ========================================== */
+
+    async function sendBrowserNotification(order) {
+
+      try {
+
+        if (
+          !("Notification" in window)
+        ) {
+
+          return;
+
+        }
+
+
+        if (
+          Notification.permission ===
+          "default"
+        ) {
+
+          await Notification.requestPermission();
+
+        }
+
+
+        if (
+          Notification.permission ===
+          "granted"
+        ) {
+
+          new Notification(
+            "🍕 Pizza Inn — New Order",
+            {
+
+              body:
+                "Order #" +
+                (
+                  order?.orderNumber || ""
+                ) +
+                " from " +
+                (
+                  order?.customerName ||
+                  "Customer"
+                ),
+
+              icon:
+                "pizza-inn-menu-qr.png"
+
+            }
+
+          );
+
+        }
+
+      }
+
+      catch (error) {
+
+        console.log(
+          "Notification unavailable",
+          error
+        );
+
+      }
+
+    }
+
+
+    /* ==========================================
+       FORMAT DATE
+       ========================================== */
+
+    function formatDate(timestamp) {
+
+      if (!timestamp) {
+
+        return "Just now";
+
+      }
+
+
+      try {
+
+        const date =
+          timestamp.toDate
+          ?
+          timestamp.toDate()
+          :
+          new Date(timestamp);
+
+
+        return date.toLocaleString(
+          "en-PK",
+          {
+
+            dateStyle: "medium",
+
+            timeStyle: "short"
+
+          }
+        );
+
+      }
+
+      catch (error) {
+
+        return "Unknown time";
+
+      }
+
+    }
+
+
+    /* ==========================================
+       SECURITY / HTML ESCAPE
+       ========================================== */
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
+
+  </script>
 
 </body>
 </html>
