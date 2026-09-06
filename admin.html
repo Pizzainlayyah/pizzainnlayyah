@@ -876,23 +876,62 @@ document
 .getElementById("loginBtn")
 .addEventListener("click",login);
 
-
 async function login(){
 
-  const email=
-    document.getElementById("email").value.trim();
-
-  const password=
-    document.getElementById("password").value;
-
-  const error=
-    document.getElementById("loginError");
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const error = document.getElementById("loginError");
+  const btn = document.getElementById("loginBtn");
 
   if(!email || !password){
+    error.textContent = "Email aur password enter karein.";
+    return;
+  }
 
-    error.textContent=
-      "Email aur password enter karein.";
+  error.textContent = "";
 
+  btn.disabled = true;
+  btn.textContent = "⏳ Logging in...";
+
+  try {
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+  } catch(err) {
+
+    console.error("Firebase Login Error:", err);
+
+    if(err.code === "auth/invalid-credential"){
+      error.textContent = "❌ Email ya password ghalat hai.";
+    }
+    else if(err.code === "auth/user-not-found"){
+      error.textContent = "❌ Ye email Firebase mein nahi hai.";
+    }
+    else if(err.code === "auth/wrong-password"){
+      error.textContent = "❌ Password ghalat hai.";
+    }
+    else if(err.code === "auth/invalid-email"){
+      error.textContent = "❌ Email format ghalat hai.";
+    }
+    else if(err.code === "auth/operation-not-allowed"){
+      error.textContent = "❌ Firebase Email/Password Login enabled nahi hai.";
+    }
+    else if(err.code === "auth/network-request-failed"){
+      error.textContent = "❌ Internet connection ka issue hai.";
+    }
+    else {
+      error.textContent = "❌ Firebase Error: " + err.code;
+    }
+
+  }
+
+  btn.disabled = false;
+  btn.textContent = "🔐 LOGIN";
+}
     return;
   }
 
