@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pizza Inn — Admin Panel</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f5f5;
+  color:#201d1d;
+}
+
+:root{
+  --yellow:#f7c600;
+  --red:#df2027;
+  --dark:#201d1d;
+  --green:#159447;
+  --blue:#1479d1;
+  --orange:#ef8c00;
+}
+
+/* LOGIN */
+
+.login-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 10% 20%,#f7c60055 0 100px,transparent 101px),
+    radial-gradient(circle at 90% 80%,#df202755 0 130px,transparent 131px),
+    #fff9e7;
+}
+
+.login-box{
+  width:100%;
+  max-width:420px;
+  background:white;
+  padding:32px;
+  border-radius:25px;
+  box-shadow:0 20px 60px #0003;
+  text-align:center;
+  animation:pop .5s ease;
+}
+
+.logo{
+  font-size:42px;
+  font-weight:900;
+  color:var(--red);
+}
+
+.login-box h2{
+  margin:5px 0 25px;
+}
+
+.input{
+  width:100%;
+  padding:14px;
+  border:2px solid #eee;
+  border-radius:12px;
+  margin-bottom:12px;
+  font-size:16px;
+  outline:none;
+}
+
+.input:focus{
+  border-color:var(--yellow);
+}
+
+.login-btn{
+  width:100%;
+  border:0;
+  background:var(--red);
+  color:white;
+  padding:14px;
+  border-radius:12px;
+  font-weight:900;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 5px 0 #a90e13;
+}
+
+.login-btn:active{
+  transform:translateY(3px);
+  box-shadow:0 2px 0 #a90e13;
+}
+
+.error{
+  color:var(--red);
+  font-weight:bold;
+  margin-top:12px;
+}
+
+
+/* ADMIN */
+
+#adminPage{
+  display:none;
+}
+
+header{
+  background:linear-gradient(135deg,#f7c600,#ffd936,#f7c600);
+  padding:18px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  position:sticky;
+  top:0;
+  z-index:50;
+  box-shadow:0 5px 20px #0002;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.brand-icon{
+  font-size:38px;
+}
+
+.brand-text{
+  font-size:24px;
+  font-weight:900;
+}
+
+.brand-text span{
+  color:var(--red);
+}
+
+.header-actions{
+  display:flex;
+  gap:8px;
+}
+
+.header-btn{
+  border:0;
+  padding:10px 14px;
+  border-radius:999px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.sound-btn{
+  background:white;
+}
+
+.logout-btn{
+  background:var(--red);
+  color:white;
+}
+
+
+/* DASHBOARD */
+
+.container{
+  max-width:1300px;
+  margin:auto;
+  padding:20px;
+}
+
+.top-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.top-row h1{
+  margin:0;
+}
+
+.live{
+  background:#e9fff0;
+  color:var(--green);
+  padding:9px 14px;
+  border-radius:999px;
+  font-weight:900;
+  animation:pulse 2s infinite;
+}
+
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 5px 20px #0001;
+  position:relative;
+  overflow:hidden;
+}
+
+.stat:after{
+  content:"";
+  position:absolute;
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:#f7c60022;
+  right:-20px;
+  bottom:-20px;
+}
+
+.stat-icon{
+  font-size:27px;
+}
+
+.stat-number{
+  font-size:30px;
+  font-weight:900;
+  margin-top:8px;
+}
+
+.stat-title{
+  color:#777;
+  font-weight:bold;
+}
+
+
+/* FILTER */
+
+.filters{
+  background:white;
+  padding:12px;
+  border-radius:15px;
+  margin-bottom:18px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.filter{
+  border:0;
+  background:#eee;
+  padding:9px 14px;
+  border-radius:999px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.filter.active{
+  background:var(--red);
+  color:white;
+}
+
+
+/* ORDERS */
+
+.orders{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:16px;
+}
+
+.order{
+  background:white;
+  border-radius:20px;
+  padding:18px;
+  box-shadow:0 5px 25px #0001;
+  border-left:6px solid var(--yellow);
+  animation:orderIn .45s ease;
+}
+
+.order.new{
+  border-left-color:var(--red);
+  animation:newOrder .7s ease;
+}
+
+.order-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+}
+
+.order-number{
+  font-size:22px;
+  font-weight:900;
+  color:var(--red);
+}
+
+.time{
+  color:#777;
+  font-size:13px;
+  margin-top:3px;
+}
+
+.badge{
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.badge-new{
+  background:#ffe0e0;
+  color:var(--red);
+}
+
+.badge-preparing{
+  background:#fff0c4;
+  color:#9a6500;
+}
+
+.badge-ready{
+  background:#dceeff;
+  color:#1265a8;
+}
+
+.badge-delivered{
+  background:#dcf8e5;
+  color:var(--green);
+}
+
+.badge-cancelled{
+  background:#eee;
+  color:#666;
+}
+
+.customer{
+  background:#fafafa;
+  border-radius:12px;
+  padding:12px;
+  margin:14px 0;
+}
+
+.customer div{
+  margin:5px 0;
+}
+
+.items{
+  border-top:1px solid #eee;
+  border-bottom:1px solid #eee;
+  padding:10px 0;
+}
+
+.item-line{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:7px 0;
+}
+
+.item-name{
+  font-weight:800;
+}
+
+.item-option{
+  color:#777;
+  font-size:13px;
+}
+
+.item-price{
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.order-total{
+  display:flex;
+  justify-content:space-between;
+  padding:14px 0;
+  font-size:20px;
+  font-weight:900;
+  color:var(--red);
+}
+
+.order-type{
+  display:inline-block;
+  background:#fff4c5;
+  padding:6px 9px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.notes{
+  background:#fff9e7;
+  padding:10px;
+  border-radius:10px;
+  margin-bottom:12px;
+  font-size:14px;
+}
+
+.status-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.status-btn{
+  border:0;
+  padding:10px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.status-btn:hover{
+  transform:translateY(-2px);
+}
+
+.preparing{
+  background:#fff0c4;
+}
+
+.ready{
+  background:#dceeff;
+}
+
+.delivered{
+  background:#dcf8e5;
+}
+
+.cancelled{
+  background:#ffe0e0;
+  color:var(--red);
+}
+
+
+/* EMPTY */
+
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  background:white;
+  border-radius:20px;
+  padding:50px 20px;
+  color:#777;
+}
+
+.empty-icon{
+  font-size:60px;
+}
+
+
+/* NOTIFICATION */
+
+.notification{
+  position:fixed;
+  right:20px;
+  top:85px;
+  width:min(380px,calc(100% - 40px));
+  background:white;
+  border-radius:18px;
+  padding:17px;
+  box-shadow:0 15px 50px #0004;
+  z-index:999;
+  transform:translateX(450px);
+  transition:.45s cubic-bezier(.2,1.4,.4,1);
+  border-left:6px solid var(--red);
+}
+
+.notification.show{
+  transform:translateX(0);
+}
+
+.notification-title{
+  color:var(--red);
+  font-size:19px;
+  font-weight:900;
+}
+
+.notification button{
+  border:0;
+  background:var(--red);
+  color:white;
+  padding:8px 12px;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:8px;
+}
+
+
+/* ANIMATION */
+
+@keyframes pop{
+  from{
+    opacity:0;
+    transform:scale(.8);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 #15944733}
+  50%{box-shadow:0 0 0 8px #15944700}
+}
+
+@keyframes orderIn{
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+@keyframes newOrder{
+  0%{
+    transform:scale(.94);
+    box-shadow:0 0 0 0 #df202755;
+  }
+  60%{
+    transform:scale(1.02);
+    box-shadow:0 0 0 12px #df202700;
+  }
+  100%{
+    transform:scale(1);
+  }
+}
+
+@media(max-width:800px){
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  header{
+    align-items:flex-start;
+  }
+
+  .brand-text{
+    font-size:19px;
+  }
+
+  .brand-icon{
+    font-size:30px;
+  }
+}
+
+@media(max-width:520px){
+  .container{
+    padding:12px;
+  }
+
+  .orders{
+    grid-template-columns:1fr;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .stat{
+    padding:14px;
+  }
+
+  .stat-number{
+    font-size:24px;
+  }
+
+  .top-row{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- ================= LOGIN ================= -->
+
+<div class="login-page" id="loginPage">
+
+  <div class="login-box">
+
+    <div class="logo">🍕</div>
+
+    <h2>Pizza Inn Admin</h2>
+
+    <p style="color:#777">
+      Restaurant Management Panel
+    </p>
+
+    <input
+      class="input"
+      id="email"
+      type="email"
+      placeholder="Admin Email"
+    >
+
+    <input
+      class="input"
+      id="password"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button class="login-btn" id="loginBtn">
+      🔐 LOGIN
+    </button>
+
+    <div class="error" id="loginError"></div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= ADMIN PAGE ================= -->
+
+<div id="adminPage">
+
+<header>
+
+  <div class="brand">
+
+    <div class="brand-icon">🍕</div>
+
+    <div class="brand-text">
+      Pizza <span>Inn</span>
+      <small style="display:block;font-size:11px;color:#333">
+        Layyah • Admin Panel
+      </small>
+    </div>
+
+  </div>
+
+  <div class="header-actions">
+
+    <button
+      class="header-btn sound-btn"
+      id="soundBtn"
+      onclick="toggleSound()">
+      🔊 Sound ON
+    </button>
+
+    <button
+      class="header-btn logout-btn"
+      onclick="logout()">
+      Logout
+    </button>
+
+  </div>
+
+</header>
+
+
+<div class="container">
+
+  <div class="top-row">
+
+    <div>
+      <h1>Orders Dashboard</h1>
+      <p style="color:#777;margin:5px 0">
+        Manage your restaurant orders in real time.
+      </p>
+    </div>
+
+    <div class="live">
+      🟢 LIVE
+    </div>
+
+  </div>
+
+
+  <!-- STATS -->
+
+  <div class="stats">
+
+    <div class="stat">
+      <div class="stat-icon">🔔</div>
+      <div class="stat-number" id="newCount">0</div>
+      <div class="stat-title">New Orders</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">👨‍🍳</div>
+      <div class="stat-number" id="preparingCount">0</div>
+      <div class="stat-title">Preparing</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">🍕</div>
+      <div class="stat-number" id="readyCount">0</div>
+      <div class="stat-title">Ready</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">💰</div>
+      <div class="stat-number" id="salesCount">Rs. 0</div>
+      <div class="stat-title">Today's Sales</div>
+    </div>
+
+  </div>
+
+
+  <!-- FILTER -->
+
+  <div class="filters">
+
+    <button
+      class="filter active"
+      onclick="setFilter('all',this)">
+      All
+    </button>
+
+    <button
+      class="filter"
+      onclick="setFilter('new',this)">
+      🔔 New
+    </button>
+
+    <button
+      class="filter"
+      onclick="setFilter('preparing',this)">
+      👨‍🍳 Preparing
+    </button>
+
+    <button
+      class="filter"
+      onclick="setFilter('ready',this)">
+      🍕 Ready
+    </button>
+
+    <button
+      class="filter"
+      onclick="setFilter('delivered',this)">
+      ✅ Delivered
+    </button>
+
+    <button
+      class="filter"
+      onclick="setFilter('cancelled',this)">
+      ❌ Cancelled
+    </button>
+
+  </div>
+
+
+  <!-- ORDERS -->
+
+  <div class="orders" id="orders">
+
+    <div class="empty">
+
+      <div class="empty-icon">🍕</div>
+
+      <h2>Waiting for orders...</h2>
+
+      <p>New customer orders will appear here automatically.</p>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- ================= NEW ORDER NOTIFICATION ================= -->
+
+<div class="notification" id="notification">
+
+  <div class="notification-title">
+    🔔 NEW ORDER!
+  </div>
+
+  <div id="notificationText">
+    New order received.
+  </div>
+
+  <button onclick="hideNotification()">
+    View Order
+  </button>
+
+</div>
+
+
+<script type="module">
+
+/* ============================================
+   FIREBASE
+============================================ */
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  updateDoc,
+  doc
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+  apiKey:"AIzaSyB7BB5goAsfoaJfONsk4hbPJKLRLiEBRw",
+
+  authDomain:"pizzainnlayyah.firebaseapp.com",
+
+  projectId:"pizzainnlayyah",
+
+  storageBucket:"pizzainnlayyah.firebasestorage.app",
+
+  messagingSenderId:"646104115309",
+
+  appId:"1:646104115309:web:92bdc9d7a5549068337764",
+
+  measurementId:"G-5QLLC0TLRK"
+};
+
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const db=getFirestore(app);
+
+
+/* ============================================
+   VARIABLES
+============================================ */
+
+let allOrders=[];
+
+let currentFilter="all";
+
+let soundEnabled=true;
+
+let firstLoad=true;
+
+let audioContext=null;
+
+
+/* ============================================
+   LOGIN
+============================================ */
+
+document
+.getElementById("loginBtn")
+.addEventListener("click",login);
+
+
+async function login(){
+
+  const email=
+    document.getElementById("email").value.trim();
+
+  const password=
+    document.getElementById("password").value;
+
+  const error=
+    document.getElementById("loginError");
+
+  if(!email || !password){
+
+    error.textContent=
+      "Email aur password enter karein.";
+
+    return;
+  }
+
+  error.textContent="";
+
+  const btn=
+    document.getElementById("loginBtn");
+
+  btn.disabled=true;
+  btn.textContent="⏳ Logging in...";
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+  }
+  catch(err){
+
+    console.error(err);
+
+    error.textContent=
+      "Login failed. Email ya password check karein.";
+
+  }
+
+  btn.disabled=false;
+  btn.textContent="🔐 LOGIN";
+}
+
+
+/* ============================================
+   AUTH STATE
+============================================ */
+
+onAuthStateChanged(auth,user=>{
+
+  if(user){
+
+    document.getElementById("loginPage")
+      .style.display="none";
+
+    document.getElementById("adminPage")
+      .style.display="block";
+
+    startOrders();
+
+    // Browser notification permission
+    if("Notification" in window){
+
+      if(Notification.permission==="default"){
+
+        Notification.requestPermission();
+
+      }
+
+    }
+
+  }
+  else{
+
+    document.getElementById("loginPage")
+      .style.display="flex";
+
+    document.getElementById("adminPage")
+      .style.display="none";
+
+  }
+
+});
+
+
+/* ============================================
+   LOGOUT
+============================================ */
+
+window.logout=async function(){
+
+  await signOut(auth);
+
+};
+
+
+/* ============================================
+   SOUND
+============================================ */
+
+function playSound(){
+
+  if(!soundEnabled)return;
+
+  try{
+
+    if(!audioContext){
+
+      audioContext=
+        new (window.AudioContext ||
+        window.webkitAudioContext)();
+
+    }
+
+    const now=
+      audioContext.currentTime;
+
+    const osc=
+      audioContext.createOscillator();
+
+    const gain=
+      audioContext.createGain();
+
+    osc.type="sine";
+
+    osc.frequency.setValueAtTime(
+      880,
+      now
+    );
+
+    osc.frequency.setValueAtTime(
+      1174,
+      now+.12
+    );
+
+    gain.gain.setValueAtTime(
+      .0001,
+      now
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .5,
+      now+.03
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .0001,
+      now+.65
+    );
+
+    osc.connect(gain);
+
+    gain.connect(
+      audioContext.destination
+    );
+
+    osc.start(now);
+
+    osc.stop(now+.7);
+
+  }
+  catch(error){
+
+    console.log("Sound unavailable",error);
+
+  }
+
+}
+
+
+window.toggleSound=function(){
+
+  soundEnabled=!soundEnabled;
+
+  const btn=
+    document.getElementById("soundBtn");
+
+  btn.textContent=
+    soundEnabled
+      ? "🔊 Sound ON"
+      : "🔇 Sound OFF";
+
+  if(soundEnabled){
+
+    playSound();
+
+  }
+
+};
+
+
+/* ============================================
+   FIREBASE LIVE ORDERS
+============================================ */
+
+function startOrders(){
+
+  const ordersQuery=query(
+    collection(db,"orders"),
+    orderBy("createdAt","desc")
+  );
+
+  onSnapshot(
+    ordersQuery,
+    snapshot=>{
+
+      const newOrders=[];
+
+      snapshot.docChanges()
+      .forEach(change=>{
+
+        if(
+          change.type==="added" &&
+          !firstLoad
+        ){
+
+          const data=change.doc.data();
+
+          if(data.status==="new"){
+
+            newOrders.push(data);
+
+          }
+
+        }
+
+      });
+
+
+      allOrders=snapshot.docs.map(doc=>({
+
+        id:doc.id,
+
+        ...doc.data()
+
+      }));
+
+
+      updateStats();
+
+      renderOrders();
+
+
+      if(newOrders.length){
+
+        newOrders.forEach(order=>{
+
+          showNewOrder(order);
+
+        });
+
+      }
+
+
+      firstLoad=false;
+
+    },
+
+    error=>{
+
+      console.error(error);
+
+      document.getElementById("orders")
+        .innerHTML=`
+
+          <div class="empty">
+
+            <div class="empty-icon">⚠️</div>
+
+            <h2>Could not load orders</h2>
+
+            <p>
+              Firebase rules ya internet connection check karein.
+            </p>
+
+          </div>
+
+        `;
+
+    }
+
+  );
+
+}
+
+
+/* ============================================
+   NEW ORDER NOTIFICATION
+============================================ */
+
+function showNewOrder(order){
+
+  playSound();
+
+  const notification=
+    document.getElementById("notification");
+
+  const text=
+    document.getElementById("notificationText");
+
+  text.innerHTML=`
+
+    <strong>
+      #${order.orderNumber || "NEW"}
+    </strong><br>
+
+    ${order.customerName || "Customer"}
+
+    ${order.tableNumber
+      ? ` • 🪑 ${order.tableNumber}`
+      : ""}
+
+    <br>
+
+    💰 Rs. ${order.total || 0}
+
+  `;
+
+  notification.classList.add("show");
+
+
+  if(
+    "Notification" in window &&
+    Notification.permission==="granted"
+  ){
+
+    new Notification(
+      "🍕 Pizza Inn — New Order!",
+      {
+        body:
+          `Order #${order.orderNumber || "NEW"} • Rs. ${order.total || 0}`,
+        icon:"https://pizzainlayyah.github.io/pizzainnlayyah/favicon.ico"
+      }
+    );
+
+  }
+
+
+  setTimeout(()=>{
+
+    notification.classList.remove("show");
+
+  },8000);
+
+}
+
+
+window.hideNotification=function(){
+
+  document.getElementById("notification")
+    .classList.remove("show");
+
+};
+
+
+/* ============================================
+   STATS
+============================================ */
+
+function updateStats(){
+
+  const newCount=
+    allOrders.filter(
+      x=>x.status==="new"
+    ).length;
+
+  const preparingCount=
+    allOrders.filter(
+      x=>x.status==="preparing"
+    ).length;
+
+  const readyCount=
+    allOrders.filter(
+      x=>x.status==="ready"
+    ).length;
+
+
+  document.getElementById("newCount")
+    .textContent=newCount;
+
+  document.getElementById("preparingCount")
+    .textContent=preparingCount;
+
+  document.getElementById("readyCount")
+    .textContent=readyCount;
+
+
+  const today=
+    new Date();
+
+  today.setHours(0,0,0,0);
+
+
+  const sales=
+    allOrders
+    .filter(order=>{
+
+      if(order.status==="cancelled")
+        return false;
+
+      if(!order.createdAt)
+        return false;
+
+      const date=
+        order.createdAt.toDate();
+
+      return date>=today;
+
+    })
+    .reduce(
+      (sum,order)=>
+        sum+(Number(order.total)||0),
+      0
+    );
+
+
+  document.getElementById("salesCount")
+    .textContent=
+      "Rs. "+sales.toLocaleString();
+}
+
+
+/* ============================================
+   FILTER
+============================================ */
+
+window.setFilter=function(filter,button){
+
+  currentFilter=filter;
+
+  document
+    .querySelectorAll(".filter")
+    .forEach(x=>{
+      x.classList.remove("active");
+    });
+
+  button.classList.add("active");
+
+  renderOrders();
+
+};
+
+
+/* ============================================
+   RENDER ORDERS
+============================================ */
+
+function renderOrders(){
+
+  const box=
+    document.getElementById("orders");
+
+  let orders=
+    [...allOrders];
+
+
+  if(currentFilter!=="all"){
+
+    orders=
+      orders.filter(
+        x=>x.status===currentFilter
+      );
+
+  }
+
+
+  if(!orders.length){
+
+    box.innerHTML=`
+
+      <div class="empty">
+
+        <div class="empty-icon">🍕</div>
+
+        <h2>No Orders</h2>
+
+        <p>
+          Is category mein abhi koi order nahi hai.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  box.innerHTML="";
+
+
+  orders.forEach(order=>{
+
+    const card=
+      document.createElement("div");
+
+    card.className=
+      "order "+(
+        order.status==="new"
+          ? "new"
+          : ""
+      );
+
+
+    const time=
+      formatTime(order.createdAt);
+
+
+    const items=
+      Array.isArray(order.items)
+        ? order.items
+        : [];
+
+
+    let itemsHTML="";
+
+
+    items.forEach(item=>{
+
+      itemsHTML+=`
+
+        <div class="item-line">
+
+          <div>
+
+            <div class="item-name">
+              ${item.quantity || item.qty || 1}
+              × ${escapeHTML(item.name || "")}
+            </div>
+
+            ${
+              item.option
+              ? `<div class="item-option">
+                  ${escapeHTML(item.option)}
+                </div>`
+              : ""
+            }
+
+          </div>
+
+          <div class="item-price">
+            Rs. ${
+              (
+                Number(item.subtotal) ||
+                (
+                  Number(item.price || 0) *
+                  Number(item.quantity || item.qty || 1)
+                )
+              ).toLocaleString()
+            }
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+
+    const status=
+      order.status || "new";
+
+
+    const badgeClass=
+      "badge-"+status;
+
+
+    card.innerHTML=`
+
+      <div class="order-head">
+
+        <div>
+
+          <div class="order-number">
+            #${escapeHTML(
+              order.orderNumber || order.id.slice(-6)
+            )}
+          </div>
+
+          <div class="time">
+            ${time}
+          </div>
+
+        </div>
+
+        <div class="badge ${badgeClass}">
+          ${status}
+        </div>
+
+      </div>
+
+
+      <div style="margin-top:12px">
+
+        <span class="order-type">
+          ${
+            order.orderType==="dine-in"
+              ? "🪑 DINE-IN"
+              : order.orderType==="delivery"
+              ? "🏠 DELIVERY"
+              : "🥡 TAKEAWAY"
+          }
+        </span>
+
+      </div>
+
+
+      <div class="customer">
+
+        <div>
+          👤 <strong>
+            ${escapeHTML(order.customerName || "Customer")}
+          </strong>
+        </div>
+
+        <div>
+          📞 ${escapeHTML(order.phone || "")}
+        </div>
+
+        ${
+          order.tableNumber
+          ? `<div>🪑 Table:
+              <strong>
+                ${escapeHTML(order.tableNumber)}
+              </strong>
+            </div>`
+          : ""
+        }
+
+        ${
+          order.address
+          ? `<div>
+              🏠 ${escapeHTML(order.address)}
+            </div>`
+          : ""
+        }
+
+      </div>
+
+
+      <div class="items">
+        ${itemsHTML}
+      </div>
+
+
+      ${
+        order.notes
+        ? `<div class="notes">
+            📝 <strong>Note:</strong>
+            ${escapeHTML(order.notes)}
+          </div>`
+        : ""
+      }
+
+
+      <div class="order-total">
+
+        <span>Total</span>
+
+        <span>
+          Rs. ${(Number(order.total)||0)
+            .toLocaleString()}
+        </span>
+
+      </div>
+
+
+      <div class="status-buttons">
+
+        ${
+          status!=="preparing"
+          ? `<button
+              class="status-btn preparing"
+              onclick="changeStatus('${order.id}','preparing')">
+              👨‍🍳 Preparing
+            </button>`
+          : ""
+        }
+
+        ${
+          status!=="ready"
+          ? `<button
+              class="status-btn ready"
+              onclick="changeStatus('${order.id}','ready')">
+              🍕 Ready
+            </button>`
+          : ""
+        }
+
+        ${
+          status!=="delivered"
+          ? `<button
+              class="status-btn delivered"
+              onclick="changeStatus('${order.id}','delivered')">
+              ✅ Delivered
+            </button>`
+          : ""
+        }
+
+        ${
+          status!=="cancelled"
+          ? `<button
+              class="status-btn cancelled"
+              onclick="changeStatus('${order.id}','cancelled')">
+              ❌ Cancel
+            </button>`
+          : ""
+        }
+
+      </div>
+
+    `;
+
+
+    box.appendChild(card);
+
+  });
+
+}
+
+
+/* ============================================
+   CHANGE STATUS
+============================================ */
+
+window.changeStatus=async function(id,status){
+
+  try{
+
+    await updateDoc(
+      doc(db,"orders",id),
+      {
+        status:status,
+        updatedAt:new Date()
+      }
+    );
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Status update nahi ho saka."
+    );
+
+  }
+
+};
+
+
+/* ============================================
+   TIME
+============================================ */
+
+function formatTime(timestamp){
+
+  if(!timestamp)
+    return "Just now";
+
+  try{
+
+    const date=timestamp.toDate();
+
+    return date.toLocaleString(
+      "en-PK",
+      {
+        day:"2-digit",
+        month:"short",
+        hour:"2-digit",
+        minute:"2-digit"
+      }
+    );
+
+  }
+  catch{
+
+    return "Just now";
+
+  }
+
+}
+
+
+/* ============================================
+   SECURITY HTML
+============================================ */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* ============================================
+   ENTER KEY LOGIN
+============================================ */
+
+document
+.getElementById("password")
+.addEventListener("keydown",e=>{
+
+  if(e.key==="Enter"){
+    login();
+  }
+
+});
+
+</script>
+
+</body>
+</html>
