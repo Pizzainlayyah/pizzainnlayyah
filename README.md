@@ -1,2 +1,3 @@
-# pizzainnlayyah
-Pizza Inn &amp; Family Cafe Digital Menu
+# Pizza Inn & Family Cafe Digital Menu
+
+Mobile-friendly slide menu for GitHub Pages.
