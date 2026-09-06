@@ -5,551 +5,3546 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pizza Inn & Family Cafe — Digital Menu</title>
 <meta name="description" content="Pizza Inn & Family Cafe, Layyah — digital food menu">
+
 <style>
-:root{--yellow:#f7c600;--red:#df2027;--dark:#201d1d;--cream:#fff9e7;--white:#fff}
-*{box-sizing:border-box}
-body{margin:0;background:var(--cream);font-family:Arial,Helvetica,sans-serif;color:var(--dark)}
-header{background:var(--yellow);text-align:center;padding:22px 14px 18px;position:sticky;top:0;z-index:20;box-shadow:0 3px 15px #0002}
-.logo{font-family:cursive;font-size:34px;font-weight:700;margin:0}
-.brand{font-size:46px;line-height:.95;font-weight:900;color:var(--red);letter-spacing:-2px;margin:2px 0}
-.tag{font-size:15px;font-weight:800;margin:7px 0 0}
-.welcome{display:inline-block;margin-top:10px;background:#fff;border:2px dashed var(--red);color:var(--red);padding:6px 12px;border-radius:999px;font-weight:900;animation:float 2.5s ease-in-out infinite}
-.actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:13px}
-.btn{background:var(--red);color:#fff;text-decoration:none;border-radius:999px;padding:10px 15px;font-weight:800;font-size:14px}
-.nav{position:sticky;top:126px;z-index:15;background:#fff;padding:10px;overflow-x:auto;white-space:nowrap;border-bottom:1px solid #ddd}
-.nav button{border:0;background:#f2f2f2;border-radius:999px;padding:9px 13px;margin-right:6px;font-weight:800;cursor:pointer}
-.nav button.active{background:var(--yellow)}
-.wrap{max-width:850px;margin:auto;padding:14px 10px 40px}
-.slider{position:relative;overflow:hidden}
-.track{display:flex;transition:transform .35s ease}
-.slide{min-width:100%;padding:3px}
-.section-title{background:var(--yellow);color:var(--red);font-size:27px;font-weight:900;text-transform:uppercase;text-align:center;padding:9px 10px;border-radius:12px 12px 0 0;margin-bottom:8px}
-.items{background:#fff;border-radius:0 0 12px 12px;box-shadow:0 4px 18px #0002;overflow:hidden}
-.item{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:13px 14px;border-bottom:1px solid #eee}
-.item:last-child{border-bottom:0}
-.item h3{margin:0;font-size:17px}
-.item p{margin:5px 0 0;font-size:13px;line-height:1.35;color:#555}
-.price,.deal-price{font-weight:900;color:var(--red);white-space:nowrap;font-size:17px}
-.controls{display:flex;justify-content:center;align-items:center;gap:18px;padding:12px}
-.arrow{border:0;background:var(--dark);color:#fff;width:42px;height:42px;border-radius:50%;font-size:22px;cursor:pointer}
-.counter{font-weight:900}
-footer{background:var(--dark);color:#fff;text-align:center;padding:24px 12px;line-height:1.6}
-footer a{color:var(--yellow);font-weight:800}
-@media(max-width:600px){.brand{font-size:40px}.nav{top:121px}.item h3{font-size:15px}.price,.deal-price{font-size:15px}}
+:root{
+  --yellow:#f7c600;
+  --red:#df2027;
+  --dark:#201d1d;
+  --cream:#fff9e7;
+  --white:#fff;
+}
 
-/* Premium restaurant animations */
-body{overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:
-radial-gradient(circle at 10% 10%,#f7c60022 0 70px,transparent 72px),
-radial-gradient(circle at 90% 80%,#df202722 0 90px,transparent 92px)}
-header{animation:dropIn .8s cubic-bezier(.2,.8,.2,1);background:linear-gradient(135deg,#f7c600,#ffd936,#f7c600);background-size:200% 200%;animation:dropIn .8s cubic-bezier(.2,.8,.2,1),shine 5s ease-in-out infinite}
-.logo{animation:float 3s ease-in-out infinite}
-.brand{text-shadow:3px 4px 0 #fff5,0 8px 18px #a10d1233;animation:brandPop .9s .15s both cubic-bezier(.2,1.5,.4,1)}
-.actions .btn{transition:transform .2s,box-shadow .2s;box-shadow:0 5px 0 #a90e13}
-.actions .btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 16px #0003}
-.nav{box-shadow:0 4px 12px #0001}
-.nav button{transition:transform .2s,background .2s;position:relative}
-.nav button:hover{transform:translateY(-2px)}
-.nav button.active{animation:pillPop .35s cubic-bezier(.2,1.5,.4,1)}
-.slide{animation:slideFade .5s ease both}
-.item{transition:transform .25s,box-shadow .25s,background .25s}
-.item:hover{transform:translateX(5px);box-shadow:inset 5px 0 0 var(--red);background:#fffdf3}
-.item h3{transition:color .2s}
-.item:hover h3{color:var(--red)}
-.price,.deal-price{animation:pricePulse 2.8s ease-in-out infinite}
-.section-title{position:relative;overflow:hidden;box-shadow:0 4px 0 #d9aa00}
-.section-title:after{content:"";position:absolute;top:-50%;left:-30%;width:20%;height:200%;background:#fff8;transform:rotate(20deg);animation:sweep 4s ease-in-out infinite}
-.arrow{transition:transform .2s,box-shadow .2s;background:var(--red);box-shadow:0 4px 0 #a90e13}
-.arrow:hover{transform:scale(1.12);box-shadow:0 7px 14px #0003}
-.arrow:active{transform:scale(.95)}
-footer{position:relative;overflow:hidden}
-footer:before{content:"🍕";position:absolute;font-size:80px;opacity:.07;left:5%;top:5px;animation:float 4s ease-in-out infinite}
-footer:after{content:"🍕";position:absolute;font-size:80px;opacity:.07;right:5%;bottom:-15px;animation:float 4s 1s ease-in-out infinite}
-@keyframes dropIn{from{opacity:0;transform:translateY(-35px)}to{opacity:1;transform:none}}
-@keyframes brandPop{from{opacity:0;transform:scale(.7) rotate(-2deg)}to{opacity:1;transform:scale(1) rotate(0)}}
-@keyframes pillPop{from{transform:scale(.85)}to{transform:scale(1)}}
-@keyframes slideFade{from{opacity:.35;transform:translateX(25px)}to{opacity:1;transform:none}}
-@keyframes shine{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
-@keyframes sweep{0%,55%{left:-30%}75%,100%{left:130%}}
-@keyframes pricePulse{0%,75%,100%{transform:scale(1)}82%{transform:scale(1.08)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+*{
+  box-sizing:border-box;
+}
 
+body{
+  margin:0;
+  background:var(--cream);
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--dark);
+  overflow-x:hidden;
+}
+
+header{
+  background:var(--yellow);
+  text-align:center;
+  padding:22px 14px 18px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  box-shadow:0 3px 15px #0002;
+}
+
+.logo{
+  font-family:cursive;
+  font-size:34px;
+  font-weight:700;
+  margin:0;
+}
+
+.brand{
+  font-size:46px;
+  line-height:.95;
+  font-weight:900;
+  color:var(--red);
+  letter-spacing:-2px;
+  margin:2px 0;
+}
+
+.tag{
+  font-size:15px;
+  font-weight:800;
+  margin:7px 0 0;
+}
+
+.welcome{
+  display:inline-block;
+  margin-top:10px;
+  background:#fff;
+  border:2px dashed var(--red);
+  color:var(--red);
+  padding:6px 12px;
+  border-radius:999px;
+  font-weight:900;
+  animation:float 2.5s ease-in-out infinite;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:13px;
+}
+
+.btn{
+  background:var(--red);
+  color:#fff;
+  text-decoration:none;
+  border-radius:999px;
+  padding:10px 15px;
+  font-weight:800;
+  font-size:14px;
+}
+
+.nav{
+  position:sticky;
+  top:126px;
+  z-index:15;
+  background:#fff;
+  padding:10px;
+  overflow-x:auto;
+  white-space:nowrap;
+  border-bottom:1px solid #ddd;
+}
+
+.nav button{
+  border:0;
+  background:#f2f2f2;
+  border-radius:999px;
+  padding:9px 13px;
+  margin-right:6px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.nav button.active{
+  background:var(--yellow);
+}
+
+.wrap{
+  max-width:850px;
+  margin:auto;
+  padding:14px 10px 40px;
+}
+
+.slider{
+  position:relative;
+  overflow:hidden;
+}
+
+.track{
+  display:flex;
+  transition:transform .35s ease;
+}
+
+.slide{
+  min-width:100%;
+  padding:3px;
+}
+
+.section-title{
+  background:var(--yellow);
+  color:var(--red);
+  font-size:27px;
+  font-weight:900;
+  text-transform:uppercase;
+  text-align:center;
+  padding:9px 10px;
+  border-radius:12px 12px 0 0;
+  margin-bottom:8px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 4px 0 #d9aa00;
+}
+
+.section-title:after{
+  content:"";
+  position:absolute;
+  top:-50%;
+  left:-30%;
+  width:20%;
+  height:200%;
+  background:#fff8;
+  transform:rotate(20deg);
+  animation:sweep 4s ease-in-out infinite;
+}
+
+.items{
+  background:#fff;
+  border-radius:0 0 12px 12px;
+  box-shadow:0 4px 18px #0002;
+  overflow:hidden;
+}
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:center;
+  padding:13px 14px;
+  border-bottom:1px solid #eee;
+  transition:transform .25s,box-shadow .25s,background .25s;
+}
+
+.item:last-child{
+  border-bottom:0;
+}
+
+.item:hover{
+  transform:translateX(5px);
+  box-shadow:inset 5px 0 0 var(--red);
+  background:#fffdf3;
+}
+
+.item h3{
+  margin:0;
+  font-size:17px;
+  transition:color .2s;
+}
+
+.item:hover h3{
+  color:var(--red);
+}
+
+.item p{
+  margin:5px 0 0;
+  font-size:13px;
+  line-height:1.35;
+  color:#555;
+}
+
+.price,
+.deal-price{
+  font-weight:900;
+  color:var(--red);
+  white-space:nowrap;
+  font-size:17px;
+  animation:pricePulse 2.8s ease-in-out infinite;
+}
+
+.item > div:last-child{
+  text-align:right;
+  min-width:125px;
+}
+
+.controls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  padding:12px;
+}
+
+.arrow{
+  border:0;
+  background:var(--red);
+  color:#fff;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  font-size:22px;
+  cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 4px 0 #a90e13;
+}
+
+.arrow:hover{
+  transform:scale(1.12);
+  box-shadow:0 7px 14px #0003;
+}
+
+.arrow:active{
+  transform:scale(.95);
+}
+
+.counter{
+  font-weight:900;
+}
+
+footer{
+  background:var(--dark);
+  color:#fff;
+  text-align:center;
+  padding:24px 12px;
+  line-height:1.6;
+  position:relative;
+  overflow:hidden;
+}
+
+footer a{
+  color:var(--yellow);
+  font-weight:800;
+}
+
+footer:before{
+  content:"🍕";
+  position:absolute;
+  font-size:80px;
+  opacity:.07;
+  left:5%;
+  top:5px;
+  animation:float 4s ease-in-out infinite;
+}
+
+footer:after{
+  content:"🍕";
+  position:absolute;
+  font-size:80px;
+  opacity:.07;
+  right:5%;
+  bottom:-15px;
+  animation:float 4s 1s ease-in-out infinite;
+}
+
+/* ==============================
+   ADD TO CART
+============================== */
+
+.add-btn{
+  display:block;
+  width:100%;
+  margin-top:8px;
+  border:0;
+  background:linear-gradient(135deg,#df2027,#b90f15);
+  color:#fff;
+  padding:9px 11px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:11px;
+  cursor:pointer;
+  box-shadow:0 4px 0 #8e0b10;
+  transition:.2s;
+  white-space:nowrap;
+}
+
+.add-btn:hover{
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 7px 14px #0003;
+}
+
+.add-btn:active{
+  transform:scale(.95);
+}
+
+/* ==============================
+   FLOATING CART
+============================== */
+
+.cart-float{
+  position:fixed;
+  right:18px;
+  bottom:20px;
+  width:66px;
+  height:66px;
+  border:0;
+  border-radius:50%;
+  background:linear-gradient(135deg,#df2027,#a80d12);
+  color:#fff;
+  font-size:28px;
+  cursor:pointer;
+  z-index:9998;
+  box-shadow:0 8px 25px #0005;
+  animation:cartFloat 2s ease-in-out infinite;
+}
+
+.cart-count{
+  position:absolute;
+  top:-5px;
+  right:-3px;
+  min-width:26px;
+  height:26px;
+  padding:0 6px;
+  border-radius:50%;
+  background:#f7c600;
+  color:#201d1d;
+  font-size:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  border:2px solid #fff;
+}
+
+/* ==============================
+   MODALS
+============================== */
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:#0009;
+  backdrop-filter:blur(6px);
+  z-index:10000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.modal-overlay.show{
+  display:flex;
+  animation:overlayIn .25s ease;
+}
+
+.modal{
+  width:min(570px,100%);
+  max-height:92vh;
+  overflow-y:auto;
+  background:#fff;
+  border-radius:22px;
+  box-shadow:0 20px 60px #0007;
+  animation:modalPop .35s cubic-bezier(.2,1.4,.4,1);
+}
+
+.modal-header{
+  position:sticky;
+  top:0;
+  z-index:5;
+  background:linear-gradient(135deg,#f7c600,#ffd936);
+  padding:17px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-radius:22px 22px 0 0;
+}
+
+.modal-header h2{
+  margin:0;
+  color:var(--red);
+  font-size:22px;
+}
+
+.close-btn{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:var(--red);
+  color:#fff;
+  font-size:23px;
+  cursor:pointer;
+}
+
+/* ==============================
+   OPTION SELECTOR
+============================== */
+
+.option-body{
+  padding:20px;
+}
+
+.option-body h3{
+  margin:0 0 7px;
+  font-size:21px;
+}
+
+.option-subtitle{
+  color:#666;
+  margin-bottom:16px;
+}
+
+.option-buttons{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.option-btn{
+  border:2px solid #eee;
+  background:#fff;
+  border-radius:15px;
+  padding:14px;
+  cursor:pointer;
+  font-weight:900;
+  font-size:15px;
+  transition:.2s;
+}
+
+.option-btn:hover{
+  border-color:var(--red);
+  background:#fff9e7;
+  transform:translateY(-2px);
+}
+
+.option-btn span{
+  display:block;
+  color:var(--red);
+  font-size:18px;
+  margin-top:4px;
+}
+
+/* ==============================
+   CART
+============================== */
+
+.cart-content{
+  padding:18px;
+}
+
+.empty-cart{
+  text-align:center;
+  padding:40px 10px;
+  color:#777;
+}
+
+.empty-icon{
+  font-size:58px;
+}
+
+.cart-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.cart-info{
+  flex:1;
+  min-width:0;
+}
+
+.cart-name{
+  font-weight:900;
+  font-size:15px;
+}
+
+.cart-option{
+  color:#777;
+  font-size:12px;
+  margin-top:3px;
+}
+
+.cart-price{
+  color:var(--red);
+  font-weight:900;
+  margin-top:4px;
+}
+
+.qty-box{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.qty-btn{
+  width:30px;
+  height:30px;
+  border:0;
+  border-radius:50%;
+  background:var(--dark);
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.remove-btn{
+  width:30px;
+  height:30px;
+  border:0;
+  border-radius:50%;
+  background:#ffe7e7;
+  color:var(--red);
+  font-weight:900;
+  cursor:pointer;
+}
+
+.cart-total{
+  margin-top:15px;
+  background:#fff9e7;
+  padding:14px;
+  border-radius:14px;
+  display:flex;
+  justify-content:space-between;
+  font-size:20px;
+  font-weight:900;
+}
+
+.cart-total span:last-child{
+  color:var(--red);
+}
+
+/* ==============================
+   CHECKOUT
+============================== */
+
+.checkout-title{
+  margin:22px 0 10px;
+  font-size:19px;
+  font-weight:900;
+}
+
+.form-group{
+  margin-bottom:13px;
+}
+
+.form-group label{
+  display:block;
+  font-size:13px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  border:2px solid #eee;
+  border-radius:12px;
+  padding:12px;
+  font-size:14px;
+  outline:none;
+  font-family:inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:var(--yellow);
+}
+
+.form-group textarea{
+  min-height:75px;
+  resize:vertical;
+}
+
+.checkout-btn{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:15px;
+  background:linear-gradient(135deg,#df2027,#b90f15);
+  color:#fff;
+  font-size:17px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 5px 0 #8e0b10;
+  margin-top:8px;
+}
+
+.checkout-btn:hover{
+  transform:translateY(-2px);
+}
+
+.checkout-btn:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+  transform:none;
+}
+
+/* ==============================
+   SUCCESS
+============================== */
+
+.success-box{
+  text-align:center;
+  padding:30px 18px;
+}
+
+.success-icon{
+  font-size:65px;
+  animation:successPop .6s cubic-bezier(.2,1.5,.4,1);
+}
+
+.success-box h2{
+  color:#159447;
+  margin:10px 0;
+}
+
+.order-number{
+  display:inline-block;
+  background:#fff9e7;
+  border:2px dashed var(--yellow);
+  color:var(--red);
+  padding:10px 18px;
+  border-radius:12px;
+  font-size:20px;
+  font-weight:900;
+  margin:10px 0;
+}
+
+.done-btn{
+  border:0;
+  background:var(--dark);
+  color:#fff;
+  padding:12px 27px;
+  border-radius:999px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+/* ==============================
+   ANIMATIONS
+============================== */
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    radial-gradient(circle at 10% 10%,#f7c60022 0 70px,transparent 72px),
+    radial-gradient(circle at 90% 80%,#df202722 0 90px,transparent 92px);
+}
+
+header{
+  animation:
+    dropIn .8s cubic-bezier(.2,.8,.2,1),
+    shine 5s ease-in-out infinite;
+  background:
+    linear-gradient(135deg,#f7c600,#ffd936,#f7c600);
+  background-size:200% 200%;
+}
+
+.logo{
+  animation:float 3s ease-in-out infinite;
+}
+
+.brand{
+  text-shadow:3px 4px 0 #fff5,0 8px 18px #a10d1233;
+  animation:brandPop .9s .15s both cubic-bezier(.2,1.5,.4,1);
+}
+
+.actions .btn{
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 5px 0 #a90e13;
+}
+
+.actions .btn:hover{
+  transform:translateY(-3px) scale(1.04);
+  box-shadow:0 8px 16px #0003;
+}
+
+.nav{
+  box-shadow:0 4px 12px #0001;
+}
+
+.nav button{
+  transition:transform .2s,background .2s;
+  position:relative;
+}
+
+.nav button:hover{
+  transform:translateY(-2px);
+}
+
+.nav button.active{
+  animation:pillPop .35s cubic-bezier(.2,1.5,.4,1);
+}
+
+.slide{
+  animation:slideFade .5s ease both;
+}
+
+@keyframes dropIn{
+  from{
+    opacity:0;
+    transform:translateY(-35px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+@keyframes brandPop{
+  from{
+    opacity:0;
+    transform:scale(.7) rotate(-2deg);
+  }
+  to{
+    opacity:1;
+    transform:scale(1) rotate(0);
+  }
+}
+
+@keyframes pillPop{
+  from{transform:scale(.85)}
+  to{transform:scale(1)}
+}
+
+@keyframes slideFade{
+  from{
+    opacity:.35;
+    transform:translateX(25px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+@keyframes shine{
+  0%,100%{
+    background-position:0 50%;
+  }
+  50%{
+    background-position:100% 50%;
+  }
+}
+
+@keyframes sweep{
+  0%,55%{left:-30%}
+  75%,100%{left:130%}
+}
+
+@keyframes pricePulse{
+  0%,75%,100%{
+    transform:scale(1);
+  }
+  82%{
+    transform:scale(1.08);
+  }
+}
+
+@keyframes float{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-6px);
+  }
+}
+
+@keyframes cartFloat{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-7px);
+  }
+}
+
+@keyframes overlayIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+@keyframes modalPop{
+  from{
+    opacity:0;
+    transform:scale(.85) translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
+}
+
+@keyframes successPop{
+  from{
+    transform:scale(0);
+  }
+  to{
+    transform:scale(1);
+  }
+}
+
+@media(max-width:600px){
+
+  .brand{
+    font-size:40px;
+  }
+
+  .nav{
+    top:121px;
+  }
+
+  .item{
+    align-items:flex-start;
+  }
+
+  .item h3{
+    font-size:15px;
+  }
+
+  .price,
+  .deal-price{
+    font-size:15px;
+  }
+
+  .item > div:last-child{
+    min-width:120px;
+  }
+
+  .add-btn{
+    font-size:10px;
+    padding:8px 7px;
+  }
+
+  .cart-float{
+    width:58px;
+    height:58px;
+    right:14px;
+    bottom:15px;
+  }
+
+  .option-buttons{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,
+  *:before,
+  *:after{
+    animation:none!important;
+    transition:none!important;
+  }
+}
 </style>
 </head>
+
 <body>
+
 <header>
-  <div class="logo">Menu</div>
-  <div class="brand">Pizza Inn</div>
-  <div class="tag">& FAMILY CAFE • Layyah</div>
-  <div class="welcome">✨ Fresh • Hot • Delicious ✨</div>
+
+  <div class="logo">
+    Menu
+  </div>
+
+  <div class="brand">
+    Pizza Inn
+  </div>
+
+  <div class="tag">
+    & FAMILY CAFE • Layyah
+  </div>
+
+  <div class="welcome">
+    ✨ Fresh • Hot • Delicious ✨
+  </div>
+
   <div class="actions">
-    <a class="btn" href="tel:+923079545525">📞 Call</a>
-    <a class="btn" href="https://wa.me/923177335525" target="_blank">💬 WhatsApp</a>
+
+    <a
+      class="btn"
+      href="tel:+923079545525"
+    >
+      📞 Call
+    </a>
+
+    <a
+      class="btn"
+      href="https://wa.me/923177335525"
+      target="_blank"
+    >
+      💬 WhatsApp
+    </a>
+
   </div>
+
 </header>
-<nav class="nav" id="nav"></nav>
+
+
+<nav
+  class="nav"
+  id="nav"
+></nav>
+
+
 <main class="wrap">
-  <div class="slider" id="slider"><div class="track" id="track">
-    <section class="slide">
-      <div class="section-title"><span>Special Pizza's</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>4 in 1 Pizza in Special</h3></div>
-          <div><span class="price">M: 1300 | L: 1700 | XL: 2400</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Shahi Pizza</h3></div>
-          <div><span class="price">S: 650 | M: 1300 | L: 1700 | XL: 2400</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Bonfire Pizza</h3></div>
-          <div><span class="price">S: 650 | M: 1250 | L: 1650 | XL: 2200</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Malai Boti</h3></div>
-          <div><span class="price">S: 650 | M: 1250 | L: 1650 | XL: 2200</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Extream Pizza</h3></div>
-          <div><span class="price">S: 700 | M: 1300 | L: 1700 | XL: 2400</span></div>
-        </article>
-        <article class="item">
-          <div><h3>White Castle</h3></div>
-          <div><span class="price">S: 650 | M: 1250 | L: 1650 | XL: 2200</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Lazzania Pizza</h3></div>
-          <div><span class="price">S: 700 | M: 1250 | L: 1700 | XL: 2300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Seekh Kabab</h3></div>
-          <div><span class="price">S: 700 | M: 1250 | L: 1700 | XL: 2300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Behari Kabab</h3></div>
-          <div><span class="price">S: 700 | M: 1250 | L: 1700 | XL: 2300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Crown Crust</h3></div>
-          <div><span class="price">M: 1250 | L: 1700 | XL: 2300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Kabab Stuffer</h3></div>
-          <div><span class="price">S: 700 | M: 1250 | L: 1700 | XL: 2300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Mughlai Special</h3></div>
-          <div><span class="price">S: 650 | M: 1250 | L: 1650 | XL: 2300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Peri Peri Pizza</h3></div>
-          <div><span class="price">S: 700 | M: 1250 | L: 1700 | XL: 2300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Crispy Chicken</h3></div>
-          <div><span class="price">S: 700 | M: 1250 | L: 1700 | XL: 2300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Extra Topping</h3></div>
-          <div><span class="price">S: 100 | M: 140 | L: 250 | XL: 350</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Regular Flavours</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Vegi Lover</h3></div>
-          <div><span class="price">S: 450 | M: 1000 | L: 1300 | XL: 1900</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Cheese Lover</h3></div>
-          <div><span class="price">S: 450 | M: 1000 | L: 1300 | XL: 1900</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Chicken Tikka</h3></div>
-          <div><span class="price">S: 550 | M: 1150 | L: 1450 | XL: 2000</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Chicken Fajita</h3></div>
-          <div><span class="price">S: 550 | M: 1150 | L: 1450 | XL: 2000</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Chicken Hot & Spicy</h3></div>
-          <div><span class="price">S: 550 | M: 1150 | L: 1450 | XL: 2000</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Chicken Supreme</h3></div>
-          <div><span class="price">S: 550 | M: 1150 | L: 1450 | XL: 2000</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Chicken Chapli Kabab</h3></div>
-          <div><span class="price">S: 550 | M: 1150 | L: 1450 | XL: 2000</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Chicken Achari</h3></div>
-          <div><span class="price">S: 550 | M: 1150 | L: 1450 | XL: 2000</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Pizza Deals</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Deal 1</h3><p>1 Large Pizza + 1 Medium Pizza + 1 Drink 1.5 Liter</p></div>
-          <div><span class="deal-price">Rs. 2600/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 2</h3><p>2 Medium Pizza + 1 Drink 1.0 Liter</p></div>
-          <div><span class="deal-price">Rs. 2300/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 3</h3><p>2 Small Pizza + 1 Drink 1.0 Liter</p></div>
-          <div><span class="deal-price">Rs. 1200/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 4</h3><p>2 Large Pizza + 1 Drink 1.5 Liter</p></div>
-          <div><span class="deal-price">Rs. 2900/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 5</h3><p>1 Large Pizza + 10 Hot Wings + 1 Regular Fries + 1 Drink 1.5 Liter</p></div>
-          <div><span class="deal-price">Rs. 2300/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 6</h3><p>1 Medium Pizza + 10 Hot Wings + 1 Regular Fries + 1 Drink 1.0 Liter</p></div>
-          <div><span class="deal-price">Rs. 1950/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 7</h3><p>1 Small Pizza + 5 Hot Wings + 1 Regular Fries + 1 Drink 500ml</p></div>
-          <div><span class="deal-price">Rs. 1100/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 8</h3><p>1 Medium Pizza + 5 Wings + 5 Chicken Popers + 1 Drink 1.0 Liter</p></div>
-          <div><span class="deal-price">Rs. 1800/-</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Burger Deals</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Deal 1</h3><p>1 Zinger Burger + 1 Drink 345ml + 1 Fries</p></div>
-          <div><span class="deal-price">Rs. 550/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 2</h3><p>2 Zinger Burger + 1 Drink 500ml + 1 Fries</p></div>
-          <div><span class="deal-price">Rs. 930/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 3</h3><p>3 Zinger Burger + 1 Drink 1.0 Liter</p></div>
-          <div><span class="deal-price">Rs. 1150/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 4</h3><p>5 Zinger Burger + 1 Drink 1.0 Liter</p></div>
-          <div><span class="deal-price">Rs. 1950/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 5</h3><p>1 Chapali Burger + 1 Fries + 1 Drink 345ml</p></div>
-          <div><span class="deal-price">Rs. 450/-</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Deal 6</h3><p>1 Patty Burger + 1 Fries + 1 Drink 345ml</p></div>
-          <div><span class="deal-price">Rs. 440/-</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Birthday Deal</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Birthday Deal</h3><p>2 Large Pizza (Pizza Inn Special), 10 Hot Wings, 5 Chicken Popers, 5 Donuts, 1 Regular Fries, 2 Drink 1.5 Liter</p></div>
-          <div><span class="deal-price">Rs. 5000/-</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Student Deal</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Student Deal</h3><p>1 Medium Pizza, 5 Nuggets, 5 Hot Wings, 1 Regular Fries, 1 Drink 1.0 Liter</p></div>
-          <div><span class="deal-price">Rs. 1950/-</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Paratha Roll</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Special Paratha Roll</h3></div>
-          <div><span class="price">350</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Chicken Paratha Roll</h3></div>
-          <div><span class="price">300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Zinger Paratha Roll</h3></div>
-          <div><span class="price">380</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Achari Paratha Roll</h3></div>
-          <div><span class="price">300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Kabab Paratha Roll</h3></div>
-          <div><span class="price">350</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Strips Roll</h3></div>
-          <div><span class="price">400</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Spin Roll</h3></div>
-          <div><span class="price">500</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Behari Roll</h3></div>
-          <div><span class="price">480</span></div>
-        </article>
-        <article class="item">
-          <div><h3>BBQ Paratha Roll</h3></div>
-          <div><span class="price">350</span></div>
-        </article>
-        <article class="item">
-          <div><h3>BBQ Wrap</h3></div>
-          <div><span class="price">550</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Malai Boti Roll</h3></div>
-          <div><span class="price">450</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Burgers</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Zinger Burger</h3></div>
-          <div><span class="price">380</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Zinger Burger + Chees</h3></div>
-          <div><span class="price">460</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Petty Burger</h3></div>
-          <div><span class="price">270</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Chapli Burger</h3></div>
-          <div><span class="price">270</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Zinger Tower Burger</h3></div>
-          <div><span class="price">580</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Nawabi Burger</h3></div>
-          <div><span class="price">530</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Pizza Burger</h3></div>
-          <div><span class="price">530</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Shawarma</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Special Shawarma</h3></div>
-          <div><span class="price">300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Chicken Shawarma</h3></div>
-          <div><span class="price">250</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Zinger Shawarma</h3></div>
-          <div><span class="price">380</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Achari Shawarma</h3></div>
-          <div><span class="price">250</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Cheese Shawarma</h3></div>
-          <div><span class="price">350</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Plater Shawarma</h3></div>
-          <div><span class="price">500</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Snacks</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Regular Fries</h3></div>
-          <div><span class="price">200</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Family Fries</h3></div>
-          <div><span class="price">400</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Loaded Fries (Small)</h3></div>
-          <div><span class="price">400</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Loaded Fries (Large)</h3></div>
-          <div><span class="price">600</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Crunchy Fries</h3></div>
-          <div><span class="price">500</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Pasta</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Cheezy Pasta</h3></div>
-          <div><span class="price">S: 400 | L: 600</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Crunchy Pasta</h3></div>
-          <div><span class="price">S: 450 | L: 600</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Flaming Pasta</h3></div>
-          <div><span class="price">S: 500 | L: 700</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Pizza Inn Special Pasta</h3></div>
-          <div><span class="price">S: 500 | L: 700</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Fried Chicken</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>5 Hot Wings</h3></div>
-          <div><span class="price">350</span></div>
-        </article>
-        <article class="item">
-          <div><h3>10 Hot Wings</h3></div>
-          <div><span class="price">580</span></div>
-        </article>
-        <article class="item">
-          <div><h3>5 Nuggets</h3></div>
-          <div><span class="price">300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>10 Nuggets</h3></div>
-          <div><span class="price">550</span></div>
-        </article>
-        <article class="item">
-          <div><h3>5 Donuts</h3></div>
-          <div><span class="price">300</span></div>
-        </article>
-        <article class="item">
-          <div><h3>1 Chicken Piece</h3></div>
-          <div><span class="price">250</span></div>
-        </article>
-        <article class="item">
-          <div><h3>5 Chicken Popers</h3></div>
-          <div><span class="price">300</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Drinks</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Tin Pack</h3></div>
-          <div><span class="price">Next Cola 120 | Pepsi 120</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Drink 345ml</h3></div>
-          <div><span class="price">Next Cola 70 | Pepsi 80</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Drink 500ml</h3></div>
-          <div><span class="price">Next Cola 100 | Pepsi 110</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Drink 1.0 Litre</h3></div>
-          <div><span class="price">Next Cola 150 | Pepsi 160</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Drink 1.5 Litre</h3></div>
-          <div><span class="price">Next Cola 200 | Pepsi 200</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Drink 2.25 Litre</h3></div>
-          <div><span class="price">Next Cola 250 | Pepsi 250</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Sandwiches</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Club Sandwich</h3></div>
-          <div><span class="price">500</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Cheezy Sandwich</h3></div>
-          <div><span class="price">400</span></div>
-        </article>
-        <article class="item">
-          <div><h3>BBQ Sandwich</h3></div>
-          <div><span class="price">450</span></div>
-        </article></div>
-    </section>
-    <section class="slide">
-      <div class="section-title"><span>Pure Water</span></div>
-      <div class="items">
-        <article class="item">
-          <div><h3>Mineral Water (Small)</h3></div>
-          <div><span class="price">Rs. 60</span></div>
-        </article>
-        <article class="item">
-          <div><h3>Mineral Water (Large)</h3></div>
-          <div><span class="price">Rs. 100</span></div>
-        </article></div>
-    </section></div></div>
-  <div class="controls">
-    <button class="arrow" id="prev">‹</button>
-    <span class="counter" id="counter">1 / 15</span>
-    <button class="arrow" id="next">›</button>
+
+  <div
+    class="slider"
+    id="slider"
+  >
+
+    <div
+      class="track"
+      id="track"
+    >
+
+
+<!-- ==========================================
+     SPECIAL PIZZA
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Special Pizza's</span>
   </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div>
+        <h3>4 in 1 Pizza in Special</h3>
+      </div>
+      <div>
+        <span class="price">
+          M: 1300 | L: 1700 | XL: 2400
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Shahi Pizza</h3></div>
+      <div>
+        <span class="price">
+          S: 650 | M: 1300 | L: 1700 | XL: 2400
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Bonfire Pizza</h3></div>
+      <div>
+        <span class="price">
+          S: 650 | M: 1250 | L: 1650 | XL: 2200
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Malai Boti</h3></div>
+      <div>
+        <span class="price">
+          S: 650 | M: 1250 | L: 1650 | XL: 2200
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Extream Pizza</h3></div>
+      <div>
+        <span class="price">
+          S: 700 | M: 1300 | L: 1700 | XL: 2400
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>White Castle</h3></div>
+      <div>
+        <span class="price">
+          S: 650 | M: 1250 | L: 1650 | XL: 2200
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Lazzania Pizza</h3></div>
+      <div>
+        <span class="price">
+          S: 700 | M: 1250 | L: 1700 | XL: 2300
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Seekh Kabab</h3></div>
+      <div>
+        <span class="price">
+          S: 700 | M: 1250 | L: 1700 | XL: 2300
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Behari Kabab</h3></div>
+      <div>
+        <span class="price">
+          S: 700 | M: 1250 | L: 1700 | XL: 2300
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Crown Crust</h3></div>
+      <div>
+        <span class="price">
+          M: 1250 | L: 1700 | XL: 2300
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Kabab Stuffer</h3></div>
+      <div>
+        <span class="price">
+          S: 700 | M: 1250 | L: 1700 | XL: 2300
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Mughlai Special</h3></div>
+      <div>
+        <span class="price">
+          S: 650 | M: 1250 | L: 1650 | XL: 2300
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Peri Peri Pizza</h3></div>
+      <div>
+        <span class="price">
+          S: 700 | M: 1250 | L: 1700 | XL: 2300
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Crispy Chicken</h3></div>
+      <div>
+        <span class="price">
+          S: 700 | M: 1250 | L: 1700 | XL: 2300
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Extra Topping</h3></div>
+      <div>
+        <span class="price">
+          S: 100 | M: 140 | L: 250 | XL: 350
+        </span>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     REGULAR FLAVOURS
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Regular Flavours</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div><h3>Vegi Lover</h3></div>
+      <div>
+        <span class="price">
+          S: 450 | M: 1000 | L: 1300 | XL: 1900
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Cheese Lover</h3></div>
+      <div>
+        <span class="price">
+          S: 450 | M: 1000 | L: 1300 | XL: 1900
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Chicken Tikka</h3></div>
+      <div>
+        <span class="price">
+          S: 550 | M: 1150 | L: 1450 | XL: 2000
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Chicken Fajita</h3></div>
+      <div>
+        <span class="price">
+          S: 550 | M: 1150 | L: 1450 | XL: 2000
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Chicken Hot & Spicy</h3></div>
+      <div>
+        <span class="price">
+          S: 550 | M: 1150 | L: 1450 | XL: 2000
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Chicken Supreme</h3></div>
+      <div>
+        <span class="price">
+          S: 550 | M: 1150 | L: 1450 | XL: 2000
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Chicken Chapli Kabab</h3></div>
+      <div>
+        <span class="price">
+          S: 550 | M: 1150 | L: 1450 | XL: 2000
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Chicken Achari</h3></div>
+      <div>
+        <span class="price">
+          S: 550 | M: 1150 | L: 1450 | XL: 2000
+        </span>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     PIZZA DEALS
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Pizza Deals</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div>
+        <h3>Deal 1</h3>
+        <p>
+          1 Large Pizza + 1 Medium Pizza + 1 Drink 1.5 Liter
+        </p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 2600/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 2</h3>
+        <p>
+          2 Medium Pizza + 1 Drink 1.0 Liter
+        </p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 2300/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 3</h3>
+        <p>
+          2 Small Pizza + 1 Drink 1.0 Liter
+        </p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 1200/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 4</h3>
+        <p>
+          2 Large Pizza + 1 Drink 1.5 Liter
+        </p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 2900/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 5</h3>
+        <p>
+          1 Large Pizza + 10 Hot Wings + 1 Regular Fries + 1 Drink 1.5 Liter
+        </p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 2300/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 6</h3>
+        <p>
+          1 Medium Pizza + 10 Hot Wings + 1 Regular Fries + 1 Drink 1.0 Liter
+        </p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 1950/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 7</h3>
+        <p>
+          1 Small Pizza + 5 Hot Wings + 1 Regular Fries + 1 Drink 500ml
+        </p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 1100/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 8</h3>
+        <p>
+          1 Medium Pizza + 5 Wings + 5 Chicken Popers + 1 Drink 1.0 Liter
+        </p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 1800/-</span>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     BURGER DEALS
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Burger Deals</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div>
+        <h3>Deal 1</h3>
+        <p>1 Zinger Burger + 1 Drink 345ml + 1 Fries</p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 550/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 2</h3>
+        <p>2 Zinger Burger + 1 Drink 500ml + 1 Fries</p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 930/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 3</h3>
+        <p>3 Zinger Burger + 1 Drink 1.0 Liter</p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 1150/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 4</h3>
+        <p>5 Zinger Burger + 1 Drink 1.0 Liter</p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 1950/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 5</h3>
+        <p>1 Chapali Burger + 1 Fries + 1 Drink 345ml</p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 450/-</span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div>
+        <h3>Deal 6</h3>
+        <p>1 Patty Burger + 1 Fries + 1 Drink 345ml</p>
+      </div>
+      <div>
+        <span class="deal-price">Rs. 440/-</span>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     BIRTHDAY DEAL
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Birthday Deal</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+
+      <div>
+        <h3>Birthday Deal</h3>
+
+        <p>
+          2 Large Pizza (Pizza Inn Special),
+          10 Hot Wings,
+          5 Chicken Popers,
+          5 Donuts,
+          1 Regular Fries,
+          2 Drink 1.5 Liter
+        </p>
+      </div>
+
+      <div>
+        <span class="deal-price">
+          Rs. 5000/-
+        </span>
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     STUDENT DEAL
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Student Deal</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+
+      <div>
+        <h3>Student Deal</h3>
+
+        <p>
+          1 Medium Pizza,
+          5 Nuggets,
+          5 Hot Wings,
+          1 Regular Fries,
+          1 Drink 1.0 Liter
+        </p>
+      </div>
+
+      <div>
+        <span class="deal-price">
+          Rs. 1950/-
+        </span>
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     PARATHA ROLL
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Paratha Roll</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div><h3>Special Paratha Roll</h3></div>
+      <div><span class="price">350</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Chicken Paratha Roll</h3></div>
+      <div><span class="price">300</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Zinger Paratha Roll</h3></div>
+      <div><span class="price">380</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Achari Paratha Roll</h3></div>
+      <div><span class="price">300</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Kabab Paratha Roll</h3></div>
+      <div><span class="price">350</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Strips Roll</h3></div>
+      <div><span class="price">400</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Spin Roll</h3></div>
+      <div><span class="price">500</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Behari Roll</h3></div>
+      <div><span class="price">480</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>BBQ Paratha Roll</h3></div>
+      <div><span class="price">350</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>BBQ Wrap</h3></div>
+      <div><span class="price">550</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Malai Boti Roll</h3></div>
+      <div><span class="price">450</span></div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     BURGERS
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Burgers</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div><h3>Zinger Burger</h3></div>
+      <div><span class="price">380</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Zinger Burger + Chees</h3></div>
+      <div><span class="price">460</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Petty Burger</h3></div>
+      <div><span class="price">270</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Chapli Burger</h3></div>
+      <div><span class="price">270</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Zinger Tower Burger</h3></div>
+      <div><span class="price">580</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Nawabi Burger</h3></div>
+      <div><span class="price">530</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Pizza Burger</h3></div>
+      <div><span class="price">530</span></div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     SHAWARMA
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Shawarma</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div><h3>Special Shawarma</h3></div>
+      <div><span class="price">300</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Chicken Shawarma</h3></div>
+      <div><span class="price">250</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Zinger Shawarma</h3></div>
+      <div><span class="price">380</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Achari Shawarma</h3></div>
+      <div><span class="price">250</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Cheese Shawarma</h3></div>
+      <div><span class="price">350</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Plater Shawarma</h3></div>
+      <div><span class="price">500</span></div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     SNACKS
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Snacks</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div><h3>Regular Fries</h3></div>
+      <div><span class="price">200</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Family Fries</h3></div>
+      <div><span class="price">400</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Loaded Fries (Small)</h3></div>
+      <div><span class="price">400</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Loaded Fries (Large)</h3></div>
+      <div><span class="price">600</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Crunchy Fries</h3></div>
+      <div><span class="price">500</span></div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     PASTA
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Pasta</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div><h3>Cheezy Pasta</h3></div>
+      <div>
+        <span class="price">
+          S: 400 | L: 600
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Crunchy Pasta</h3></div>
+      <div>
+        <span class="price">
+          S: 450 | L: 600
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Flaming Pasta</h3></div>
+      <div>
+        <span class="price">
+          S: 500 | L: 700
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Pizza Inn Special Pasta</h3></div>
+      <div>
+        <span class="price">
+          S: 500 | L: 700
+        </span>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     FRIED CHICKEN
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Fried Chicken</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div><h3>5 Hot Wings</h3></div>
+      <div><span class="price">350</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>10 Hot Wings</h3></div>
+      <div><span class="price">580</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>5 Nuggets</h3></div>
+      <div><span class="price">300</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>10 Nuggets</h3></div>
+      <div><span class="price">550</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>5 Donuts</h3></div>
+      <div><span class="price">300</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>1 Chicken Piece</h3></div>
+      <div><span class="price">250</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>5 Chicken Popers</h3></div>
+      <div><span class="price">300</span></div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     DRINKS
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Drinks</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div><h3>Tin Pack</h3></div>
+      <div>
+        <span class="price">
+          Next Cola 120 | Pepsi 120
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Drink 345ml</h3></div>
+      <div>
+        <span class="price">
+          Next Cola 70 | Pepsi 80
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Drink 500ml</h3></div>
+      <div>
+        <span class="price">
+          Next Cola 100 | Pepsi 110
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Drink 1.0 Litre</h3></div>
+      <div>
+        <span class="price">
+          Next Cola 150 | Pepsi 160
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Drink 1.5 Litre</h3></div>
+      <div>
+        <span class="price">
+          Next Cola 200 | Pepsi 200
+        </span>
+      </div>
+    </article>
+
+    <article class="item">
+      <div><h3>Drink 2.25 Litre</h3></div>
+      <div>
+        <span class="price">
+          Next Cola 250 | Pepsi 250
+        </span>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     SANDWICHES
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Sandwiches</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div><h3>Club Sandwich</h3></div>
+      <div><span class="price">500</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Cheezy Sandwich</h3></div>
+      <div><span class="price">400</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>BBQ Sandwich</h3></div>
+      <div><span class="price">450</span></div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     PURE WATER
+========================================== -->
+
+<section class="slide">
+
+  <div class="section-title">
+    <span>Pure Water</span>
+  </div>
+
+  <div class="items">
+
+    <article class="item">
+      <div><h3>Mineral Water (Small)</h3></div>
+      <div><span class="price">Rs. 60</span></div>
+    </article>
+
+    <article class="item">
+      <div><h3>Mineral Water (Large)</h3></div>
+      <div><span class="price">Rs. 100</span></div>
+    </article>
+
+  </div>
+
+</section>
+
+
+    </div>
+  </div>
+
+
+  <div class="controls">
+
+    <button
+      class="arrow"
+      id="prev"
+    >
+      ‹
+    </button>
+
+    <span
+      class="counter"
+      id="counter"
+    >
+      1 / 15
+    </span>
+
+    <button
+      class="arrow"
+      id="next"
+    >
+      ›
+    </button>
+
+  </div>
+
 </main>
+
+
 <footer>
-<strong>Pizza Inn & Family Cafe</strong><br>
-Opp. Govt. Girls College, Link Road, College Road, Layyah<br>
-Take Away / Home Delivery / Pick-up<br>
-Minimum order Rs. 500/- for free home delivery.
+
+  <strong>
+    Pizza Inn & Family Cafe
+  </strong>
+
+  <br>
+
+  Opp. Govt. Girls College,
+  Link Road, College Road, Layyah
+
+  <br>
+
+  Take Away / Home Delivery / Pick-up
+
+  <br>
+
+  Minimum order Rs. 500/- for free home delivery.
+
 </footer>
-<script>
-const cats = ["Special Pizza's", "Regular Flavours", "Pizza Deals", "Burger Deals", "Birthday Deal", "Student Deal", "Paratha Roll", "Burgers", "Shawarma", "Snacks", "Pasta", "Fried Chicken", "Drinks", "Sandwiches", "Pure Water"];
-const nav = document.getElementById('nav');
-const track = document.getElementById('track');
-const counter = document.getElementById('counter');
+
+
+<!-- ==========================================
+     FLOATING CART
+========================================== -->
+
+<button
+  class="cart-float"
+  id="cartFloat"
+  type="button"
+>
+  🛒
+
+  <span
+    class="cart-count"
+    id="cartCount"
+  >
+    0
+  </span>
+
+</button>
+
+
+<!-- ==========================================
+     OPTION MODAL
+========================================== -->
+
+<div
+  class="modal-overlay"
+  id="optionOverlay"
+>
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>
+        Choose Option
+      </h2>
+
+      <button
+        class="close-btn"
+        id="optionClose"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="option-body">
+
+      <h3
+        id="optionProductName"
+      ></h3>
+
+      <div class="option-subtitle">
+        Please select your preferred option
+      </div>
+
+      <div
+        class="option-buttons"
+        id="optionButtons"
+      ></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ==========================================
+     CART MODAL
+========================================== -->
+
+<div
+  class="modal-overlay"
+  id="cartOverlay"
+>
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>
+        🛒 Your Order
+      </h2>
+
+      <button
+        class="close-btn"
+        id="cartClose"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div
+      class="cart-content"
+      id="cartContent"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- ==========================================
+     FIREBASE + ORDER SYSTEM
+========================================== -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* ==========================================
+   FIREBASE CONFIG
+========================================== */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyB7BB5goAsfoaJfLONsk4hbPJKLRLiEBRw",
+
+  authDomain:
+    "pizzainnlayyah.firebaseapp.com",
+
+  projectId:
+    "pizzainnlayyah",
+
+  storageBucket:
+    "pizzainnlayyah.firebasestorage.app",
+
+  messagingSenderId:
+    "646104115309",
+
+  appId:
+    "1:646104115309:web:92bdc9d7a5549068337764",
+
+  measurementId:
+    "G-5QLLC0TLRK"
+
+};
+
+
+const app =
+  initializeApp(firebaseConfig);
+
+const db =
+  getFirestore(app);
+
+
+/* ==========================================
+   MENU SLIDER
+========================================== */
+
+const cats = [
+
+  "Special Pizza's",
+  "Regular Flavours",
+  "Pizza Deals",
+  "Burger Deals",
+  "Birthday Deal",
+  "Student Deal",
+  "Paratha Roll",
+  "Burgers",
+  "Shawarma",
+  "Snacks",
+  "Pasta",
+  "Fried Chicken",
+  "Drinks",
+  "Sandwiches",
+  "Pure Water"
+
+];
+
+
+const nav =
+  document.getElementById("nav");
+
+const track =
+  document.getElementById("track");
+
+const counter =
+  document.getElementById("counter");
+
 let index = 0;
-cats.forEach((c,i)=>{
-  const b=document.createElement('button'); b.textContent=c;
-  b.onclick=()=>go(i); nav.appendChild(b);
+
+
+cats.forEach((category,i)=>{
+
+  const button =
+    document.createElement("button");
+
+  button.textContent =
+    category;
+
+  button.onclick =
+    () => go(i);
+
+  nav.appendChild(button);
+
 });
-const buttons=()=>[...nav.querySelectorAll('button')];
-function go(i){
-  index=(i+cats.length)%cats.length;
-  track.style.transform=`translate3d(-${index*100}%,0,0)`;
-  counter.textContent=`${index+1} / ${cats.length}`;
-  buttons().forEach((b,j)=>b.classList.toggle('active',j===index));
-  buttons()[index].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+
+
+function navButtons(){
+
+  return [
+    ...nav.querySelectorAll("button")
+  ];
+
 }
-document.getElementById('prev').onclick=()=>go(index-1);
-document.getElementById('next').onclick=()=>go(index+1);
-let startX=0;
-document.getElementById('slider').addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});
-document.getElementById('slider').addEventListener('touchend',e=>{
-  const dx=e.changedTouches[0].clientX-startX;
-  if(Math.abs(dx)>50) go(index+(dx<0?1:-1));
-});
+
+
+function go(i){
+
+  index =
+    (i + cats.length) %
+    cats.length;
+
+  track.style.transform =
+    `translate3d(-${index * 100}%,0,0)`;
+
+  counter.textContent =
+    `${index + 1} / ${cats.length}`;
+
+  navButtons().forEach((button,j)=>{
+
+    button.classList.toggle(
+      "active",
+      j === index
+    );
+
+  });
+
+  navButtons()[index]
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"nearest",
+      inline:"center"
+    });
+
+}
+
+
+document.getElementById("prev")
+  .onclick =
+  () => go(index - 1);
+
+
+document.getElementById("next")
+  .onclick =
+  () => go(index + 1);
+
+
+let startX = 0;
+
+
+document.getElementById("slider")
+  .addEventListener(
+    "touchstart",
+    event => {
+      startX =
+        event.touches[0].clientX;
+    },
+    {passive:true}
+  );
+
+
+document.getElementById("slider")
+  .addEventListener(
+    "touchend",
+    event => {
+
+      const dx =
+        event.changedTouches[0].clientX -
+        startX;
+
+      if(Math.abs(dx) > 50){
+
+        go(
+          index +
+          (dx < 0 ? 1 : -1)
+        );
+
+      }
+
+    }
+  );
+
+
 go(0);
+
+
+/* ==========================================
+   CART VARIABLES
+========================================== */
+
+let cart = [];
+
+
+const cartFloat =
+  document.getElementById(
+    "cartFloat"
+  );
+
+const cartCount =
+  document.getElementById(
+    "cartCount"
+  );
+
+const cartOverlay =
+  document.getElementById(
+    "cartOverlay"
+  );
+
+const cartClose =
+  document.getElementById(
+    "cartClose"
+  );
+
+const cartContent =
+  document.getElementById(
+    "cartContent"
+  );
+
+
+const optionOverlay =
+  document.getElementById(
+    "optionOverlay"
+  );
+
+const optionClose =
+  document.getElementById(
+    "optionClose"
+  );
+
+const optionProductName =
+  document.getElementById(
+    "optionProductName"
+  );
+
+const optionButtons =
+  document.getElementById(
+    "optionButtons"
+  );
+
+
+/* ==========================================
+   PRICE READER
+========================================== */
+
+function getPrices(text){
+
+  const prices = [];
+
+  let match;
+
+
+  /* S / M / L / XL */
+
+  const sizeRegex =
+    /\b(S|M|L|XL)\s*:\s*(\d+)/gi;
+
+
+  while(
+    (match = sizeRegex.exec(text))
+    !== null
+  ){
+
+    prices.push({
+
+      option:
+        match[1].toUpperCase(),
+
+      price:
+        Number(match[2])
+
+    });
+
+  }
+
+
+  /* DRINKS */
+
+  if(prices.length === 0){
+
+    const drinkRegex =
+      /(Next Cola|Pepsi)\s+(\d+)/gi;
+
+
+    while(
+      (match = drinkRegex.exec(text))
+      !== null
+    ){
+
+      prices.push({
+
+        option:
+          match[1],
+
+        price:
+          Number(match[2])
+
+      });
+
+    }
+
+  }
+
+
+  /* SINGLE PRICE */
+
+  if(prices.length === 0){
+
+    const clean =
+      text.replace(/,/g,"");
+
+    const number =
+      clean.match(/\d+/);
+
+
+    if(number){
+
+      prices.push({
+
+        option:"",
+        price:Number(number[0])
+
+      });
+
+    }
+
+  }
+
+
+  return prices;
+
+}
+
+
+/* ==========================================
+   CREATE ADD BUTTONS
+========================================== */
+
+document.querySelectorAll(".item")
+  .forEach(item=>{
+
+    const title =
+      item.querySelector("h3");
+
+    const price =
+      item.querySelector(
+        ".price,.deal-price"
+      );
+
+    if(!title || !price)
+      return;
+
+
+    const name =
+      title.textContent.trim();
+
+    const prices =
+      getPrices(
+        price.textContent.trim()
+      );
+
+
+    if(!prices.length)
+      return;
+
+
+    const button =
+      document.createElement("button");
+
+    button.type =
+      "button";
+
+    button.className =
+      "add-btn";
+
+
+    button.textContent =
+      prices.length > 1
+        ? "🛒 Choose & Add"
+        : "🛒 Add to Cart";
+
+
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        if(prices.length === 1){
+
+          addItem(
+            name,
+            prices[0].option,
+            prices[0].price
+          );
+
+        }else{
+
+          openOptionSelector(
+            name,
+            prices
+          );
+
+        }
+
+      }
+    );
+
+
+    price.parentElement
+      .appendChild(button);
+
+  });
+
+
+/* ==========================================
+   OPTION SELECTOR
+========================================== */
+
+function openOptionSelector(
+  name,
+  prices
+){
+
+  optionProductName
+    .textContent =
+    name;
+
+  optionButtons
+    .innerHTML = "";
+
+
+  prices.forEach(price=>{
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+
+    button.className =
+      "option-btn";
+
+
+    button.innerHTML = `
+
+      ${escapeHtml(
+        price.option
+      )}
+
+      <span>
+        Rs. ${price.price}
+      </span>
+
+    `;
+
+
+    button.onclick =
+      ()=>{
+
+        addItem(
+          name,
+          price.option,
+          price.price
+        );
+
+        closeOption();
+
+      };
+
+
+    optionButtons
+      .appendChild(button);
+
+  });
+
+
+  optionOverlay
+    .classList.add("show");
+
+}
+
+
+function closeOption(){
+
+  optionOverlay
+    .classList.remove("show");
+
+}
+
+
+optionClose.onclick =
+  closeOption;
+
+
+optionOverlay.addEventListener(
+  "click",
+  event=>{
+
+    if(
+      event.target ===
+      optionOverlay
+    ){
+
+      closeOption();
+
+    }
+
+  }
+);
+
+
+/* ==========================================
+   ADD ITEM TO CART
+========================================== */
+
+function addItem(
+  name,
+  option,
+  price
+){
+
+  const existing =
+    cart.find(item=>
+
+      item.name === name &&
+      item.option === option
+
+    );
+
+
+  if(existing){
+
+    existing.quantity++;
+
+  }else{
+
+    cart.push({
+
+      name:name,
+
+      option:option,
+
+      price:Number(price),
+
+      quantity:1
+
+    });
+
+  }
+
+
+  renderCart();
+
+
+  cartFloat.animate(
+
+    [
+
+      {
+        transform:"scale(1)"
+      },
+
+      {
+        transform:"scale(1.25)"
+      },
+
+      {
+        transform:"scale(1)"
+      }
+
+    ],
+
+    {
+      duration:350
+    }
+
+  );
+
+}
+
+
+/* ==========================================
+   CART COUNT
+========================================== */
+
+function updateCartCount(){
+
+  const count =
+    cart.reduce(
+      (total,item)=>
+        total + item.quantity,
+      0
+    );
+
+
+  cartCount.textContent =
+    count;
+
+}
+
+
+/* ==========================================
+   TOTAL
+========================================== */
+
+function cartTotal(){
+
+  return cart.reduce(
+
+    (total,item)=>
+
+      total +
+      (
+        item.price *
+        item.quantity
+      ),
+
+    0
+
+  );
+
+}
+
+
+/* ==========================================
+   RENDER CART
+========================================== */
+
+function renderCart(){
+
+  updateCartCount();
+
+
+  if(cart.length === 0){
+
+    cartContent.innerHTML = `
+
+      <div class="empty-cart">
+
+        <div class="empty-icon">
+          🛒
+        </div>
+
+        <h3>
+          Your cart is empty
+        </h3>
+
+        <p>
+          Add delicious food from
+          our menu to place your order.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  let html = "";
+
+
+  cart.forEach(
+    (item,index)=>{
+
+      const subtotal =
+        item.price *
+        item.quantity;
+
+
+      html += `
+
+        <div class="cart-row">
+
+          <div class="cart-info">
+
+            <div class="cart-name">
+              ${escapeHtml(item.name)}
+            </div>
+
+            ${
+              item.option
+              ?
+              `
+              <div class="cart-option">
+                ${escapeHtml(item.option)}
+              </div>
+              `
+              :
+              ""
+            }
+
+            <div class="cart-price">
+              Rs. ${subtotal}
+            </div>
+
+          </div>
+
+
+          <div class="qty-box">
+
+            <button
+              class="qty-btn"
+              onclick="changeQty(
+                ${index},
+                -1
+              )"
+            >
+              −
+            </button>
+
+
+            <strong>
+              ${item.quantity}
+            </strong>
+
+
+            <button
+              class="qty-btn"
+              onclick="changeQty(
+                ${index},
+                1
+              )"
+            >
+              +
+            </button>
+
+
+            <button
+              class="remove-btn"
+              onclick="removeItem(
+                ${index}
+              )"
+            >
+              ×
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+  );
+
+
+  const total =
+    cartTotal();
+
+
+  html += `
+
+    <div class="cart-total">
+
+      <span>
+        Total
+      </span>
+
+      <span>
+        Rs. ${total}
+      </span>
+
+    </div>
+
+
+    <div class="checkout-title">
+      📋 Customer Details
+    </div>
+
+
+    <form id="checkoutForm">
+
+
+      <div class="form-group">
+
+        <label>
+          Customer Name *
+        </label>
+
+        <input
+          type="text"
+          id="customerName"
+          placeholder="Enter your name"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Phone Number *
+        </label>
+
+        <input
+          type="tel"
+          id="customerPhone"
+          placeholder="03XXXXXXXXX"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Order Type *
+        </label>
+
+        <select
+          id="orderType"
+          required
+        >
+
+          <option value="dine-in">
+            🍽️ Dine-in
+          </option>
+
+          <option value="takeaway">
+            🥡 Takeaway
+          </option>
+
+          <option value="delivery">
+            🛵 Home Delivery
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div
+        class="form-group"
+        id="tableGroup"
+      >
+
+        <label>
+          Table Number *
+        </label>
+
+        <input
+          type="text"
+          id="tableNumber"
+          placeholder="Example: 5"
+        >
+
+      </div>
+
+
+      <div
+        class="form-group"
+        id="addressGroup"
+        style="display:none"
+      >
+
+        <label>
+          Delivery Address *
+        </label>
+
+        <textarea
+          id="customerAddress"
+          placeholder="Enter complete delivery address"
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Special Notes
+        </label>
+
+        <textarea
+          id="orderNotes"
+          placeholder="Any special instructions?"
+        ></textarea>
+
+      </div>
+
+
+      <button
+        class="checkout-btn"
+        id="submitOrder"
+        type="submit"
+      >
+
+        🍕 Place Order — Rs. ${total}
+
+      </button>
+
+
+    </form>
+
+  `;
+
+
+  cartContent.innerHTML =
+    html;
+
+
+  setupCheckout();
+
+}
+
+
+/* ==========================================
+   CHECKOUT SETUP
+========================================== */
+
+function setupCheckout(){
+
+  const form =
+    document.getElementById(
+      "checkoutForm"
+    );
+
+
+  const orderType =
+    document.getElementById(
+      "orderType"
+    );
+
+
+  const tableGroup =
+    document.getElementById(
+      "tableGroup"
+    );
+
+
+  const addressGroup =
+    document.getElementById(
+      "addressGroup"
+    );
+
+
+  function updateFields(){
+
+    if(
+      orderType.value ===
+      "dine-in"
+    ){
+
+      tableGroup.style.display =
+        "block";
+
+      addressGroup.style.display =
+        "none";
+
+    }
+
+    else if(
+      orderType.value ===
+      "delivery"
+    ){
+
+      tableGroup.style.display =
+        "none";
+
+      addressGroup.style.display =
+        "block";
+
+    }
+
+    else{
+
+      tableGroup.style.display =
+        "none";
+
+      addressGroup.style.display =
+        "none";
+
+    }
+
+  }
+
+
+  orderType.addEventListener(
+    "change",
+    updateFields
+  );
+
+
+  updateFields();
+
+
+  /* QR TABLE NUMBER */
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const table =
+    params.get("table");
+
+
+  if(table){
+
+    orderType.value =
+      "dine-in";
+
+
+    document.getElementById(
+      "tableNumber"
+    ).value =
+      table;
+
+
+    updateFields();
+
+  }
+
+
+  form.addEventListener(
+    "submit",
+    placeOrder
+  );
+
+}
+
+
+/* ==========================================
+   PLACE ORDER
+========================================== */
+
+async function placeOrder(event){
+
+  event.preventDefault();
+
+
+  const name =
+    document.getElementById(
+      "customerName"
+    ).value.trim();
+
+
+  const phone =
+    document.getElementById(
+      "customerPhone"
+    ).value.trim();
+
+
+  const orderType =
+    document.getElementById(
+      "orderType"
+    ).value;
+
+
+  const tableNumber =
+    document.getElementById(
+      "tableNumber"
+    ).value.trim();
+
+
+  const address =
+    document.getElementById(
+      "customerAddress"
+    ).value.trim();
+
+
+  const notes =
+    document.getElementById(
+      "orderNotes"
+    ).value.trim();
+
+
+  /* VALIDATION */
+
+  if(!name){
+
+    alert(
+      "Please enter your name."
+    );
+
+    return;
+
+  }
+
+
+  if(!phone){
+
+    alert(
+      "Please enter your phone number."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    orderType ===
+    "dine-in" &&
+    !tableNumber
+  ){
+
+    alert(
+      "Please enter your table number."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    orderType ===
+    "delivery" &&
+    !address
+  ){
+
+    alert(
+      "Please enter your delivery address."
+    );
+
+    return;
+
+  }
+
+
+  if(!cart.length){
+
+    alert(
+      "Your cart is empty."
+    );
+
+    return;
+
+  }
+
+
+  const button =
+    document.getElementById(
+      "submitOrder"
+    );
+
+
+  button.disabled =
+    true;
+
+  button.textContent =
+    "⏳ Sending Order...";
+
+
+  try{
+
+
+    /* ORDER NUMBER */
+
+    const orderNumber =
+      "PI" +
+      String(
+        Date.now()
+      ).slice(-6);
+
+
+    /* ITEMS */
+
+    const items =
+      cart.map(item=>({
+
+        name:
+          item.name,
+
+        option:
+          item.option || "",
+
+        price:
+          Number(item.price),
+
+        quantity:
+          Number(item.quantity),
+
+        subtotal:
+          Number(item.price) *
+          Number(item.quantity)
+
+      }));
+
+
+    const total =
+      cartTotal();
+
+
+    /* FIRESTORE */
+
+    await addDoc(
+      collection(
+        db,
+        "orders"
+      ),
+      {
+
+        orderNumber:
+          orderNumber,
+
+        orderType:
+          orderType,
+
+        customerName:
+          name,
+
+        phone:
+          phone,
+
+        tableNumber:
+          orderType === "dine-in"
+            ? tableNumber
+            : "",
+
+        address:
+          orderType === "delivery"
+            ? address
+            : "",
+
+        notes:
+          notes,
+
+        items:
+          items,
+
+        total:
+          Number(total),
+
+        status:
+          "new",
+
+        createdAt:
+          serverTimestamp()
+
+      }
+    );
+
+
+    /* CLEAR CART */
+
+    cart = [];
+
+    updateCartCount();
+
+
+    /* SUCCESS SCREEN */
+
+    cartContent.innerHTML = `
+
+      <div class="success-box">
+
+        <div class="success-icon">
+          🎉
+        </div>
+
+        <h2>
+          Order Received!
+        </h2>
+
+        <p>
+          Thank you! Your order has
+          been successfully sent to
+          Pizza Inn & Family Cafe.
+        </p>
+
+        <div class="order-number">
+          ${orderNumber}
+        </div>
+
+        <p>
+          Please save your order number.
+        </p>
+
+        <button
+          class="done-btn"
+          onclick="closeCart()"
+        >
+          Done
+        </button>
+
+      </div>
+
+    `;
+
+
+  }
+
+  catch(error){
+
+    console.error(
+      "ORDER ERROR:",
+      error
+    );
+
+
+    alert(
+      "Order could not be sent.\n\n" +
+      error.message
+    );
+
+
+    button.disabled =
+      false;
+
+
+    button.textContent =
+      "🍕 Place Order — Rs. " +
+      cartTotal();
+
+  }
+
+}
+
+
+/* ==========================================
+   QUANTITY
+========================================== */
+
+window.changeQty =
+function(index,change){
+
+  if(!cart[index])
+    return;
+
+
+  cart[index].quantity +=
+    change;
+
+
+  if(
+    cart[index].quantity <= 0
+  ){
+
+    cart.splice(
+      index,
+      1
+    );
+
+  }
+
+
+  renderCart();
+
+};
+
+
+/* ==========================================
+   REMOVE ITEM
+========================================== */
+
+window.removeItem =
+function(index){
+
+  if(!cart[index])
+    return;
+
+
+  cart.splice(
+    index,
+    1
+  );
+
+
+  renderCart();
+
+};
+
+
+/* ==========================================
+   OPEN CART
+========================================== */
+
+cartFloat.onclick =
+function(){
+
+  renderCart();
+
+  cartOverlay
+    .classList.add("show");
+
+};
+
+
+/* ==========================================
+   CLOSE CART
+========================================== */
+
+function closeCart(){
+
+  cartOverlay
+    .classList.remove("show");
+
+}
+
+
+window.closeCart =
+  closeCart;
+
+
+cartClose.onclick =
+  closeCart;
+
+
+cartOverlay.addEventListener(
+  "click",
+  event=>{
+
+    if(
+      event.target ===
+      cartOverlay
+    ){
+
+      closeCart();
+
+    }
+
+  }
+);
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHtml(value){
+
+  return String(value)
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+/* ==========================================
+   INITIAL CART
+========================================== */
+
+renderCart();
+
 </script>
+
+
 </body>
 </html>
