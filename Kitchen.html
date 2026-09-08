@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizza Inn - Kitchen Panel</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f5f5;
+    color:#222;
+}
+
+/* LOGIN */
+
+.login-screen{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#8b0000,#d62828,#ff7b00);
+    padding:20px;
+}
+
+.login-box{
+    width:100%;
+    max-width:420px;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    text-align:center;
+}
+
+.logo{
+    width:75px;
+    height:75px;
+    margin:auto;
+    border-radius:50%;
+    background:#b30000;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:34px;
+    font-weight:bold;
+}
+
+.login-box h1{
+    margin-top:15px;
+    color:#b30000;
+}
+
+.login-box p{
+    color:#777;
+    margin:8px 0 25px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    margin-bottom:12px;
+    font-size:15px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#d62828;
+}
+
+.login-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#b30000;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.login-btn:hover{
+    background:#8b0000;
+}
+
+.error{
+    color:#d00000;
+    margin-top:12px;
+    font-size:14px;
+}
+
+/* PANEL */
+
+#app{
+    display:none;
+}
+
+header{
+    background:#9d0000;
+    color:white;
+    padding:16px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 3px 15px rgba(0,0,0,.2);
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.header-icon{
+    width:48px;
+    height:48px;
+    background:white;
+    color:#b30000;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+}
+
+header h1{
+    font-size:21px;
+}
+
+header small{
+    opacity:.8;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.sound-btn,
+.logout-btn{
+    border:none;
+    padding:10px 14px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.sound-btn{
+    background:white;
+    color:#9d0000;
+}
+
+.logout-btn{
+    background:#650000;
+    color:white;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    padding:20px;
+}
+
+.stat{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 3px 12px rgba(0,0,0,.07);
+}
+
+.stat-title{
+    color:#777;
+    font-size:14px;
+}
+
+.stat-number{
+    font-size:30px;
+    font-weight:bold;
+    margin-top:7px;
+    color:#a00000;
+}
+
+/* TABS */
+
+.tabs{
+    display:flex;
+    gap:10px;
+    padding:0 20px 20px;
+    overflow-x:auto;
+}
+
+.tab{
+    border:none;
+    background:white;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    white-space:nowrap;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+
+.tab.active{
+    background:#b30000;
+    color:white;
+}
+
+/* ORDERS */
+
+.orders-container{
+    padding:0 20px 30px;
+}
+
+.orders-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+    gap:18px;
+}
+
+.order-card{
+    background:white;
+    border-radius:17px;
+    overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,.09);
+    border:2px solid transparent;
+}
+
+.order-card.new-order{
+    border-color:#ff9d00;
+}
+
+.order-head{
+    padding:15px;
+    background:#fafafa;
+    border-bottom:1px solid #eee;
+}
+
+.order-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.order-number{
+    font-size:19px;
+    font-weight:bold;
+    color:#a00000;
+}
+
+.order-time{
+    color:#777;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.type-badge{
+    padding:6px 9px;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.type-dine{
+    background:#ffe0e0;
+    color:#a00000;
+}
+
+.type-takeaway{
+    background:#fff0c7;
+    color:#8a5a00;
+}
+
+.type-delivery{
+    background:#dcecff;
+    color:#07559e;
+}
+
+.customer{
+    padding:13px 15px;
+    border-bottom:1px solid #eee;
+}
+
+.customer strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.customer div{
+    color:#666;
+    font-size:13px;
+    margin-top:3px;
+}
+
+.items{
+    padding:14px 15px;
+}
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:9px 0;
+    border-bottom:1px dashed #ddd;
+}
+
+.item:last-child{
+    border-bottom:none;
+}
+
+.item-name{
+    font-weight:bold;
+    font-size:14px;
+}
+
+.item-option{
+    font-size:12px;
+    color:#777;
+    margin-top:3px;
+}
+
+.item-qty{
+    background:#eee;
+    padding:3px 7px;
+    border-radius:5px;
+    font-size:12px;
+    margin-right:5px;
+}
+
+.item-price{
+    white-space:nowrap;
+    font-weight:bold;
+}
+
+.notes{
+    margin:0 15px 12px;
+    background:#fff7d6;
+    border-left:4px solid #e4a600;
+    padding:10px;
+    font-size:13px;
+}
+
+.total{
+    padding:14px 15px;
+    background:#f8f8f8;
+    display:flex;
+    justify-content:space-between;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.actions{
+    padding:13px 15px 15px;
+    display:flex;
+    gap:8px;
+}
+
+.action-btn{
+    flex:1;
+    border:none;
+    padding:12px 8px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.prepare-btn{
+    background:#ff9800;
+    color:white;
+}
+
+.ready-btn{
+    background:#168a3a;
+    color:white;
+}
+
+.back-btn{
+    background:#777;
+    color:white;
+}
+
+.action-btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+/* EMPTY */
+
+.empty{
+    background:white;
+    border-radius:15px;
+    padding:60px 20px;
+    text-align:center;
+    color:#777;
+}
+
+.empty-icon{
+    font-size:50px;
+    margin-bottom:12px;
+}
+
+/* POPUP */
+
+.popup{
+    position:fixed;
+    right:20px;
+    top:85px;
+    width:330px;
+    background:white;
+    border-radius:15px;
+    padding:18px;
+    box-shadow:0 10px 40px rgba(0,0,0,.25);
+    border-left:6px solid #b30000;
+    transform:translateX(400px);
+    transition:.4s;
+    z-index:999;
+}
+
+.popup.show{
+    transform:translateX(0);
+}
+
+.popup h3{
+    color:#b30000;
+    margin-bottom:7px;
+}
+
+.popup p{
+    color:#555;
+    font-size:14px;
+}
+
+.popup button{
+    margin-top:12px;
+    width:100%;
+    padding:10px;
+    border:none;
+    background:#b30000;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:12px;
+    }
+
+    header h1{
+        font-size:17px;
+    }
+
+    .header-icon{
+        width:40px;
+        height:40px;
+        font-size:20px;
+    }
+
+    .sound-btn{
+        padding:9px;
+        font-size:12px;
+    }
+
+    .logout-btn{
+        padding:9px;
+        font-size:12px;
+    }
+
+    .stats{
+        padding:12px;
+        gap:10px;
+    }
+
+    .stat{
+        padding:15px;
+    }
+
+    .stat-number{
+        font-size:24px;
+    }
+
+    .tabs{
+        padding:0 12px 15px;
+    }
+
+    .orders-container{
+        padding:0 12px 25px;
+    }
+
+    .orders-grid{
+        grid-template-columns:1fr;
+    }
+
+    .popup{
+        left:15px;
+        right:15px;
+        width:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div class="login-screen" id="loginScreen">
+
+    <div class="login-box">
+
+        <div class="logo">🍕</div>
+
+        <h1>Kitchen Panel</h1>
+        <p>Pizza Inn & Family Cafe Layyah</p>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Kitchen Email"
+            autocomplete="username"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="current-password"
+        >
+
+        <button class="login-btn" id="loginBtn">
+            Login to Kitchen
+        </button>
+
+        <div class="error" id="loginError"></div>
+
+    </div>
+
+</div>
+
+
+<!-- KITCHEN APP -->
+
+<div id="app">
+
+<header>
+
+    <div class="header-left">
+
+        <div class="header-icon">🍕</div>
+
+        <div>
+            <h1>Pizza Inn Kitchen</h1>
+            <small>Live Order Management</small>
+        </div>
+
+    </div>
+
+    <div class="header-right">
+
+        <button class="sound-btn" id="soundBtn">
+            🔔 Sound ON
+        </button>
+
+        <button class="logout-btn" id="logoutBtn">
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- STATS -->
+
+<div class="stats">
+
+    <div class="stat">
+        <div class="stat-title">New Orders</div>
+        <div class="stat-number" id="newCount">0</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-title">Preparing</div>
+        <div class="stat-number" id="preparingCount">0</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-title">Ready</div>
+        <div class="stat-number" id="readyCount">0</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-title">Total Today</div>
+        <div class="stat-number" id="totalCount">0</div>
+    </div>
+
+</div>
+
+
+<!-- TABS -->
+
+<div class="tabs">
+
+    <button class="tab active" data-filter="new">
+        🆕 New
+    </button>
+
+    <button class="tab" data-filter="preparing">
+        👨‍🍳 Preparing
+    </button>
+
+    <button class="tab" data-filter="ready">
+        ✅ Ready
+    </button>
+
+    <button class="tab" data-filter="all">
+        📋 All Orders
+    </button>
+
+</div>
+
+
+<!-- ORDERS -->
+
+<div class="orders-container">
+
+    <div class="orders-grid" id="ordersGrid">
+
+        <div class="empty">
+            <div class="empty-icon">🍕</div>
+            <h3>Waiting for orders...</h3>
+            <p>New customer orders will appear here.</p>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- POPUP -->
+
+<div class="popup" id="popup">
+
+    <h3>🔔 New Order!</h3>
+
+    <p id="popupText">
+        A new order has arrived.
+    </p>
+
+    <button onclick="closePopup()">
+        View Order
+    </button>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    onSnapshot,
+    updateDoc,
+    doc
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* FIREBASE */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyB7BB5goAsfoaJfLONsk4hbPJKLRLiEBRw",
+    authDomain: "pizzainlayyah.firebaseapp.com",
+    projectId: "pizzainlayyah",
+    storageBucket: "pizzainlayyah.firebasestorage.app",
+    messagingSenderId: "646104115309",
+    appId: "1:646104115309:web:92bd9c7a5549068337764",
+    measurementId: "G-5QLLC0TLRK"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+/* VARIABLES */
+
+let orders = [];
+
+let currentFilter = "new";
+
+let soundEnabled = true;
+
+let firstSnapshot = true;
+
+let audioContext;
+
+
+/* ELEMENTS */
+
+const loginScreen = document.getElementById("loginScreen");
+const appScreen = document.getElementById("app");
+
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+
+const loginError = document.getElementById("loginError");
+
+const ordersGrid = document.getElementById("ordersGrid");
+
+const popup = document.getElementById("popup");
+const popupText = document.getElementById("popupText");
+
+const soundBtn = document.getElementById("soundBtn");
+
+
+/* LOGIN */
+
+loginBtn.addEventListener("click", async () => {
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    loginError.textContent = "";
+
+    if(!email || !password){
+
+        loginError.textContent =
+            "Please enter email and password.";
+
+        return;
+    }
+
+    try{
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        unlockAudio();
+
+    }catch(error){
+
+        console.error(error);
+
+        loginError.textContent =
+            "Login failed. Please check your email and password.";
+
+    }
+
+});
+
+
+/* ENTER KEY LOGIN */
+
+passwordInput.addEventListener("keydown", e => {
+
+    if(e.key === "Enter"){
+        loginBtn.click();
+    }
+
+});
+
+
+/* AUTH */
+
+onAuthStateChanged(auth, user => {
+
+    if(user){
+
+        loginScreen.style.display = "none";
+
+        appScreen.style.display = "block";
+
+        unlockAudio();
+
+        startOrdersListener();
+
+        requestNotifications();
+
+    }else{
+
+        loginScreen.style.display = "flex";
+
+        appScreen.style.display = "none";
+
+    }
+
+});
+
+
+/* LOGOUT */
+
+logoutBtn.addEventListener("click", async () => {
+
+    await signOut(auth);
+
+});
+
+
+/* AUDIO */
+
+function unlockAudio(){
+
+    try{
+
+        if(!audioContext){
+
+            audioContext =
+                new (window.AudioContext ||
+                window.webkitAudioContext)();
+
+        }
+
+        if(audioContext.state === "suspended"){
+            audioContext.resume();
+        }
+
+    }catch(e){
+
+        console.log("Audio unavailable");
+
+    }
+
+}
+
+
+function playNotificationSound(){
+
+    if(!soundEnabled) return;
+
+    try{
+
+        unlockAudio();
+
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(
+            700,
+            audioContext.currentTime
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            1100,
+            audioContext.currentTime + 0.15
+        );
+
+        gain.gain.setValueAtTime(
+            0.001,
+            audioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.35,
+            audioContext.currentTime + 0.02
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            audioContext.currentTime + 0.5
+        );
+
+        oscillator.connect(gain);
+
+        gain.connect(audioContext.destination);
+
+        oscillator.start();
+
+        oscillator.stop(
+            audioContext.currentTime + 0.5
+        );
+
+    }catch(e){
+
+        console.log(e);
+
+    }
+
+}
+
+
+/* SOUND BUTTON */
+
+soundBtn.addEventListener("click", () => {
+
+    soundEnabled = !soundEnabled;
+
+    if(soundEnabled){
+
+        soundBtn.textContent = "🔔 Sound ON";
+
+        unlockAudio();
+
+    }else{
+
+        soundBtn.textContent = "🔕 Sound OFF";
+
+    }
+
+});
+
+
+/* FIRESTORE LIVE ORDERS */
+
+function startOrdersListener(){
+
+    onSnapshot(
+        collection(db, "orders"),
+        snapshot => {
+
+            const newOrders = [];
+
+            snapshot.docChanges().forEach(change => {
+
+                if(
+                    change.type === "added" &&
+                    !firstSnapshot
+                ){
+
+                    newOrders.push({
+                        id: change.doc.id,
+                        ...change.doc.data()
+                    });
+
+                }
+
+            });
+
+
+            orders = snapshot.docs.map(d => ({
+                id: d.id,
+                ...d.data()
+            }));
+
+
+            /* SORT NEWEST FIRST */
+
+            orders.sort((a,b) => {
+
+                const aTime =
+                    a.createdAt?.seconds || 0;
+
+                const bTime =
+                    b.createdAt?.seconds || 0;
+
+                return bTime - aTime;
+
+            });
+
+
+            updateStats();
+
+            renderOrders();
+
+
+            /* NEW ORDER ALERT */
+
+            if(newOrders.length > 0){
+
+                newOrders.forEach(order => {
+
+                    if(order.status === "new"){
+
+                        showNewOrderAlert(order);
+
+                    }
+
+                });
+
+            }
+
+            firstSnapshot = false;
+
+        },
+        error => {
+
+            console.error(
+                "Firestore error:",
+                error
+            );
+
+        }
+    );
+
+}
+
+
+/* NEW ORDER ALERT */
+
+function showNewOrderAlert(order){
+
+    playNotificationSound();
+
+    const number =
+        order.orderNumber ||
+        "New Order";
+
+    popupText.textContent =
+        `${number} has arrived in the kitchen.`;
+
+    popup.classList.add("show");
+
+    setTimeout(() => {
+
+        popup.classList.remove("show");
+
+    },7000);
+
+
+    if(
+        "Notification" in window &&
+        Notification.permission === "granted"
+    ){
+
+        new Notification(
+            "🍕 Pizza Inn - New Order",
+            {
+                body:
+                    `${number} received in kitchen.`,
+                icon:
+                    "pizza-inn-menu-qr.png"
+            }
+        );
+
+    }
+
+}
+
+
+window.closePopup = function(){
+
+    popup.classList.remove("show");
+
+};
+
+
+/* NOTIFICATIONS */
+
+async function requestNotifications(){
+
+    if(
+        "Notification" in window &&
+        Notification.permission === "default"
+    ){
+
+        try{
+
+            await Notification.requestPermission();
+
+        }catch(e){
+
+            console.log(e);
+
+        }
+
+    }
+
+}
+
+
+/* STATS */
+
+function updateStats(){
+
+    const today = new Date();
+
+    const todayOrders =
+        orders.filter(order => {
+
+            if(!order.createdAt) return false;
+
+            const date =
+                new Date(
+                    order.createdAt.seconds * 1000
+                );
+
+            return (
+                date.getDate() === today.getDate() &&
+                date.getMonth() === today.getMonth() &&
+                date.getFullYear() === today.getFullYear()
+            );
+
+        });
+
+
+    document.getElementById("newCount").textContent =
+        orders.filter(o => o.status === "new").length;
+
+    document.getElementById("preparingCount").textContent =
+        orders.filter(o => o.status === "preparing").length;
+
+    document.getElementById("readyCount").textContent =
+        orders.filter(o => o.status === "ready").length;
+
+    document.getElementById("totalCount").textContent =
+        todayOrders.length;
+
+}
+
+
+/* TABS */
+
+document.querySelectorAll(".tab").forEach(tab => {
+
+    tab.addEventListener("click", () => {
+
+        document.querySelectorAll(".tab")
+            .forEach(t =>
+                t.classList.remove("active")
+            );
+
+        tab.classList.add("active");
+
+        currentFilter =
+            tab.dataset.filter;
+
+        renderOrders();
+
+    });
+
+});
+
+
+/* RENDER */
+
+function renderOrders(){
+
+    let filtered = orders.filter(order => {
+
+        if(currentFilter === "all")
+            return true;
+
+        return order.status === currentFilter;
+
+    });
+
+
+    if(filtered.length === 0){
+
+        ordersGrid.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">🍕</div>
+
+                <h3>No ${currentFilter === "all" ? "" : currentFilter} orders</h3>
+
+                <p>Orders will appear here automatically.</p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    ordersGrid.innerHTML =
+        filtered.map(order => createOrderCard(order)).join("");
+
+}
+
+
+/* ORDER CARD */
+
+function createOrderCard(order){
+
+    const type =
+        order.orderType || "dine-in";
+
+    let typeClass = "type-dine";
+    let typeName = "Dine-in";
+
+    if(type === "takeaway"){
+
+        typeClass = "type-takeaway";
+        typeName = "Takeaway";
+
+    }
+
+    if(type === "delivery"){
+
+        typeClass = "type-delivery";
+        typeName = "Delivery";
+
+    }
+
+
+    const orderNumber =
+        order.orderNumber ||
+        order.id.slice(-6).toUpperCase();
+
+
+    const customer =
+        order.customerName ||
+        "Customer";
+
+
+    let time = "";
+
+    if(order.createdAt?.seconds){
+
+        time =
+            new Date(
+                order.createdAt.seconds * 1000
+            ).toLocaleString();
+
+    }
+
+
+    let location = "";
+
+    if(type === "dine-in"){
+
+        location =
+            `🪑 Table: ${escapeHTML(
+                order.tableNumber || "-"
+            )}`;
+
+    }else if(type === "delivery"){
+
+        location =
+            `📍 ${escapeHTML(
+                order.address || "Address not provided"
+            )}`;
+
+    }else{
+
+        location =
+            "🛍️ Customer will collect order";
+
+    }
+
+
+    const items =
+        Array.isArray(order.items)
+        ? order.items
+        : [];
+
+
+    const itemsHTML =
+        items.map(item => {
+
+            const name =
+                escapeHTML(
+                    item.name || "Item"
+                );
+
+            const option =
+                item.option
+                ? escapeHTML(item.option)
+                : "";
+
+            const qty =
+                Number(item.quantity || 1);
+
+            const price =
+                Number(
+                    item.subtotal ??
+                    item.price ??
+                    0
+                );
+
+
+            return `
+
+                <div class="item">
+
+                    <div>
+
+                        <div class="item-name">
+
+                            <span class="item-qty">
+                                ×${qty}
+                            </span>
+
+                            ${name}
+
+                        </div>
+
+                        ${
+                            option
+                            ? `<div class="item-option">
+                                ${option}
+                               </div>`
+                            : ""
+                        }
+
+                    </div>
+
+                    <div class="item-price">
+                        Rs ${price.toLocaleString()}
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+
+    let actions = "";
+
+
+    if(order.status === "new"){
+
+        actions = `
+
+            <button
+                class="action-btn prepare-btn"
+                onclick="changeStatus('${order.id}','preparing')"
+            >
+                👨‍🍳 Start Preparing
+            </button>
+
+        `;
+
+    }
+
+
+    else if(order.status === "preparing"){
+
+        actions = `
+
+            <button
+                class="action-btn ready-btn"
+                onclick="changeStatus('${order.id}','ready')"
+            >
+                ✅ Mark Ready
+            </button>
+
+        `;
+
+    }
+
+
+    else if(order.status === "ready"){
+
+        actions = `
+
+            <button
+                class="action-btn back-btn"
+                onclick="changeStatus('${order.id}','preparing')"
+            >
+                ↩ Back
+            </button>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="order-card ${
+            order.status === "new"
+            ? "new-order"
+            : ""
+        }">
+
+            <div class="order-head">
+
+                <div class="order-top">
+
+                    <div>
+
+                        <div class="order-number">
+                            ${escapeHTML(orderNumber)}
+                        </div>
+
+                        <div class="order-time">
+                            ${time}
+                        </div>
+
+                    </div>
+
+                    <div class="type-badge ${typeClass}">
+                        ${typeName}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="customer">
+
+                <strong>
+                    👤 ${escapeHTML(customer)}
+                </strong>
+
+                <div>
+                    📞 ${escapeHTML(
+                        order.phone || "-"
+                    )}
+                </div>
+
+                <div>
+                    ${location}
+                </div>
+
+            </div>
+
+
+            <div class="items">
+
+                ${itemsHTML || `
+                    <div style="color:#777">
+                        No items found.
+                    </div>
+                `}
+
+            </div>
+
+
+            ${
+                order.notes
+                ? `
+                    <div class="notes">
+                        📝 <strong>Notes:</strong><br>
+                        ${escapeHTML(order.notes)}
+                    </div>
+                `
+                : ""
+            }
+
+
+            <div class="total">
+
+                <span>Total</span>
+
+                <span>
+                    Rs ${Number(
+                        order.total || 0
+                    ).toLocaleString()}
+                </span>
+
+            </div>
+
+
+            <div class="actions">
+
+                ${actions}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* CHANGE STATUS */
+
+window.changeStatus = async function(
+    orderId,
+    newStatus
+){
+
+    try{
+
+        await updateDoc(
+            doc(db, "orders", orderId),
+            {
+                status: newStatus
+            }
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Could not update order status."
+        );
+
+    }
+
+};
+
+
+/* SECURITY */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+</script>
+
+</body>
+</html>
